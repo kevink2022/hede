@@ -16,6 +16,11 @@
 		4F2719212C828B3E004CF717 /* hedeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2719202C828B3E004CF717 /* hedeUITestsLaunchTests.swift */; };
 		4F89BCB52C86331700AD18DB /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 4F89BCB42C86331700AD18DB /* Models */; };
 		4F89BCBC2C86349300AD18DB /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 4F89BCBB2C86349300AD18DB /* Models */; };
+		4F89BCBF2C8799E700AD18DB /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 4F89BCBE2C8799E700AD18DB /* Domain */; };
+		4F89BCC22C879AB400AD18DB /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 4F89BCC12C879AB400AD18DB /* Domain */; };
+		4F89BCC62C879B6300AD18DB /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 4F89BCC52C879B6300AD18DB /* Storage */; };
+		4F97DA5D2C8D55B0002002BB /* Database in Frameworks */ = {isa = PBXBuildFile; productRef = 4F97DA5C2C8D55B0002002BB /* Database */; };
+		4F97DA602C8D55CB002002BB /* Database in Frameworks */ = {isa = PBXBuildFile; productRef = 4F97DA5F2C8D55CB002002BB /* Database */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,7 @@
 		4F2719202C828B3E004CF717 /* hedeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hedeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4F27192E2C828C03004CF717 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Models; sourceTree = "<group>"; };
 		4F89BCB82C8633F600AD18DB /* hedeTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = hedeTestPlan.xctestplan; sourceTree = "<group>"; };
+		4F89BCCA2C879D1700AD18DB /* Database */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Database; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +62,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F89BCBF2C8799E700AD18DB /* Domain in Frameworks */,
 				4F89BCBC2C86349300AD18DB /* Models in Frameworks */,
+				4F97DA602C8D55CB002002BB /* Database in Frameworks */,
+				4F89BCC22C879AB400AD18DB /* Domain in Frameworks */,
+				4F89BCC62C879B6300AD18DB /* Storage in Frameworks */,
 				4F89BCB52C86331700AD18DB /* Models in Frameworks */,
+				4F97DA5D2C8D55B0002002BB /* Database in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				4F27192E2C828C03004CF717 /* Models */,
+				4F89BCCA2C879D1700AD18DB /* Database */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -172,6 +184,11 @@
 			packageProductDependencies = (
 				4F89BCB42C86331700AD18DB /* Models */,
 				4F89BCBB2C86349300AD18DB /* Models */,
+				4F89BCBE2C8799E700AD18DB /* Domain */,
+				4F89BCC12C879AB400AD18DB /* Domain */,
+				4F89BCC52C879B6300AD18DB /* Storage */,
+				4F97DA5C2C8D55B0002002BB /* Database */,
+				4F97DA5F2C8D55CB002002BB /* Database */,
 			);
 			productName = hede;
 			productReference = 4F2718FF2C828B3D004CF717 /* hede.app */;
@@ -247,6 +264,9 @@
 			mainGroup = 4F2718F62C828B3D004CF717;
 			packageReferences = (
 				4F89BCBA2C86349300AD18DB /* XCLocalSwiftPackageReference "Sources/Models" */,
+				4F89BCC02C879AB400AD18DB /* XCLocalSwiftPackageReference "../SwiftPackages/Domain" */,
+				4F89BCC42C879B6300AD18DB /* XCLocalSwiftPackageReference "../SwiftPackages/Storage" */,
+				4F97DA5E2C8D55CB002002BB /* XCLocalSwiftPackageReference "Sources/Database" */,
 			);
 			productRefGroup = 4F2719002C828B3D004CF717 /* Products */;
 			projectDirPath = "";
@@ -654,6 +674,18 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Sources/Models;
 		};
+		4F89BCC02C879AB400AD18DB /* XCLocalSwiftPackageReference "../SwiftPackages/Domain" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../SwiftPackages/Domain;
+		};
+		4F89BCC42C879B6300AD18DB /* XCLocalSwiftPackageReference "../SwiftPackages/Storage" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../SwiftPackages/Storage;
+		};
+		4F97DA5E2C8D55CB002002BB /* XCLocalSwiftPackageReference "Sources/Database" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Sources/Database;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -664,6 +696,26 @@
 		4F89BCBB2C86349300AD18DB /* Models */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Models;
+		};
+		4F89BCBE2C8799E700AD18DB /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+		4F89BCC12C879AB400AD18DB /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+		4F89BCC52C879B6300AD18DB /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Storage;
+		};
+		4F97DA5C2C8D55B0002002BB /* Database */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Database;
+		};
+		4F97DA5F2C8D55CB002002BB /* Database */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Database;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

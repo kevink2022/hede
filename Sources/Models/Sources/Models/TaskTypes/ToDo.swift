@@ -64,28 +64,13 @@ public final class ToDoSource: TaskSourceCodable {
         , category: Key?
         , pauses: [Key]?
     ) -> ToDoSource {
-        let newDescription: String? = {
-            if description == "" { return nil }
-            else { return description ?? self.description}
-        }()
-        
-        let newCategory: Key? = {
-            if category == .null { return nil }
-            else { return category ?? self.category }
-        }()
-        
-        let newPauses: [Key]? = {
-            if pauses == [] { return nil }
-            else { return pauses ?? self.pauses}
-        }()
-        
         return ToDoSource(
             id: self.id
             , label: label ?? self.label
-            , description: newDescription
+            , description: description.null(or: self.description)
             , task: self.task
-            , category: newCategory
-            , pauses: newPauses
+            , category: category.null(or: self.category)
+            , pauses: pauses.null(or: self.pauses)
             , deactivated: self.deactivated
         )
     }
@@ -130,8 +115,6 @@ public final class ToDoSource: TaskSourceCodable {
         source: ToDoSource
         , deactivation: Date
     ) {
-        let newDate = deactivation == .null ? nil : deactivation
-        
         self.init(
             id: source.id
             , label: source.label
@@ -139,7 +122,7 @@ public final class ToDoSource: TaskSourceCodable {
             , task: source.task
             , category: source.category
             , pauses: source.pauses
-            , deactivated: newDate
+            , deactivated: deactivation.nulled()
         )
     }
     
@@ -169,18 +152,12 @@ public final class ToDoTask: TaskCodable {
         , scheduled: TaskTime?
         , completed: Date?
     ) -> ToDoTask {
-        
-        let newCompleted: Date? = {
-            if completed == .null { return nil }
-            else { return completed ?? self.completed }
-        }()
-        
         return ToDoTask(
             id: self.id
             , source: self.source
             , label: label ?? self.label
             , scheduled: scheduled ?? self.scheduled
-            , completed: newCompleted
+            , completed: completed.null(or: self.completed)
         )
     }
     

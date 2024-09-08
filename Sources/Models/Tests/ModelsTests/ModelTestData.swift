@@ -1,16 +1,6 @@
 import XCTest
 @testable import Models
 
-final class ModelsTests: XCTestCase {
-    func testExample() throws {
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
-
-        // Defining Test Cases and Test Methods
-        // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
-    }
-}
-
 internal class Intervals {
     static let gmtCalendar: Calendar = {
         var calendar = Calendar.current
@@ -59,30 +49,3 @@ internal class TestValues {
     
     static let pauses = [pause_1, pause_2]
 }
-
-/// Some tests to consider
-
-/// - Domain
-///     - Checking each time duration component
-///     - Checking each task time
-///     - Checking each task time type
-///
-///
-/// - Generic tasks
-///     - Calling `generateNew()` on generic
-///     - Calling `complete()` on generic
-///
-///
-/// - Todo tasks
-///     - Create task
-///     - Edit task
-///     - Complete task
-///     - Discard task
-///
-/// - Reccurring Task
-///     - Create task
-///         - No initial
-///         - Initial
-///     - Edit task
-///     - Complete task (new task is created)
-///     - Discard task

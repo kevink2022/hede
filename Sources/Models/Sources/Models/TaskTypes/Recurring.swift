@@ -88,27 +88,12 @@ public final class ReccuringSource: TaskSourceCodable {
         , type: ReccuranceType?
         , spacing: TimeDuration?
     ) -> ReccuringSource {
-        let newDescription: String? = {
-            if description == "" { return nil }
-            else { return description ?? self.description}
-        }()
-        
-        let newCategory: Key? = {
-            if category == .null { return nil }
-            else { return category ?? self.category }
-        }()
-        
-        let newPauses: [Key]? = {
-            if pauses == [] { return nil }
-            else { return pauses ?? self.pauses}
-        }()
-        
         return ReccuringSource(
             id: self.id
             , label: label ?? self.label
-            , description: newDescription
-            , category: newCategory
-            , pauses: newPauses
+            , description: description.null(or: self.description)
+            , category: category.null(or: self.category)
+            , pauses: pauses.null(or: self.pauses)
             , type: type ?? self.type
             , spacing: spacing ?? self.spacing
             , deactivated: self.deactivated
@@ -127,12 +112,14 @@ public final class ReccuringSource: TaskSourceCodable {
     
     public static func == (lhs: ReccuringSource, rhs: ReccuringSource) -> Bool {
         lhs.id == rhs.id
-        // Things that can be changed (except keys)
+        // Things that can be changed
         && lhs.label == rhs.label
         && lhs.description == rhs.description
         && lhs.deactivated == rhs.deactivated
         && lhs.type == rhs.type
         && lhs.spacing == rhs.spacing
+        && lhs.category == rhs.category
+        && lhs.pauses == rhs.pauses
     }
     
     internal init(
@@ -159,8 +146,6 @@ public final class ReccuringSource: TaskSourceCodable {
         source: ReccuringSource
         , deactivation: Date
     ) {
-        let newDate = deactivation == .null ? nil : deactivation
-        
         self.init(
             id: source.id
             , label: source.label
@@ -169,7 +154,7 @@ public final class ReccuringSource: TaskSourceCodable {
             , pauses: source.pauses
             , type: source.type
             , spacing: source.spacing
-            , deactivated: newDate
+            , deactivated: deactivation.nulled()
         )
     }
     
@@ -234,7 +219,7 @@ public final class ReccuringTask: TaskCodable {
     
     public static func == (lhs: ReccuringTask, rhs: ReccuringTask) -> Bool {
         lhs.id == rhs.id
-        // Things that can be changed (except keys)
+        // Things that can be changed
         && lhs.label == rhs.label
         && lhs.scheduled == rhs.scheduled
         && lhs.completed == rhs.completed
