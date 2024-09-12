@@ -1,5 +1,5 @@
 //
-//  Task.swift
+//  UserTask.swift
 //
 //
 //  Created by Kevin Kelly on 8/30/24.
@@ -15,7 +15,7 @@ import Foundation
 ///
 /// Should be on each task, but with different signatures:
 /// - `edit() -> Self`
-public protocol Task: Codable, Identifiable, Equatable {
+public protocol UserTask: Codable, Identifiable, Equatable {
     /// The unique ID of the `Task`.
     var id: Key { get }
     /// The unique ID of the `TaskSource` for this `Task`.
@@ -30,19 +30,19 @@ public protocol Task: Codable, Identifiable, Equatable {
     func complete(date: Date?) -> Self
 }
 
-extension Task {
+extension UserTask {
     /// Task is not completed
     public var isOpen: Bool { completed == nil }
     /// Task is completed
     public var isCompleted: Bool { completed != nil }
     /// Generic trampoline into type specific `complete()`
-    public func complete(date: Date?) -> any Task {
+    public func complete(date: Date?) -> any UserTask {
         self.complete(date: date)
     }
 }
 
 /// A codable, type erased `Task` container
-public final class AnyTask: Task {
+public final class AnyTask: UserTask {
     public static func == (lhs: AnyTask, rhs: AnyTask) -> Bool {
         lhs.code == rhs.code
     }
@@ -57,9 +57,9 @@ public final class AnyTask: Task {
         return AnyTask(task.complete(date: date))
     }
     
-    public var task: any Task { data as (any Task) }
+    public var task: any UserTask { data as (any UserTask) }
     
-    public init(_ task: any Task) {
+    public init(_ task: any UserTask) {
         self.data = task as! any TaskCodable
     }
     
@@ -68,13 +68,13 @@ public final class AnyTask: Task {
 }
 
 /// This allows `any Task` to be coded as an `AnyTask`
-internal protocol TaskCodable: Task {
+internal protocol TaskCodable: UserTask {
     var code: TaskCode { get }
 }
 
 internal enum TaskCode: Codable, Equatable {
     case toDo(ToDoTask)
-    case recurring(ReccuringTask)
+    case recurring(RecurringTask)
 }
 
 extension AnyTask {

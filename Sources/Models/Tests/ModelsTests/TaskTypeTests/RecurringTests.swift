@@ -15,7 +15,7 @@ final class RecurringTests: XCTestCase {
     func test_create_noInitial() throws {
         let dateSnapshot = Date.now
         
-        let sut = ReccuringSource.create(
+        let sut = RecurringSource.create(
             label: T.testLabel
             , description: T.testDescription
             , taskType: .reminder
@@ -43,7 +43,7 @@ final class RecurringTests: XCTestCase {
     }
     
     func test_create_withInitial() throws {
-        let sut = ReccuringSource.create(
+        let sut = RecurringSource.create(
             label: T.testLabel
             , description: T.testDescription
             , taskType: .reminder
@@ -71,7 +71,7 @@ final class RecurringTests: XCTestCase {
     }
     
     func test_edit() throws {
-        let sut = ReccuringSource.create(
+        let sut = RecurringSource.create(
             label: T.testLabel
             , description: T.testDescription
             , taskType: .reminder
@@ -141,7 +141,7 @@ final class RecurringTests: XCTestCase {
     }
     
     func test_complete() throws {
-        let sut = ReccuringSource.create(
+        let sut = RecurringSource.create(
             label: T.testLabel
             , description: T.testDescription
             , taskType: .task
@@ -176,7 +176,7 @@ final class RecurringTests: XCTestCase {
     }
     
     func test_deactivate() throws {
-        let sut = ReccuringSource.create(
+        let sut = RecurringSource.create(
             label: T.testLabel
             , description: T.testDescription
             , taskType: .task

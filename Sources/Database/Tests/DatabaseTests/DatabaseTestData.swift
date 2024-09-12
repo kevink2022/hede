@@ -59,7 +59,7 @@ internal final class TestValues {
         , completed: apr_1_2001
     ))
     
-    static let taskSourceEdited = AnyTaskSource((taskSource.task as! ToDoSource).edit(
+    static let taskSourceEdited = AnyTaskSource((taskSource.source as! ToDoSource).edit(
         label: "Task Source Edited"
         , description: nil
         , category: nil

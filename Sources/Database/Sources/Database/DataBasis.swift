@@ -146,7 +146,7 @@ internal final class MutableBasis {
 
 extension AnyTask: SetSortable {
     public static func compare(_ a: AnyTask, _ b: AnyTask) -> Bool {
-        a.completed ?? a.scheduled.start > b.completed ?? b.scheduled.start
+        a.completed ?? a.scheduled.start < b.completed ?? b.scheduled.start
     }
     public static func isEqual(_ a: AnyTask, _ b: AnyTask) -> Bool {
         a.id == b.id

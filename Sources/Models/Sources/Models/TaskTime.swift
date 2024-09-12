@@ -20,8 +20,17 @@ public enum TaskTime: Codable, Equatable {
 }
 
 extension TaskTime {
-    public enum TimeType: Codable {
+    /// Start time independant TaskTime
+    public enum Pattern: Codable, Equatable {
         case appointment(TimeDuration)
+        case deadline
+        case task
+        case reminder
+    }
+    
+    /// Valueless TaskTime
+    public enum Case: CaseIterable, Equatable {
+        case appointment
         case deadline
         case task
         case reminder
@@ -57,7 +66,7 @@ extension TaskTime {
         }
     }
     
-    public static func new(_ type: TaskTime.TimeType, from start: Date) -> TaskTime {
+    public static func new(_ type: TaskTime.Pattern, from start: Date) -> TaskTime {
         switch type {
         case .appointment(let timeDuration):
             let end = start.adding(timeDuration) ?? start.addingTimeInterval(60*60)

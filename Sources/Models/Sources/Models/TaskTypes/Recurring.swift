@@ -8,8 +8,8 @@
 import Foundation
 
 /// A reccuring task that scehdule a new task when completed
-public final class ReccuringSource: TaskSourceCodable {
-    public typealias AssociatedTask = ReccuringTask
+public final class RecurringSource: TaskSourceCodable {
+    public typealias AssociatedTask = RecurringTask
     public let id: Key
     public let label: String
     public let description: String?
@@ -17,20 +17,20 @@ public final class ReccuringSource: TaskSourceCodable {
     public let pauses: [Key]?
     public var deactivated: Date?
     
-    public func generateNewTask(from completedTask: ReccuringTask) -> ReccuringTask? {
+    public func generateNewTask(from completedTask: RecurringTask) -> RecurringTask? {
         guard completedTask.isCompleted else { return nil }
         guard let baseStart = type.baseTime(from: completedTask) else { return nil }
         guard let newStart = baseStart.adding(spacing) else { return nil }
         let newTime = completedTask.scheduled.new(from: newStart)
         
-        return ReccuringTask(
+        return RecurringTask(
             completedTask: completedTask
             , newTime: newTime
         )
     }
     
     /// The way a new task is generated, either from when the previous task started or was completed.
-    public let type: ReccuranceType
+    public let type: RecurrenceType
     
     /// The duration of time between recurrances of the task.
     public let spacing: TimeDuration
@@ -39,13 +39,13 @@ public final class ReccuringSource: TaskSourceCodable {
     public static func create(
         label: String
         , description: String?
-        , taskType: TaskTime.TimeType
-        , recurranceType: ReccuranceType
+        , taskType: TaskTime.Pattern
+        , recurranceType: RecurrenceType
         , spacing: TimeDuration
         , lastCompleted: Date?
         , category: Key?
         , pauses: [Key]?
-    ) -> (source: ReccuringSource, initialTask: ReccuringTask) {
+    ) -> (source: RecurringSource, initialTask: RecurringTask) {
         
         let sourceKey = Key.new()
         
@@ -68,7 +68,7 @@ public final class ReccuringSource: TaskSourceCodable {
             }
         }()
         
-        let initialTask = ReccuringTask(
+        let initialTask = RecurringTask(
             id: Key.new()
             , source: sourceKey
             , label: label
@@ -85,10 +85,10 @@ public final class ReccuringSource: TaskSourceCodable {
         , description: String?
         , category: Key?
         , pauses: [Key]?
-        , type: ReccuranceType?
+        , type: RecurrenceType?
         , spacing: TimeDuration?
-    ) -> ReccuringSource {
-        return ReccuringSource(
+    ) -> RecurringSource {
+        return RecurringSource(
             id: self.id
             , label: label ?? self.label
             , description: description.null(or: self.description)
@@ -100,17 +100,17 @@ public final class ReccuringSource: TaskSourceCodable {
         )
     }
     
-    public func deactivate(date: Date?) -> ReccuringSource {
+    public func deactivate(date: Date?) -> RecurringSource {
         guard self.active else { return self }
-        return ReccuringSource(source: self, deactivation: date ?? Date.now)
+        return RecurringSource(source: self, deactivation: date ?? Date.now)
     }
     
-    public func activate() -> ReccuringSource {
+    public func activate() -> RecurringSource {
         guard !self.active else { return self }
-        return ReccuringSource(source: self, deactivation: .null)
+        return RecurringSource(source: self, deactivation: .null)
     }
     
-    public static func == (lhs: ReccuringSource, rhs: ReccuringSource) -> Bool {
+    public static func == (lhs: RecurringSource, rhs: RecurringSource) -> Bool {
         lhs.id == rhs.id
         // Things that can be changed
         && lhs.label == rhs.label
@@ -128,7 +128,7 @@ public final class ReccuringSource: TaskSourceCodable {
         , description: String?
         , category: Key?
         , pauses: [Key]?
-        , type: ReccuranceType
+        , type: RecurrenceType
         , spacing: TimeDuration
         , deactivated: Date?
     ) {
@@ -143,7 +143,7 @@ public final class ReccuringSource: TaskSourceCodable {
     }
     
     private convenience init(
-        source: ReccuringSource
+        source: RecurringSource
         , deactivation: Date
     ) {
         self.init(
@@ -162,16 +162,16 @@ public final class ReccuringSource: TaskSourceCodable {
 }
 
 /// The way a new task is generated, either from when the previous task started or was completed.
-public enum ReccuranceType: Codable {
+public enum RecurrenceType: Codable, CaseIterable, Equatable {
     /// Base the next task's date on the time the current task was completed
     case fromComplete
     /// Base the next task's date on the time the current task was scheduled
     case fromScheduled
 }
 
-extension ReccuranceType {
+extension RecurrenceType {
     
-    internal func baseTime(from task: ReccuringTask) -> Date? {
+    internal func baseTime(from task: RecurringTask) -> Date? {
         switch self {
         case .fromComplete: task.completed
         case .fromScheduled: task.scheduled.start
@@ -180,15 +180,15 @@ extension ReccuranceType {
 }
 
 
-public final class ReccuringTask: TaskCodable {
+public final class RecurringTask: TaskCodable {
     public let id: Key
     public let source: Key
     public let label: String
     public let scheduled: TaskTime
     public let completed: Date?
     
-    public func complete(date: Date?) -> ReccuringTask {
-        return ReccuringTask(
+    public func complete(date: Date?) -> RecurringTask {
+        return RecurringTask(
             id: self.id
             , source: self.source
             , label: self.label
@@ -201,14 +201,14 @@ public final class ReccuringTask: TaskCodable {
         label: String? = nil
         , scheduled: TaskTime? = nil
         , completed: Date? = nil
-    ) -> ReccuringTask {
+    ) -> RecurringTask {
         
         let newCompleted: Date? = {
             if completed == .null { return nil }
             else { return completed ?? self.completed }
         }()
         
-        return ReccuringTask(
+        return RecurringTask(
             id: self.id
             , source: self.source
             , label: label ?? self.label
@@ -217,7 +217,7 @@ public final class ReccuringTask: TaskCodable {
         )
     }
     
-    public static func == (lhs: ReccuringTask, rhs: ReccuringTask) -> Bool {
+    public static func == (lhs: RecurringTask, rhs: RecurringTask) -> Bool {
         lhs.id == rhs.id
         // Things that can be changed
         && lhs.label == rhs.label
@@ -241,7 +241,7 @@ public final class ReccuringTask: TaskCodable {
     
     /// Schedule another instance of the task at a new time.
     internal convenience init(
-        completedTask: ReccuringTask
+        completedTask: RecurringTask
         , newTime: TaskTime
     ) {
         self.init(

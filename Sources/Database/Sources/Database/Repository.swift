@@ -10,28 +10,44 @@ import Observation
 import Domain
 import Storage
 import Models
+import Combine
 
 @Observable
 public final class Repository {
-    public var basis: DataBasis
+    internal var basis: DataBasis
     private let transactor: Transactor<UserEventLog, DataBasis>
+    private var cancellables: Set<AnyCancellable> = []
     
-    init(
-        transactor: Transactor<UserEventLog, DataBasis> = Transactor<UserEventLog, DataBasis>(
-            key: transactorKey
-            , basePost: DataBasis()
-            , inMemory: true
-            , coreCommit: ({ event, basis in BasisResolver(basis).commit(event.assertions) })
-            , flatten: ({ events in
-                UserEventLog(
-                    label: "Previous Events"
-                    , assertions:BasisResolver.flatten(events.map({ $0.assertions }))
-                )
-            })
-        )
-    ) {
+    internal init( transactor: Transactor<UserEventLog, DataBasis> ) {
         self.transactor = transactor
         self.basis = .empty
+        
+        self.transactor.publisher
+            .sink { [weak self] basis in
+                guard let self = self else { return }
+                self.basis = basis
+                
+            }
+            .store(in: &cancellables)
+    }
+    
+    public convenience init(
+        inMemory: Bool = false
+    ) {
+        self.init(
+            transactor: Transactor<UserEventLog, DataBasis>(
+                key: Repository.transactorKey
+                , basePost: DataBasis()
+                , inMemory: inMemory
+                , coreCommit: ({ event, basis in BasisResolver(basis).commit(event.assertions) })
+                , flatten: ({ events in
+                    UserEventLog(
+                        label: "Previous Events"
+                        , assertions:BasisResolver.flatten(events.map({ $0.assertions }))
+                    )
+                })
+            )
+        )
     }
     
     private static let transactorKey = StorageKey(namespace: "repository", key: "transactor", version: 0)
@@ -68,6 +84,12 @@ public final class Repository {
     public func taskSources(_ ids: [Key]) -> [AnyTaskSource] { ids.compactMap { basis.taskSourceMap[$0] } }
     public func categories(_ ids: [Key]) -> [TaskCategory] { ids.compactMap { basis.categoryMap[$0] } }
     public func pauses(_ ids: [Key]) -> [TaskPause] { ids.compactMap { basis.pauseMap[$0] } }
+    
+    public var toDoTasks: [ToDoSource] { basis.taskSources.compactMap { $0.source as? ToDoSource } }
+    public var recurringTasks: [RecurringSource] { basis.taskSources.compactMap { $0.source as? RecurringSource } }
+    
+    public var toDoSources: [ToDoSource] { basis.taskSources.compactMap { $0.source as? ToDoSource } }
+    public var recurringSources: [RecurringSource] { basis.taskSources.compactMap { $0.source as? RecurringSource } }
 }
 
 public final class UserEventLog: Codable {

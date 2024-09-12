@@ -17,6 +17,40 @@ public enum TimeDuration: Codable, Equatable {
 }
 
 extension TimeDuration {
+    public enum Interval: CaseIterable, Equatable {
+        case minutes
+        case hours
+        case days
+        case weeks
+        case months
+        case years
+    }
+    
+    public var interval: TimeDuration.Interval {
+        switch self {
+        case .minutes(_): .minutes
+        case .hours(_): .hours
+        case .days(_): .days
+        case .weeks(_): .weeks
+        case .months(_): .months
+        case .years(_): .years
+        }
+    }
+    
+    public init(
+        interval: TimeDuration.Interval
+        , value: Int
+    ) {
+        switch interval {
+        case .minutes: self = .minutes(value)
+        case .hours: self = .hours(value)
+        case .days: self = .days(value)
+        case .weeks: self = .weeks(value)
+        case .months: self = .months(value)
+        case .years: self = .years(value)
+        }
+    }
+    
     public var value: Int {
         switch self {
         case .minutes(let value)
