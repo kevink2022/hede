@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-fileprivate typealias F = ViewConstants.Fonts
-
 struct BoxText: View {
     private let text: any StringProtocol
     

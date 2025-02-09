@@ -13,12 +13,12 @@ import Models
 /// They will be included as fileprivate in each file they're used, similar to an import. Having global 1-2 character
 /// types is bad practice, but they are useful with that are spread out. This achieves a good balance.
 
-fileprivate typealias A = ViewConstants.Animations
-fileprivate typealias C = ViewConstants.Colors
-fileprivate typealias F = ViewConstants.Fonts
-fileprivate typealias T = ViewConstants.Text
-fileprivate typealias V = ViewConstants
-fileprivate typealias SI = ViewConstants.SystemImages
+internal typealias A = ViewConstants.Animations
+internal typealias C = ViewConstants.Colors
+internal typealias F = ViewConstants.Fonts
+internal typealias T = ViewConstants.Text
+internal typealias V = ViewConstants
+internal typealias SI = ViewConstants.SystemImages
 
 /// The collection of all constants used in the UI.
 struct ViewConstants {
@@ -48,52 +48,60 @@ struct ViewConstants {
     }
     
     /// Any Font displayed by the UI.
-    struct Fonts { 
+    struct Fonts {
+        private static let standard = Font.Design.default
+
+        static let body = Font.system(
+            .body
+            , design: standard
+            , weight: .heavy
+        )
+        
         static let screenTitle = Font.system(
             .largeTitle
-            , design: .rounded,
-            weight: .heavy
+            , design: standard
+            , weight: .heavy
         )
         
         static let screenTitleSmaller = Font.system(
             .title
-            , design: .rounded,
-            weight: .heavy
+            , design: standard
+            , weight: .heavy
         )
         
         static let boxSmall = Font.system(
             .title3
-            , design: .rounded,
-            weight: .regular
+            , design: standard
+            , weight: .regular
         )
         
         static let boxLarge = Font.system(
             .title2
-            , design: .rounded,
-            weight: .heavy
+            , design: standard
+            , weight: .heavy
         )
         
         static let largeButtonText = Font.system(
             .title3
-            , design: .rounded
+            , design: standard
             , weight: .semibold
         )
         
         static let largeSymbol = Font.system(
             .largeTitle
-            , design: .default
+            , design: standard
             , weight: .bold
         )
         
         static let semiLargeSymbol = Font.system(
             .title
-            , design: .default
+            , design: standard
             , weight: .bold
         )
         
         static let emptyScreenInformational = Font.system(
             .title2
-            , design: .default
+            , design: standard
             , weight: .semibold
         )
         
@@ -108,6 +116,9 @@ struct ViewConstants {
     struct SystemImages { 
         static let add = "plus"
         static let remove = "minus"
+        static let delete = "trash"
+        static let edit = "square.and.pencil"
+        static let complete = "checkmark"
         
         static let home = "house"
         static let settings = "gear"
@@ -115,7 +126,7 @@ struct ViewConstants {
         static let sources = "list.clipboard"
         static let search = "sparkle.magnifyingglass"
         
-        static let todo = "checkmark.circle"
+        static let toDo = "checkmark.circle"
         static let recurring = "clock"
     }
     
@@ -123,7 +134,7 @@ struct ViewConstants {
     struct Colors {
         // Ugh this conflicts with constants.
         static let appointment = Color.red
-        static let deadline = Color.green
+        static let deadline = Color.yellow
         static let task = Color.blue
         static let reminder = Color.gray
         
@@ -131,16 +142,20 @@ struct ViewConstants {
         static let reccurring = Color.green
     }
     
+    static let standardPadding: CGFloat = 8
+    
     static let boxCorner: CGFloat = 10
     static let boxOpacity: CGFloat = 0.6
     static let boxTextOpacity: CGFloat = 0.6
     static let boxExternalPadding: CGFloat = 6
-    static let boxInternalPadding: CGFloat = 8
+    static let boxInternalPadding: CGFloat = standardPadding
 
     static let buttonCornerRadius: CGFloat = 12
     
     static let noContentMessageOpacity: CGFloat = 0.4
     static let noContentBottomPadding: CGFloat = 54
+    
+    static let listStyle: InsetListStyle = .inset
 }
 
 /// String Representations of enums, need to be localized
@@ -247,3 +262,4 @@ extension TaskTime {
         .environment(\.repository, PreviewMocks.mockRepository)
         .environment(\.eventManager, PreviewMocks.mockEventManager)
 }
+

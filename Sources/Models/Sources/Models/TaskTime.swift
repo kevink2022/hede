@@ -77,4 +77,16 @@ extension TaskTime {
         case .reminder: return .reminder(start)
         }
     }
+    
+    public static func new(_ taskCase: TaskTime.Case, from start: Date, to end: Date? = nil) -> TaskTime? {
+        
+        switch taskCase {
+        case .appointment: 
+            guard let end = end else { return nil }
+            return .appointment(start: start, end: end)
+        case .deadline:  return .deadline(start)
+        case .task: return .task(start)
+        case .reminder: return .reminder(start)
+        }
+    }
 }

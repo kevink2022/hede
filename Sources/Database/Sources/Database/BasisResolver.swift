@@ -7,7 +7,7 @@
 
 import Foundation
 import Models
-import Domain
+import Assemblages
 
 public final class BasisResolver {
     
@@ -24,41 +24,33 @@ public final class BasisResolver {
         assertionSet.forEach { assertion in
             switch assertion.assertCode {
             case .delete(let data):
-                if let task = newBasis.taskMap[data.id] {
-                    newBasis.taskMap[task.id] = nil
+                if let task = newBasis.taskSet[data.id] {
                     newBasis.taskSet.remove(task)
                 }
                 
-                if let source = newBasis.taskSourceMap[data.id] {
-                    newBasis.taskSourceMap[source.id] = nil
+                if let source = newBasis.taskSourceSet[data.id] {
                     newBasis.taskSourceSet.remove(source)
                 }
                 
-                if let category = newBasis.categoryMap[data.id] {
-                    newBasis.categoryMap[category.id] = nil
+                if let category = newBasis.categorySet[data.id] {
                     newBasis.categorySet.remove(category)
                 }
                 
-                if let pause = newBasis.pauseMap[data.id] {
-                    newBasis.pauseMap[pause.id] = nil
+                if let pause = newBasis.pauseSet[data.id] {
                     newBasis.pauseSet.remove(pause)
                 }
                 
             case .task(let data): 
                 newBasis.taskSet.insert(data)
-                newBasis.taskMap[data.id] = data
                 
             case .source(let data):
                 newBasis.taskSourceSet.insert(data)
-                newBasis.taskSourceMap[data.id] = data
                 
             case .category(let data):
                 newBasis.categorySet.insert(data)
-                newBasis.categoryMap[data.id] = data
                 
             case .pause(let data):
                 newBasis.pauseSet.insert(data)
-                newBasis.pauseMap[data.id] = data
             }
         }
         

@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-fileprivate typealias C = ViewConstants.Colors
-fileprivate typealias F = ViewConstants.Fonts
-fileprivate typealias T = ViewConstants.Text
-fileprivate typealias V = ViewConstants
-
-
 struct NoContentMessage<Content: View>: View {
     @Environment(\.navigator) private var navigator
     

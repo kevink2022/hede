@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-fileprivate typealias T = ViewConstants.Text
-fileprivate typealias SI = ViewConstants.SystemImages
-
 struct ContentView: View {
     @Environment(\.navigator) var navigator
     
@@ -17,7 +14,7 @@ struct ContentView: View {
         @Bindable var navigator = navigator
         
         TabView(selection: $navigator.tab) {
-            Text("Settings")
+            SettingsScreen()
                 .tabItem { Label(T.settings, systemImage: SI.settings) }
                 .tag(NavigationTab.settings)
             

@@ -7,7 +7,7 @@
 
 import XCTest
 @testable import Database
-import Domain
+import Assemblages
 import Models
 
 private typealias T = TestValues

@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-fileprivate typealias V = ViewConstants
-
 struct BoxGrid<Content: View>: View {
     private let content: () -> Content
     private let padding: CGFloat
@@ -34,9 +32,6 @@ struct BoxGrid<Content: View>: View {
         self.gridItems = Array(repeating: GridItem(.flexible()), count: columns)
     }
 }
-
-fileprivate typealias F = ViewConstants.Fonts
-fileprivate typealias SI = ViewConstants.SystemImages
 
 #Preview {
     BoxGrid {

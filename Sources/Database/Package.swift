@@ -17,8 +17,8 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "./Models"),
-        .package(path: "../../../SwiftPackages/Domain"),
-        .package(path: "../../../SwiftPackages/Storage"),
+        .package(path: "../../../swift-packages/Assemblages"),
+        .package(path: "../../../swift-packages/Storage"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -26,7 +26,7 @@ let package = Package(
         .target(
             name: "Database",
             dependencies: [
-                "Domain",
+                "Assemblages",
                 "Storage",
                 "Models",
             ]),

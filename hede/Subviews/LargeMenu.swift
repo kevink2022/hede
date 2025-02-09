@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-private typealias F = ViewConstants.Fonts
-private typealias V = ViewConstants
-
 struct LargeMenu<Content, Label>: View where Content: View, Label: View {
     let content: () -> Content
     let label: () -> Label

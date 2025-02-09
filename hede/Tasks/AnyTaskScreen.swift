@@ -1,0 +1,73 @@
+//
+//  AnyTaskScreen.swift
+//  hede
+//
+//  Created by Kevin Kelly on 9/18/24.
+//
+
+import SwiftUI
+import Models
+
+struct AnyTaskScreen: View {
+    
+    private let task: AnyTask
+    
+    @Environment(\.navigator) private var navigator
+    @Environment(\.eventManager) private var eventManager
+    @Environment(\.repository) private var repository
+    
+    private var source: AnyTaskSource {
+        AnyTaskSource(repository.taskSources([task.source]).first?.source ?? ToDoSource.null)
+    }
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                
+                if let description = source.description {
+                    VStack(alignment: .leading) {
+                        Text(description)
+                            .padding(.top, 2)
+                    }
+                }
+                
+                Divider().padding(0)
+                
+                DetailRow(label: "Scheduled:", value: task.scheduled.start.formatted())
+                
+                Divider().padding(0)
+                
+                DetailRow(label: "Completed:", value: task.completed?.formatted() ?? "Not Completed")
+                
+                Divider().padding(0)
+                
+                Spacer()
+            }
+            .padding()
+        }
+        .navigationTitle(task.label)
+                    
+        .toolbar {
+            Button {
+                
+            } label: {
+                Image(systemName: SI.edit)
+            }
+            
+            Button {
+                
+            } label: {
+                Image(systemName: SI.delete)
+            }
+        }
+    }
+    
+    init(_ task: AnyTask) {
+        self.task = task
+    }
+}
+
+#Preview {
+    AnyTaskScreen(AnyTask(PreviewMocks.toDo_1.initialTask))
+        .environment(\.repository, PreviewMocks.mockRepository)
+}

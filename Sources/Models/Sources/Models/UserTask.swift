@@ -15,7 +15,7 @@ import Foundation
 ///
 /// Should be on each task, but with different signatures:
 /// - `edit() -> Self`
-public protocol UserTask: Codable, Identifiable, Equatable {
+public protocol UserTask: Codable, Identifiable, Equatable, Hashable {
     /// The unique ID of the `Task`.
     var id: Key { get }
     /// The unique ID of the `TaskSource` for this `Task`.
@@ -39,6 +39,10 @@ extension UserTask {
     public func complete(date: Date?) -> any UserTask {
         self.complete(date: date)
     }
+    /// Hash the ID
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 /// A codable, type erased `Task` container
@@ -58,9 +62,13 @@ public final class AnyTask: UserTask {
     }
     
     public var task: any UserTask { data as (any UserTask) }
+    public var sortDate: Date { self.completed ?? self.scheduled.start }
     
     public init(_ task: any UserTask) {
-        self.data = task as! any TaskCodable
+        guard let codableTask = task as? any TaskCodable else {
+            fatalError("Failed to cast task to TaskCodable. Type: \(type(of: task))")
+        }
+        self.data = codableTask
     }
     
     internal let data: any TaskCodable
@@ -71,6 +79,8 @@ public final class AnyTask: UserTask {
 internal protocol TaskCodable: UserTask {
     var code: TaskCode { get }
 }
+
+//extension AnyTask: TaskCodable {}
 
 internal enum TaskCode: Codable, Equatable {
     case toDo(ToDoTask)

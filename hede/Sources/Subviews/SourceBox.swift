@@ -8,8 +8,6 @@
 import SwiftUI
 import Models
 
-fileprivate typealias F = ViewConstants.Fonts
-
 struct SourceBox: View {
     private var source: AnyTaskSource
     

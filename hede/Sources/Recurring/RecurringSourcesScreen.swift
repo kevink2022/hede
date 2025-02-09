@@ -8,37 +8,32 @@
 import SwiftUI
 import Models
 
-fileprivate typealias C = ViewConstants.Colors
-fileprivate typealias F = ViewConstants.Fonts
-fileprivate typealias T = ViewConstants.Text
-fileprivate typealias SI = ViewConstants.SystemImages
-
 struct RecurringSourcesScreen: View {
+    @Environment(\.eventManager) private var eventManager
     @Environment(\.navigator) private var navigator
     @Environment(\.repository) private var repository
     
     var body: some View {
-        ScrollView {
-            HStack {
-                Text(T.recurringSources)
-                    .font(F.screenTitle)
-                    .padding(.horizontal)
-                
-                Spacer()
-            }
+        List {
             
-            BoxGrid(columns: 2) {
-                ForEach(repository.recurringSources) { source in
-                    Box(
-                        color: C.reccurring
-                        , bottomLeft: {
-                            BoxText(source.label)
-                        }
-                    )
+            ForEach(repository.recurringSources) { source in
+                NavigationLink {
+                    
+                } label: {
+                    Text(source.label)
                 }
-                
+//                    .contextMenu(ContextMenu(menuItems: {
+//                        Button(role: .destructive) {
+//                            Task{ await eventManager.delete([source]) }
+//                        } label: {
+//                            Label("Delete Source", systemImage: SI.delete)
+//                        }
+//                    }))
             }
         }
+        .listStyle(.inset)
+        .navigationTitle(T.recurringSources)
+        
         .toolbar {
             Button {
                 navigator.presentSheet(RecurringSourceFormView())

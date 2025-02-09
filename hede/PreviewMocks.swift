@@ -82,15 +82,15 @@ struct PreviewMocks {
     static let toDo_2 = ToDoSource.create(
         label: "Text Michael about new creami flavor."
         , description: "He would be too smart to say yes."
-        , time: .deadline(one_week_behind)
+        , time: .task(one_week_behind)
         , category: nil
         , pauses: nil
     )
     
     static let toDo_3 = ToDoSource.create(
-        label: "Return Jeans"
-        , description: "Made my ass look fat"
-        , time: .deadline(one_week_behind)
+        label: "Call with Aaron"
+        , description: "Stonls"
+        , time: .appointment(start: one_week_ahead, end: one_week_ahead.adding(.hours(2))!)
         , category: nil
         , pauses: nil
     )
@@ -102,7 +102,7 @@ struct PreviewMocks {
     static let recurring_1 = RecurringSource.create(
         label: "Do Leetcode problem"
         , description: "Practice Patterns"
-        , taskType: .reminder
+        , taskType: .task
         , recurranceType: .fromComplete
         , spacing: .weeks(1)
         , lastCompleted: one_week_behind
@@ -140,4 +140,82 @@ struct PreviewMocks {
     static let tasks = toDoTasks.map { AnyTask($0) } + recurringTasks.map { AnyTask($0) }
 }
 
-
+struct MyTasks {
+    static let sheets = RecurringSource.create(
+        label: "Wash Sheets"
+        , description: nil
+        , taskType: .reminder
+        , recurranceType: .fromComplete
+        , spacing: .weeks(2)
+        , lastCompleted: Date.from(day: 12, month: 1, year: 2025)!
+        , category: nil
+        , pauses: nil
+    )
+    
+    static let towels = RecurringSource.create(
+        label: "Wash Towels"
+        , description: nil
+        , taskType: .reminder
+        , recurranceType: .fromComplete
+        , spacing: .weeks(2)
+        , lastCompleted: Date.from(day: 18, month: 1, year: 2025)!
+        , category: nil
+        , pauses: nil
+    )
+    
+    static let rest_contacts = RecurringSource.create(
+        label: "Rest Contacts"
+        , description: nil
+        , taskType: .reminder
+        , recurranceType: .fromComplete
+        , spacing: .weeks(1)
+        , lastCompleted: Date.from(day: 26, month: 1, year: 2025)!
+        , category: nil
+        , pauses: nil
+    )
+    
+    static let change_contacts =  RecurringSource.create(
+        label: "Change Contacts"
+        , description: nil
+        , taskType: .reminder
+        , recurranceType: .fromComplete
+        , spacing: .months(1)
+        , lastCompleted: Date.from(day: 12, month: 1, year: 2025)!
+        , category: nil
+        , pauses: nil
+    )
+    
+    static let backup_server =  RecurringSource.create(
+        label: "Backup Server"
+        , description: nil
+        , taskType: .reminder
+        , recurranceType: .fromComplete
+        , spacing: .months(1)
+        , lastCompleted: Date.from(day: 4, month: 1, year: 2025)!
+        , category: nil
+        , pauses: nil
+    )
+    
+    static let importAll = [
+        AnyTaskSource(sheets.source)
+        , AnyTask(sheets.initialTask)
+        , AnyTaskSource(towels.source)
+        , AnyTask(towels.initialTask)
+        , AnyTaskSource(rest_contacts.source)
+        , AnyTask(rest_contacts.initialTask)
+        , AnyTaskSource(change_contacts.source)
+        , AnyTask(change_contacts.initialTask)
+        , AnyTaskSource(backup_server.source)
+        , AnyTask(backup_server.initialTask)
+    ] as [any Savable]
+}
+        
+extension Date {
+    static func from(day: Int, month: Int, year: Int) -> Date? {
+        var components = DateComponents()
+        components.day = day
+        components.month = month
+        components.year = year
+        return Calendar.current.date(from: components)
+    }
+}

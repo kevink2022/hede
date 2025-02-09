@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-private typealias F = ViewConstants.Fonts
-private typealias V = ViewConstants
-
 struct LargeButton<Label>: View where Label: View {
     let role: ButtonRole?
     let action: () -> Void

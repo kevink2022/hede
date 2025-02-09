@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-fileprivate typealias V = ViewConstants
-
 struct Box<
     TopLeft: View
     , TopRight: View
@@ -84,8 +82,6 @@ struct Box<
         self.bottomRight = bottomRight
     }
 }
-
-fileprivate typealias F = ViewConstants.Fonts
 
 #Preview {
     Box {

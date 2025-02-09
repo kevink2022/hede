@@ -26,4 +26,5 @@ final class AssertionTests: XCTestCase {
         
         XCTAssertEqual(T.testAssertions, decoded)
     }
+    
 }

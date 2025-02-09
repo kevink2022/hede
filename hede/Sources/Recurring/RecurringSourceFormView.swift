@@ -50,16 +50,13 @@ struct RecurringSourceFormView: View {
                 }
             }
             
-            Section {
-                TimeDurationPicker(duration: $form.spacing, valid: $form.spacingValid, prePopValue: "", prePopInterval: .weeks)
-            } header: {
-                Text("Time Between Tasks")
-            } footer: {
-                if showHelp {
-                    Text("The time duration between when a task is reapeated from and when the next task is automatically scheduled.")
-                }
-            }
-            
+            TimeDurationFormEntry(
+                duration: $form.spacing
+                , valid: $form.spacingValid
+                , prePopValue: ""
+                , prePopInterval: .weeks
+                , showHelp: showHelp
+            )
             
             Section {
                 Toggle("Previously Completed?", isOn: $form.didCompletePreviously)

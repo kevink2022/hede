@@ -21,13 +21,15 @@ struct ToDoSourceFormView: View {
                 Task { await eventManager.createToDo(from: form) }
                 navigator.dismissSheet()
             } label: {
-                Text("Save Recurring Source")
+                Text("Save Task Source")
             }
             .disabled(!form.canSave)
             
             LabelFormEntry(label: $form.label, showHelp: showHelp)
             
             DescriptionFormEntry(description: $form.description, showHelp: showHelp)
+            
+            TaskTimeFormEntry(taskTime: $form.taskTime, showHelp: showHelp)
         }
     }
 }
@@ -36,6 +38,7 @@ struct ToDoSourceFormView: View {
     ToDoSourceFormView()
 }
 
+@Observable
 class ToDoSourceForm {
     var label: String = ""
     var description: String = ""
@@ -43,7 +46,12 @@ class ToDoSourceForm {
     var category: TaskCategory? = nil
     var pauses: [TaskPause]? = nil
     
+    var taskTime: TaskTime = .task(.now)
+    var start: Date = .now
+    var end: Date = .now.adding(.hours(1)) ?? .now
+    
+    
     var canSave: Bool {
-        false
+        label != .null
     }
 }

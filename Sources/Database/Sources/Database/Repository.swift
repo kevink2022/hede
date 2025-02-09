@@ -7,7 +7,7 @@
 
 import Foundation
 import Observation
-import Domain
+import Assemblages
 import Storage
 import Models
 import Combine
@@ -76,6 +76,7 @@ public final class Repository {
     
     // TODO: Need to verify this updates when the basis changes, I'd think the vars do, but I'm certain the funcs dont.
     public var tasks: [AnyTask] { basis.tasks }
+    public var openTasks: [AnyTask] { basis.tasks.filter { $0.isOpen } }
     public var taskSources: [AnyTaskSource] { basis.taskSources }
     public var categories: [TaskCategory] { basis.categories }
     public var pauses: [TaskPause] { basis.pauses }
@@ -107,4 +108,41 @@ public final class UserEventLog: Codable {
     }
 }
 
+/// Transactions
+extension Repository {
+    public func getTransactions() async -> [DataTransaction<UserEventLog>] {
+        return await transactor.viewTransactions()
+    }
+    
+    public func rollbackTo(after transaction: DataTransaction<UserEventLog>) async {
+        await transactor.rollbackTo(after: transaction)
+    }
+    
+    public func rollbackTo(before transaction: DataTransaction<UserEventLog>) async {
+        await transactor.rollbackTo(before: transaction)
+    }
+}
+
+/// Tasks grouped by date
+extension Array where Element == AnyTask {
+    internal func groupByDate() -> [(key: String, tasks: [AnyTask])] {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+
+        return self.reduce(into: [(key: String, tasks: [AnyTask])]()) { result, task in
+            let dateKey = formatter.string(from: task.sortDate)
+            if let lastGroup = result.last, lastGroup.key == dateKey {
+                result[result.count - 1].tasks.append(task)
+            } else {
+                result.append((key: dateKey, tasks: [task]))
+            }
+        }
+    }
+    
+}
+extension Repository {
+    public typealias AnyTaskByDate = [(key: String, tasks: [AnyTask])]
+    public var tasksByDate: AnyTaskByDate { tasks.groupByDate() }
+    public var openTasksByDate: AnyTaskByDate { openTasks.groupByDate() }
+}
 

@@ -14,9 +14,9 @@ struct DescriptionFormEntry: View {
     
     var body: some View {
         FormEntry(showHelp: showHelp) {
-            TextField(text: $description, prompt: Text("Label")) { EmptyView() }
+            TextField(text: $description, prompt: Text("Description")) { EmptyView() }
         } label: {
-            Text("Label")
+            Text("Description")
         } help: {
             Text("Label Help")
         }
