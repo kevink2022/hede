@@ -17,7 +17,7 @@ struct AnyTaskScreen: View {
     @Environment(\.repository) private var repository
     
     private var source: AnyTaskSource {
-        AnyTaskSource(repository.taskSources([task.source]).first?.source ?? ToDoSource.null)
+        AnyTaskSource(repository.taskSources([task.source]).first?.data ?? ToDoSource.null)
     }
     
     var body: some View {
@@ -40,6 +40,11 @@ struct AnyTaskScreen: View {
                 DetailRow(label: "Completed:", value: task.completed?.formatted() ?? "Not Completed")
                 
                 Divider().padding(0)
+                
+                switch task.code {
+                case .toDo(let toDoTask): EmptyView()
+                case .recurring(let recurringTask): RecurringTaskFields(recurringTask)
+                }
                 
                 Spacer()
             }

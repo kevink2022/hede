@@ -8,7 +8,7 @@
 import Foundation
 
 /// A one off task source that doesn't generate any repeated tasks.
-public final class ToDoSource: TaskSourceCodable {
+public final class ToDoSource: TaskSource {
     public typealias AssociatedTask = ToDoTask
     public let id: Key
     public let label: String
@@ -126,11 +126,11 @@ public final class ToDoSource: TaskSourceCodable {
         )
     }
     
-    internal var code: TaskSourceCode { .toDo(self) }
+    public var code: TaskSourceCode { .toDo(self) }
 }
 
 /// A one off task.
-public final class ToDoTask: TaskCodable {
+public final class ToDoTask: UserTask {
     public let id: Key
     public let source: Key
     public let label: String
@@ -183,6 +183,6 @@ public final class ToDoTask: TaskCodable {
         self.completed = completed
     }
     
-    internal var code: TaskCode { .toDo(self) }
+    public var code: TaskCode { .toDo(self) }
 }
 

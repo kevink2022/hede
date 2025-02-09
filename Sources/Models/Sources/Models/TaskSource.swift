@@ -33,6 +33,8 @@ public protocol TaskSource: Codable, Identifiable, Equatable {
     func activate() -> Self
     /// When a task is completed, it is passed back to the source to create the next task.
     func generateNewTask(from completedTask: AssociatedTask) -> AssociatedTask?
+    /// Facilitates coding by tying type-erased Tasks to their underlying type.
+    var code: TaskSourceCode { get }
 }
 
 extension TaskSource {
@@ -56,7 +58,7 @@ public final class AnyTaskSource: TaskSource {
     public var deactivated: Date? { data.deactivated }
     
     public func generateNewTask(from completedTask: AnyTask) -> AnyTask? {
-        guard let newTask = data.generateNewTask(from: completedTask.task) else { return nil }
+        guard let newTask = data.generateNewTask(from: completedTask.data) else { return nil }
         return AnyTask(newTask)
     }
     
@@ -69,28 +71,24 @@ public final class AnyTaskSource: TaskSource {
         let newSource = data.activate()
         return AnyTaskSource(newSource)
     }
-
-    public var source: any TaskSource { data as (any TaskSource) }
-    
+   
     public init(_ source: any TaskSource) {
-        self.data = source as! any TaskSourceCodable
+        if let source = source as? AnyTaskSource {
+            self.data = source.data
+        } else {
+            self.data = source
+        }
     }
     
     public static func == (lhs: AnyTaskSource, rhs: AnyTaskSource) -> Bool {
         lhs.code == rhs.code
     }
     
-    
-    internal let data: any TaskSourceCodable
-    internal var code: TaskSourceCode { data.code }
+    public let data: any TaskSource
+    public var code: TaskSourceCode { data.code }
 }
 
-/// This allows `any UserTask` to be coded as an `AnyTask`
-internal protocol TaskSourceCodable: TaskSource {
-    var code: TaskSourceCode { get }
-}
-
-internal enum TaskSourceCode: Codable, Equatable {
+public enum TaskSourceCode: Codable, Equatable {
     case toDo(ToDoSource)
     case recurring(RecurringSource)
 }

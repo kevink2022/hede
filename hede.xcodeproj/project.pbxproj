@@ -29,12 +29,10 @@
 		4F4A99452C9A137200C1C659 /* RecurringSourceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A99442C9A137200C1C659 /* RecurringSourceScreen.swift */; };
 		4F4A99472C9A137D00C1C659 /* ToDoSourceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A99462C9A137D00C1C659 /* ToDoSourceScreen.swift */; };
 		4F4A99492C9B5D4400C1C659 /* AnyTaskScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A99482C9B5D4400C1C659 /* AnyTaskScreen.swift */; };
-		4F4A994B2CA1FA7900C1C659 /* RecurringTaskScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A994A2CA1FA7900C1C659 /* RecurringTaskScreen.swift */; };
-		4F4A994D2CA1FABF00C1C659 /* ToDoTaskScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A994C2CA1FABF00C1C659 /* ToDoTaskScreen.swift */; };
+		4F4A994B2CA1FA7900C1C659 /* RecurringTaskFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A994A2CA1FA7900C1C659 /* RecurringTaskFields.swift */; };
 		4F87E7982D3EFACE00B3CBBB /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7972D3EFACA00B3CBBB /* SettingsScreen.swift */; };
 		4F87E79A2D3EFD0200B3CBBB /* TransactionHistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7992D3EFCF900B3CBBB /* TransactionHistoryScreen.swift */; };
 		4F87E79C2D4C306200B3CBBB /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E79B2D4C305F00B3CBBB /* DetailView.swift */; };
-		4F87E79E2D5854B400B3CBBB /* TaskViewConformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E79D2D5854A900B3CBBB /* TaskViewConformance.swift */; };
 		4F97DA622C8E68AA002002BB /* ViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA612C8E68AA002002BB /* ViewConstants.swift */; };
 		4F97DA642C8E68E1002002BB /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA632C8E68E1002002BB /* Navigator.swift */; };
 		4F97DA662C8E6901002002BB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA652C8E6901002002BB /* Environment.swift */; };
@@ -101,12 +99,10 @@
 		4F4A99442C9A137200C1C659 /* RecurringSourceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringSourceScreen.swift; sourceTree = "<group>"; };
 		4F4A99462C9A137D00C1C659 /* ToDoSourceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoSourceScreen.swift; sourceTree = "<group>"; };
 		4F4A99482C9B5D4400C1C659 /* AnyTaskScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTaskScreen.swift; sourceTree = "<group>"; };
-		4F4A994A2CA1FA7900C1C659 /* RecurringTaskScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringTaskScreen.swift; sourceTree = "<group>"; };
-		4F4A994C2CA1FABF00C1C659 /* ToDoTaskScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTaskScreen.swift; sourceTree = "<group>"; };
+		4F4A994A2CA1FA7900C1C659 /* RecurringTaskFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringTaskFields.swift; sourceTree = "<group>"; };
 		4F87E7972D3EFACA00B3CBBB /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		4F87E7992D3EFCF900B3CBBB /* TransactionHistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryScreen.swift; sourceTree = "<group>"; };
 		4F87E79B2D4C305F00B3CBBB /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		4F87E79D2D5854A900B3CBBB /* TaskViewConformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewConformance.swift; sourceTree = "<group>"; };
 		4F89BCB82C8633F600AD18DB /* hedeTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = hedeTestPlan.xctestplan; sourceTree = "<group>"; };
 		4F89BCCA2C879D1700AD18DB /* Database */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Database; sourceTree = "<group>"; };
 		4F97DA612C8E68AA002002BB /* ViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConstants.swift; sourceTree = "<group>"; };
@@ -237,7 +233,6 @@
 		4F4A992D2C922B9000C1C659 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				4F87E79D2D5854A900B3CBBB /* TaskViewConformance.swift */,
 				4F4A992E2C922BA600C1C659 /* TasksScreen.swift */,
 				4F4A99482C9B5D4400C1C659 /* AnyTaskScreen.swift */,
 			);
@@ -329,7 +324,6 @@
 				4F97DA802C8F3A8B002002BB /* ToDoSourcesScreen.swift */,
 				4F4A99332C93788200C1C659 /* ToDoSourceFormView.swift */,
 				4F4A99462C9A137D00C1C659 /* ToDoSourceScreen.swift */,
-				4F4A994C2CA1FABF00C1C659 /* ToDoTaskScreen.swift */,
 			);
 			path = ToDo;
 			sourceTree = "<group>";
@@ -340,7 +334,7 @@
 				4F97DA7E2C8F3A75002002BB /* RecurringSourcesScreen.swift */,
 				4F97DA842C8F827C002002BB /* RecurringSourceFormView.swift */,
 				4F4A99442C9A137200C1C659 /* RecurringSourceScreen.swift */,
-				4F4A994A2CA1FA7900C1C659 /* RecurringTaskScreen.swift */,
+				4F4A994A2CA1FA7900C1C659 /* RecurringTaskFields.swift */,
 			);
 			path = Recurring;
 			sourceTree = "<group>";
@@ -499,8 +493,7 @@
 			files = (
 				4F97DA7F2C8F3A75002002BB /* RecurringSourcesScreen.swift in Sources */,
 				4F4A99362C937A3200C1C659 /* LabelFormEntry.swift in Sources */,
-				4F4A994D2CA1FABF00C1C659 /* ToDoTaskScreen.swift in Sources */,
-				4F4A994B2CA1FA7900C1C659 /* RecurringTaskScreen.swift in Sources */,
+				4F4A994B2CA1FA7900C1C659 /* RecurringTaskFields.swift in Sources */,
 				4F4A993C2C937D2D00C1C659 /* TaskTimeCaseFormEntry.swift in Sources */,
 				4F97DA8D2C9014E2002002BB /* LargeButton.swift in Sources */,
 				4F97DA762C8E7F08002002BB /* Box.swift in Sources */,
@@ -516,7 +509,6 @@
 				4F97DA6D2C8E7951002002BB /* HomeScreen.swift in Sources */,
 				4F97DA642C8E68E1002002BB /* Navigator.swift in Sources */,
 				4F97DA792C8E9F8D002002BB /* SourceBox.swift in Sources */,
-				4F87E79E2D5854B400B3CBBB /* TaskViewConformance.swift in Sources */,
 				4F2719052C828B3D004CF717 /* ContentView.swift in Sources */,
 				4F97DA8C2C9014E2002002BB /* LargeMenu.swift in Sources */,
 				4F97DA7B2C8E9FD7002002BB /* PreviewMocks.swift in Sources */,

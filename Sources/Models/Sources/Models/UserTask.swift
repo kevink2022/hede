@@ -26,6 +26,8 @@ public protocol UserTask: Codable, Identifiable, Equatable, Hashable {
     var scheduled: TaskTime { get }
     /// The time the `Task` was completed.
     var completed: Date? { get }
+    /// Facilitates coding by tying type-erased Tasks to their underlying type.
+    var code: TaskCode { get }
     /// Create a copy of self with the completed date.
     func complete(date: Date?) -> Self
 }
@@ -45,6 +47,11 @@ extension UserTask {
     }
 }
 
+public enum TaskCode: Codable, Equatable {
+    case toDo(ToDoTask)
+    case recurring(RecurringTask)
+}
+
 /// A codable, type erased `Task` container
 public final class AnyTask: UserTask {
     public static func == (lhs: AnyTask, rhs: AnyTask) -> Bool {
@@ -58,33 +65,21 @@ public final class AnyTask: UserTask {
     public var completed: Date? { data.completed }
     
     public func complete(date: Date?) -> AnyTask {
-        return AnyTask(task.complete(date: date))
+        return AnyTask(data.complete(date: date))
     }
     
-    public var task: any UserTask { data as (any UserTask) }
     public var sortDate: Date { self.completed ?? self.scheduled.start }
     
     public init(_ task: any UserTask) {
-        guard let codableTask = task as? any TaskCodable else {
-            fatalError("Failed to cast task to TaskCodable. Type: \(type(of: task))")
+        if let task = task as? AnyTask {
+            self.data = task.data
+        } else {
+            self.data = task
         }
-        self.data = codableTask
     }
-    
-    internal let data: any TaskCodable
-    internal var code: TaskCode { data.code }
-}
 
-/// This allows `any Task` to be coded as an `AnyTask`
-internal protocol TaskCodable: UserTask {
-    var code: TaskCode { get }
-}
-
-//extension AnyTask: TaskCodable {}
-
-internal enum TaskCode: Codable, Equatable {
-    case toDo(ToDoTask)
-    case recurring(RecurringTask)
+    public let data: any UserTask
+    public var code: TaskCode { data.code }
 }
 
 extension AnyTask {

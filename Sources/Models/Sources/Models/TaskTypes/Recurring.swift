@@ -8,7 +8,7 @@
 import Foundation
 
 /// A reccuring task that scehdule a new task when completed
-public final class RecurringSource: TaskSourceCodable {
+public final class RecurringSource: TaskSource {
     public typealias AssociatedTask = RecurringTask
     public let id: Key
     public let label: String
@@ -158,7 +158,7 @@ public final class RecurringSource: TaskSourceCodable {
         )
     }
     
-    internal var code: TaskSourceCode { .recurring(self) }
+    public var code: TaskSourceCode { .recurring(self) }
 }
 
 /// The way a new task is generated, either from when the previous task started or was completed.
@@ -180,7 +180,7 @@ extension RecurrenceType {
 }
 
 
-public final class RecurringTask: TaskCodable {
+public final class RecurringTask: UserTask {
     public let id: Key
     public let source: Key
     public let label: String
@@ -253,5 +253,5 @@ public final class RecurringTask: TaskCodable {
         )
     }
     
-    internal var code: TaskCode { .recurring(self) }
+    public var code: TaskCode { .recurring(self) }
 }

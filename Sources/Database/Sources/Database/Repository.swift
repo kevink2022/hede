@@ -86,11 +86,11 @@ public final class Repository {
     public func categories(_ ids: [Key]) -> [TaskCategory] { ids.compactMap { basis.categoryMap[$0] } }
     public func pauses(_ ids: [Key]) -> [TaskPause] { ids.compactMap { basis.pauseMap[$0] } }
     
-    public var toDoTasks: [ToDoSource] { basis.taskSources.compactMap { $0.source as? ToDoSource } }
-    public var recurringTasks: [RecurringSource] { basis.taskSources.compactMap { $0.source as? RecurringSource } }
+    public var toDoTasks: [ToDoSource] { basis.taskSources.compactMap { $0.data as? ToDoSource } }
+    public var recurringTasks: [RecurringSource] { basis.taskSources.compactMap { $0.data as? RecurringSource } }
     
-    public var toDoSources: [ToDoSource] { basis.taskSources.compactMap { $0.source as? ToDoSource } }
-    public var recurringSources: [RecurringSource] { basis.taskSources.compactMap { $0.source as? RecurringSource } }
+    public var toDoSources: [ToDoSource] { basis.taskSources.compactMap { $0.data as? ToDoSource } }
+    public var recurringSources: [RecurringSource] { basis.taskSources.compactMap { $0.data as? RecurringSource } }
 }
 
 public final class UserEventLog: Codable {
