@@ -19,7 +19,7 @@ public final class BasisResolver {
     
     /// Commit new models to the basis, adding, updating, and deleting them.
     internal func commit(_ assertionSet: KeySet<Assertion>) -> DataBasis {
-        var newBasis = MutableBasis(currentBasis)
+        let newBasis = MutableBasis(currentBasis)
         
         assertionSet.forEach { assertion in
             switch assertion.assertCode {

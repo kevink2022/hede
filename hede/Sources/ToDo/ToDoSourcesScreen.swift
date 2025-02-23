@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Models
 
 struct ToDoSourcesScreen: View {
     @Environment(\.eventManager) private var eventManager
@@ -17,7 +18,7 @@ struct ToDoSourcesScreen: View {
             
             ForEach(repository.toDoSources) { source in
                 NavigationLink {
-                    
+                    AnySourceScreen(AnyTaskSource(source))
                 } label: {
                     Text(source.label)
                 }

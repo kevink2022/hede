@@ -10,6 +10,9 @@ import Foundation
 /// A central idea to the design is the task loop:
 ///  1. Create the source and the inital task at the same time.
 ///  2. When a task is completed, the information in the completed task is used to create the next task.
+///
+/// Some facts about the tasks/sources:
+///  1. For each 'active' source, there is always one active task.
 
 /// A task to be displayed in the timeline or calendar.
 ///
@@ -50,6 +53,7 @@ extension UserTask {
 public enum TaskCode: Codable, Equatable {
     case toDo(ToDoTask)
     case recurring(RecurringTask)
+//    case learning(LearningTask)
 }
 
 /// A codable, type erased `Task` container
@@ -85,8 +89,9 @@ public final class AnyTask: UserTask {
 extension AnyTask {
     internal convenience init(code: TaskCode) {
         switch code {
-        case .toDo(let toDoTask): self.init(toDoTask)
-        case .recurring(let reccuringTask): self.init(reccuringTask)
+        case .toDo(let task): self.init(task)
+        case .recurring(let task): self.init(task)
+//        case .learning(let task): self.init(task)
         }
     }
     

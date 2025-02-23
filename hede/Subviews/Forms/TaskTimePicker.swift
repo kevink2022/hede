@@ -12,9 +12,9 @@ struct TaskTimePicker: View {
     @Binding private var taskTime: TaskTime
     @Binding private var valid: Bool
     
-    @State private var taskTimeCase: TaskTime.Case = .task
-    @State private var start: Date = .now
-    @State private var end: Date = .now
+    @State private var taskTimeCase: TaskTime.Case
+    @State private var start: Date
+    @State private var end: Date
     
     var body: some View {
         VStack {
@@ -53,6 +53,10 @@ struct TaskTimePicker: View {
     ) {
         self._taskTime = taskTime
         self._valid = valid
+        
+        self._taskTimeCase = State(initialValue: taskTime.wrappedValue.taskCase)
+        self._start = State(initialValue: taskTime.wrappedValue.start)
+        self._end = State(initialValue: taskTime.wrappedValue.end ?? .now)
     }
 }
 

@@ -15,17 +15,9 @@ final class Navigator {
         willSet { if tab == newValue { doubleTap(on: tab) } }
     }
    
-    var home: NavigationPath {
-        willSet {
-            print(home)
-        }
-    }
+    var home: NavigationPath
     var settings: NavigationPath
-    var sources: NavigationPath {
-        willSet {
-            print(sources)
-        }
-    }
+    var sources: NavigationPath
     var search: NavigationPath
     var calendar: NavigationPath
     

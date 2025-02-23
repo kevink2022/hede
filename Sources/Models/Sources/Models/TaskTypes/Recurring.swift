@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 /// A reccuring task that scehdule a new task when completed
 public final class RecurringSource: TaskSource {

@@ -55,7 +55,7 @@ struct SettingsScreen: View {
             }
             .navigationTitle("Settings")
             .listStyle(V.listStyle)
-
+            .addNavigationDestinations()
         }
     }
 }

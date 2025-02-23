@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Models
+import Domain
 
 struct TimeDurationFormEntry: View {
     

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Models
+import Domain
 
 struct RecurringSourceFormView: View {
     @Environment(\.eventManager) private var eventManager
@@ -21,7 +22,10 @@ struct RecurringSourceFormView: View {
                 Task { await eventManager.createRecurring(from: form) }
                 navigator.dismissSheet()
             } label: {
-                Text("Save Recurring Source")
+                ZStack {
+                    Text("Save Recurring Source")
+                    Color(.clear)
+                }
             }
             .disabled(!form.canSave)
             
@@ -58,17 +62,19 @@ struct RecurringSourceFormView: View {
                 , showHelp: showHelp
             )
             
-            Section {
-                Toggle("Previously Completed?", isOn: $form.didCompletePreviously)
-                
-                if form.didCompletePreviously {
-                    DatePicker("", selection: $form.lastCompletedInput)
-                }
-            } header: {
-                Text("Last Completed")
-            } footer: {
-                if showHelp {
-                    Text("")
+            if !form.isEditing {
+                Section {
+                    Toggle("Previously Completed?", isOn: $form.didCompletePreviously)
+                    
+                    if form.didCompletePreviously {
+                        DatePicker("", selection: $form.lastCompletedInput)
+                    }
+                } header: {
+                    Text("Last Completed")
+                } footer: {
+                    if showHelp {
+                        Text("")
+                    }
                 }
             }
             
@@ -81,18 +87,19 @@ struct RecurringSourceFormView: View {
                 })
             )
         }
+        .listStyle(.inset)
     }
 }
 
 @Observable
 class RecurringSourceForm {
-    var label: String = ""
-    var description: String = ""
+    var label: String
+    var description: String
     
-    var taskType: TaskTime.Pattern = .task
-    var appointmentDuration: TimeDuration = .hours(1)
-    var appointmentDurationValid: Bool = true
-    var taskCase: TaskTime.Case = .task {
+    var taskType: TaskTime.Pattern
+    var appointmentDuration: TimeDuration
+    var appointmentDurationValid: Bool
+    var taskCase: TaskTime.Case {
         didSet {
             if .appointment != taskCase {
                 appointmentDurationValid = true
@@ -100,19 +107,47 @@ class RecurringSourceForm {
         }
     }
     
-    var recurrenceType: RecurrenceType = .fromComplete
+    var recurrenceType: RecurrenceType
     
-    var spacing: TimeDuration = .weeks(1)
-    var spacingValid: Bool = true
+    var spacing: TimeDuration
+    var spacingValid: Bool
     
-    var category: TaskCategory? = nil
-    var pauses: [TaskPause]? = nil
+    var category: TaskCategory?
+    var pauses: [TaskPause]?
     
     var lastCompleted: Date? { didCompletePreviously ? lastCompletedInput : nil }
-    var didCompletePreviously: Bool = false
-    var lastCompletedInput: Date = Date.now
+    var didCompletePreviously: Bool
+    var lastCompletedInput: Date
     
-    init() {}
+    init() {
+        self.label = ""
+        self.description = ""
+        
+        self.taskType = .task
+        self.appointmentDuration = .hours(1)
+        self.appointmentDurationValid = true
+        self.taskCase = .task
+        
+        self.recurrenceType = .fromComplete
+        
+        self.spacing = .weeks(1)
+        self.spacingValid = true
+        
+        self.category = nil
+        self.pauses = nil
+        
+        self.didCompletePreviously = false
+        self.lastCompletedInput = Date.now
+        
+        self.isEditing = false
+    }
+//    /// This is for editing
+//    init(source: RecurringSource) {
+//        self.label = source.label
+//        self.description = source.description ?? String.null
+//    }
+    
+    let isEditing: Bool
     
     var canSave: Bool {
         label != .null

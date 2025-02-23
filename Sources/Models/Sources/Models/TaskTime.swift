@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 /// The different kinds of tasks that can show up on the timeline or calendar.
 public enum TaskTime: Codable, Equatable {
@@ -28,12 +29,30 @@ extension TaskTime {
         case reminder
     }
     
+    public var pattern: TaskTime.Pattern {
+        switch self {
+        case .appointment(_, _): .appointment(.weeks(1))
+        case .deadline(_): .deadline
+        case .task(_): .task
+        case .reminder(_): .reminder
+        }
+    }
+    
     /// Valueless TaskTime
     public enum Case: CaseIterable, Equatable {
         case appointment
         case deadline
         case task
         case reminder
+    }
+    
+    public var taskCase: TaskTime.Case {
+        switch self {
+        case .appointment(_, _): .appointment
+        case .deadline(_): .deadline
+        case .task(_): .task
+        case .reminder(_): .reminder
+        }
     }
     
     /// The start time of a task.

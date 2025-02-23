@@ -30,6 +30,9 @@
 		4F4A99472C9A137D00C1C659 /* ToDoSourceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A99462C9A137D00C1C659 /* ToDoSourceScreen.swift */; };
 		4F4A99492C9B5D4400C1C659 /* AnyTaskScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A99482C9B5D4400C1C659 /* AnyTaskScreen.swift */; };
 		4F4A994B2CA1FA7900C1C659 /* RecurringTaskFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A994A2CA1FA7900C1C659 /* RecurringTaskFields.swift */; };
+		4F8432542D67EE2C00B3F8EA /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 4F8432532D67EE2C00B3F8EA /* Domain */; };
+		4F8432572D67EE7B00B3F8EA /* Database in Frameworks */ = {isa = PBXBuildFile; productRef = 4F8432562D67EE7B00B3F8EA /* Database */; };
+		4F84325A2D67EE9000B3F8EA /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 4F8432592D67EE9000B3F8EA /* Domain */; };
 		4F87E7982D3EFACE00B3CBBB /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7972D3EFACA00B3CBBB /* SettingsScreen.swift */; };
 		4F87E79A2D3EFD0200B3CBBB /* TransactionHistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7992D3EFCF900B3CBBB /* TransactionHistoryScreen.swift */; };
 		4F87E79C2D4C306200B3CBBB /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E79B2D4C305F00B3CBBB /* DetailView.swift */; };
@@ -48,6 +51,9 @@
 		4F97DA852C8F827C002002BB /* RecurringSourceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA842C8F827C002002BB /* RecurringSourceFormView.swift */; };
 		4F97DA8C2C9014E2002002BB /* LargeMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA8A2C9014E1002002BB /* LargeMenu.swift */; };
 		4F97DA8D2C9014E2002002BB /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA8B2C9014E2002002BB /* LargeButton.swift */; };
+		4FB960912D67F0F0006E8C76 /* NullDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB960902D67F0E1006E8C76 /* NullDatePicker.swift */; };
+		4FE0D83B2D59714C0000EC75 /* AnySourceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE0D83A2D5971470000EC75 /* AnySourceScreen.swift */; };
+		4FE0D83D2D59AD840000EC75 /* NavigationDestinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE0D83C2D59AD790000EC75 /* NavigationDestinations.swift */; };
 		4FED0EDE2D17A49A0015C8F8 /* Database in Frameworks */ = {isa = PBXBuildFile; productRef = 4FED0EDD2D17A49A0015C8F8 /* Database */; };
 		4FED0EE02D17A49A0015C8F8 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 4FED0EDF2D17A49A0015C8F8 /* Models */; };
 		4FED0EE32D17A4A80015C8F8 /* Assemblages in Frameworks */ = {isa = PBXBuildFile; productRef = 4FED0EE22D17A4A80015C8F8 /* Assemblages */; };
@@ -120,6 +126,9 @@
 		4F97DA842C8F827C002002BB /* RecurringSourceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringSourceFormView.swift; sourceTree = "<group>"; };
 		4F97DA8A2C9014E1002002BB /* LargeMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeMenu.swift; sourceTree = "<group>"; };
 		4F97DA8B2C9014E2002002BB /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
+		4FB960902D67F0E1006E8C76 /* NullDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullDatePicker.swift; sourceTree = "<group>"; };
+		4FE0D83A2D5971470000EC75 /* AnySourceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySourceScreen.swift; sourceTree = "<group>"; };
+		4FE0D83C2D59AD790000EC75 /* NavigationDestinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestinations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,10 +136,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F8432542D67EE2C00B3F8EA /* Domain in Frameworks */,
+				4F84325A2D67EE9000B3F8EA /* Domain in Frameworks */,
 				4FED0EE62D17A4B80015C8F8 /* Storage in Frameworks */,
 				4FED0EE32D17A4A80015C8F8 /* Assemblages in Frameworks */,
 				4FED0EE02D17A49A0015C8F8 /* Models in Frameworks */,
 				4FED0EDE2D17A49A0015C8F8 /* Database in Frameworks */,
+				4F8432572D67EE7B00B3F8EA /* Database in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +254,7 @@
 		4F4A99302C93781200C1C659 /* Forms */ = {
 			isa = PBXGroup;
 			children = (
+				4FB960902D67F0E1006E8C76 /* NullDatePicker.swift */,
 				4F4A99422C940D4300C1C659 /* TaskTimePicker.swift */,
 				4F4A993D2C937EF000C1C659 /* FormEntries */,
 				4F4A99312C93782A00C1C659 /* TimeDurationPicker.swift */,
@@ -289,6 +302,7 @@
 		4F97DA712C8E7D7B002002BB /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				4FE0D83C2D59AD790000EC75 /* NavigationDestinations.swift */,
 				4F87E79B2D4C305F00B3CBBB /* DetailView.swift */,
 				4F4A99302C93781200C1C659 /* Forms */,
 				4FFF3D072C915F70006832E4 /* Box */,
@@ -302,6 +316,7 @@
 		4F97DA722C8E7EAC002002BB /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4FE0D83A2D5971470000EC75 /* AnySourceScreen.swift */,
 				4F97DA7D2C8EA246002002BB /* Recurring */,
 				4F97DA7C2C8EA23F002002BB /* ToDo */,
 				4F97DA772C8E9F79002002BB /* Subviews */,
@@ -370,6 +385,9 @@
 				4FED0EDF2D17A49A0015C8F8 /* Models */,
 				4FED0EE22D17A4A80015C8F8 /* Assemblages */,
 				4FED0EE52D17A4B80015C8F8 /* Storage */,
+				4F8432532D67EE2C00B3F8EA /* Domain */,
+				4F8432562D67EE7B00B3F8EA /* Database */,
+				4F8432592D67EE9000B3F8EA /* Domain */,
 			);
 			productName = hede;
 			productReference = 4F2718FF2C828B3D004CF717 /* hede.app */;
@@ -445,9 +463,10 @@
 			mainGroup = 4F2718F62C828B3D004CF717;
 			packageReferences = (
 				4F89BCBA2C86349300AD18DB /* XCLocalSwiftPackageReference "Sources/Models" */,
-				4F89BCC02C879AB400AD18DB /* XCLocalSwiftPackageReference "../swift-packages/Domain" */,
 				4FED0EE12D17A4A80015C8F8 /* XCLocalSwiftPackageReference "../swift-packages/Assemblages" */,
 				4FED0EE42D17A4B80015C8F8 /* XCLocalSwiftPackageReference "../swift-packages/Storage" */,
+				4F8432552D67EE7B00B3F8EA /* XCLocalSwiftPackageReference "Sources/Database" */,
+				4F8432582D67EE9000B3F8EA /* XCLocalSwiftPackageReference "../swift-packages/Domain" */,
 			);
 			productRefGroup = 4F2719002C828B3D004CF717 /* Products */;
 			projectDirPath = "";
@@ -509,6 +528,7 @@
 				4F97DA6D2C8E7951002002BB /* HomeScreen.swift in Sources */,
 				4F97DA642C8E68E1002002BB /* Navigator.swift in Sources */,
 				4F97DA792C8E9F8D002002BB /* SourceBox.swift in Sources */,
+				4FE0D83D2D59AD840000EC75 /* NavigationDestinations.swift in Sources */,
 				4F2719052C828B3D004CF717 /* ContentView.swift in Sources */,
 				4F97DA8C2C9014E2002002BB /* LargeMenu.swift in Sources */,
 				4F97DA7B2C8E9FD7002002BB /* PreviewMocks.swift in Sources */,
@@ -522,9 +542,11 @@
 				4F4A99452C9A137200C1C659 /* RecurringSourceScreen.swift in Sources */,
 				4F4A992A2C9161A200C1C659 /* BoxText.swift in Sources */,
 				4F97DA852C8F827C002002BB /* RecurringSourceFormView.swift in Sources */,
+				4FE0D83B2D59714C0000EC75 /* AnySourceScreen.swift in Sources */,
 				4F4A99322C93782B00C1C659 /* TimeDurationPicker.swift in Sources */,
 				4F4A993A2C937CCF00C1C659 /* DescriptionFormEntry.swift in Sources */,
 				4F97DA662C8E6901002002BB /* Environment.swift in Sources */,
+				4FB960912D67F0F0006E8C76 /* NullDatePicker.swift in Sources */,
 				4F4A993F2C940B0100C1C659 /* TimeDurationFormEntry.swift in Sources */,
 				4F97DA832C8F7E8E002002BB /* BoxGrid.swift in Sources */,
 			);
@@ -885,13 +907,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		4F8432552D67EE7B00B3F8EA /* XCLocalSwiftPackageReference "Sources/Database" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Sources/Database;
+		};
+		4F8432582D67EE9000B3F8EA /* XCLocalSwiftPackageReference "../swift-packages/Domain" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../swift-packages/Domain";
+		};
 		4F89BCBA2C86349300AD18DB /* XCLocalSwiftPackageReference "Sources/Models" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Sources/Models;
-		};
-		4F89BCC02C879AB400AD18DB /* XCLocalSwiftPackageReference "../swift-packages/Domain" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../swift-packages/Domain";
 		};
 		4FED0EE12D17A4A80015C8F8 /* XCLocalSwiftPackageReference "../swift-packages/Assemblages" */ = {
 			isa = XCLocalSwiftPackageReference;
@@ -904,6 +930,18 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4F8432532D67EE2C00B3F8EA /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+		4F8432562D67EE7B00B3F8EA /* Database */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Database;
+		};
+		4F8432592D67EE9000B3F8EA /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
 		4FED0EDD2D17A49A0015C8F8 /* Database */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Database;

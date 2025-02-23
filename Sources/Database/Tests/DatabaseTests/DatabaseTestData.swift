@@ -53,13 +53,13 @@ internal final class TestValues {
         , deleteAssertion
     ]
     
-    static let taskEdited = AnyTask((task.task as! ToDoTask).edit(
+    static let taskEdited = AnyTask((task.data as! ToDoTask).edit(
         label: "Test Task Edited"
         , scheduled: nil
         , completed: apr_1_2001
     ))
     
-    static let taskSourceEdited = AnyTaskSource((taskSource.source as! ToDoSource).edit(
+    static let taskSourceEdited = AnyTaskSource((taskSource.data as! ToDoSource).edit(
         label: "Task Source Edited"
         , description: nil
         , category: nil

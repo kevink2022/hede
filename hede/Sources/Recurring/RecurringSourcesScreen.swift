@@ -18,7 +18,7 @@ struct RecurringSourcesScreen: View {
             
             ForEach(repository.recurringSources) { source in
                 NavigationLink {
-                    
+                    AnySourceScreen(AnyTaskSource(source))
                 } label: {
                     Text(source.label)
                 }

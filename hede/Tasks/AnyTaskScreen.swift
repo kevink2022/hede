@@ -21,40 +21,30 @@ struct AnyTaskScreen: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                
+        List {
                 if let description = source.description {
                     VStack(alignment: .leading) {
                         Text(description)
-                            .padding(.top, 2)
+                            .padding(.top, 24)
                     }
                 }
-                
-                Divider().padding(0)
-                
+                                
                 DetailRow(label: "Scheduled:", value: task.scheduled.start.formatted())
-                
-                Divider().padding(0)
-                
+                                
                 DetailRow(label: "Completed:", value: task.completed?.formatted() ?? "Not Completed")
-                
-                Divider().padding(0)
-                
+                                
                 switch task.code {
-                case .toDo(let toDoTask): EmptyView()
+                case .toDo(_): EmptyView()
                 case .recurring(let recurringTask): RecurringTaskFields(recurringTask)
                 }
                 
-                Spacer()
-            }
-            .padding()
         }
         .navigationTitle(task.label)
+        .listStyle(.inset)
                     
         .toolbar {
             Button {
-                
+                navigator.here.navigateTo(source)
             } label: {
                 Image(systemName: SI.edit)
             }

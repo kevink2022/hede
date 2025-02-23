@@ -52,14 +52,8 @@ struct TransactionHistoryScreen: View {
         .navigationTitle("Transactions")
         .listStyle(V.listStyle)
         
-        .task {
-            print("refresh")
-            transactions = await repository.getTransactions()
-        }
-        .refreshable {
-            print("refresh")
-            transactions = await repository.getTransactions()
-        }
+        .task { transactions = await repository.getTransactions() }
+        .refreshable { transactions = await repository.getTransactions() }
     }
 }
 

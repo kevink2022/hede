@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Models
+import Domain
 
 /// All of the typealiases used for `ViewConstants` in the system.
 ///

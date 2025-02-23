@@ -63,16 +63,31 @@ public final class ToDoSource: TaskSource {
         , description: String?
         , category: Key?
         , pauses: [Key]?
-    ) -> ToDoSource {
-        return ToDoSource(
+        , currentTask: ToDoTask
+        , scheduled: TaskTime?
+        , completed: Date?
+    ) -> (source: ToDoSource, newTask: ToDoTask) {
+        
+        let completed = completed.null(or: currentTask.completed)
+        let isCompleted = completed != nil
+        
+        let newTask = currentTask.edit(
+            label: label ?? self.label
+            , scheduled: scheduled ?? currentTask.scheduled
+            , completed: completed
+        )
+        
+        let newSource = ToDoSource(
             id: self.id
             , label: label ?? self.label
             , description: description.null(or: self.description)
             , task: self.task
             , category: category.null(or: self.category)
             , pauses: pauses.null(or: self.pauses)
-            , deactivated: self.deactivated
+            , deactivated: isCompleted ? completed : nil
         )
+        
+        return (newSource, newTask)
     }
     
     public func deactivate(date: Date?) -> ToDoSource {
@@ -146,8 +161,16 @@ public final class ToDoTask: UserTask {
             , completed: date ?? Date.now
         )
     }
+
+    public static func == (lhs: ToDoTask, rhs: ToDoTask) -> Bool {
+        lhs.id == rhs.id
+        // Things that can be changed (except keys)
+        && lhs.label == rhs.label
+        && lhs.scheduled == rhs.scheduled
+        && lhs.completed == rhs.completed
+    }
     
-    public func edit(
+    internal func edit(
         label: String?
         , scheduled: TaskTime?
         , completed: Date?
@@ -160,15 +183,7 @@ public final class ToDoTask: UserTask {
             , completed: completed.null(or: self.completed)
         )
     }
-    
-    public static func == (lhs: ToDoTask, rhs: ToDoTask) -> Bool {
-        lhs.id == rhs.id
-        // Things that can be changed (except keys)
-        && lhs.label == rhs.label
-        && lhs.scheduled == rhs.scheduled
-        && lhs.completed == rhs.completed
-    }
-    
+        
     internal init(
         id: Key
         , source: Key

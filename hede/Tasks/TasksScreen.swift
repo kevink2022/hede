@@ -65,8 +65,7 @@ struct TasksScreen: View {
                     Image(systemName: "ellipsis.circle")
                 }
             }
-            
-            
+            .addNavigationDestinations()
         }
     }
 }

@@ -1,0 +1,34 @@
+//
+//  NavigationDestinations.swift
+//  hede
+//
+//  Created by Kevin Kelly on 2/9/25.
+//
+
+import SwiftUI
+import Models
+
+struct NavigationDestinations: ViewModifier {
+    
+//    @Bindable var path: NavigationPath
+    
+    func body(content: Content) -> some View {
+        content
+            .navigationDestination(for: AnyTask.self) { task in
+                AnyTaskScreen(task)
+            }
+            .navigationDestination(for: AnyTaskSource.self) { source in
+                AnySourceScreen(source)
+            }
+    }
+    
+//    init(for path: NavigationPath) {
+//        self.path = path
+//    }
+}
+
+extension View {
+    func addNavigationDestinations(/*to path: NavigationPath*/) -> some View {
+        self.modifier(NavigationDestinations(/*for: path*/))
+    }
+}
