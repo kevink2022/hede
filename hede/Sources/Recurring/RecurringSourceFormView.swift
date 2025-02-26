@@ -19,7 +19,11 @@ struct RecurringSourceFormView: View {
     var body: some View {
         Form {
             Button {
-                Task { await eventManager.createRecurring(from: form) }
+                if form.isNew {
+                    Task { await eventManager.createRecurring(from: form) }
+                } else {
+                    Task { await eventManager.editRecurring(from: form) }
+                }
                 navigator.dismissSheet()
             } label: {
                 ZStack {
@@ -48,51 +52,49 @@ struct RecurringSourceFormView: View {
                 }
             } header: {
                 Text("Repeat from")
-            } footer: {
-                if showHelp {
-                    Text("When the automatically scheduled tasks repeats from. If reapeating from completion, the new date is based off when the task is completed. If repeating from scheduled, the new date is based off when the task was originally scheduled.")
-                }
             }
             
             TimeDurationFormEntry(
                 duration: $form.spacing
                 , valid: $form.spacingValid
-                , prePopValue: ""
-                , prePopInterval: .weeks
+                , prePopValue: form.spacingPrePop
+                , prePopInterval: form.spacingPrePopInterval
                 , showHelp: showHelp
             )
             
-            if !form.isEditing {
-                Section {
-                    Toggle("Previously Completed?", isOn: $form.didCompletePreviously)
-                    
-                    if form.didCompletePreviously {
-                        DatePicker("", selection: $form.lastCompletedInput)
-                    }
-                } header: {
-                    Text("Last Completed")
-                } footer: {
-                    if showHelp {
-                        Text("")
-                    }
+            if form.isNew {
+                FormEntry {
+                    NullDatePicker(date: $form.lastCompleted, label: "Completed")
                 }
             }
             
-            Toggle("Show Help", isOn: Binding(
-                get: { self.showHelp },
-                set: { newValue in
-                    withAnimation {
-                        self.showHelp = newValue
-                    }
-                })
-            )
+            Section {
+                DetailRow(label: "Next Due Date", value: form.nextDueDate.formatted())
+            }
         }
         .listStyle(.inset)
+    }
+    
+    init(
+        source: RecurringSource? = nil
+        , lastTask: RecurringTask? = nil
+    ) {
+        if let source = source, let lastTask = lastTask {
+            self._form = State(initialValue: RecurringSourceForm(
+                source: source
+                , lastTask: lastTask
+            ))
+        } else {
+            self._form = State(initialValue: RecurringSourceForm())
+        }
     }
 }
 
 @Observable
 class RecurringSourceForm {
+    let source: RecurringSource?
+    let lastTask: RecurringTask?
+    
     var label: String
     var description: String
     
@@ -115,11 +117,13 @@ class RecurringSourceForm {
     var category: TaskCategory?
     var pauses: [TaskPause]?
     
-    var lastCompleted: Date? { didCompletePreviously ? lastCompletedInput : nil }
-    var didCompletePreviously: Bool
-    var lastCompletedInput: Date
+    var lastCompleted: Date?
     
+    // For create new
     init() {
+        self.source = nil
+        self.lastTask = nil
+        
         self.label = ""
         self.description = ""
         
@@ -136,28 +140,75 @@ class RecurringSourceForm {
         self.category = nil
         self.pauses = nil
         
-        self.didCompletePreviously = false
-        self.lastCompletedInput = Date.now
-        
-        self.isEditing = false
+        self.lastCompleted = nil
     }
-//    /// This is for editing
-//    init(source: RecurringSource) {
-//        self.label = source.label
-//        self.description = source.description ?? String.null
-//    }
     
-    let isEditing: Bool
+    // For edit
+    init(source: RecurringSource, lastTask: RecurringTask) {
+        self.source = source
+        self.lastTask = lastTask
+        
+        self.label = source.label
+        self.description = source.description ?? String.null
+        
+        self.taskType = lastTask.scheduled.pattern
+        self.appointmentDuration = .hours(1) // fix?? do i care??
+        self.appointmentDurationValid = true
+        self.taskCase = lastTask.scheduled.taskCase
+        
+        self.recurrenceType = source.type
+        
+        self.spacing = source.spacing
+        self.spacingValid = true
+        
+        self.category = nil
+        self.pauses = nil
+        
+        self.lastCompleted = nil
+    }
+    
+    var isNew: Bool { source == nil }
+    
+    var nextDueDate: Date {
+        if isNew {
+            let base = lastCompleted ?? .now
+            return base.adding(spacing) ?? .null
+        }
+        
+        else {
+            guard
+                let source = source
+                , let lastTask = lastTask else
+            { return .null }
+            
+            return lastTask.scheduled.start
+                .subtracting(source.spacing)?
+                .adding(self.spacing) ??
+                .null
+        }
+    }
     
     var canSave: Bool {
         label != .null
         && appointmentDurationValid
         && spacingValid
     }
+    
+    var spacingPrePop: String {
+        if isNew { return "" }
+        else { return String(source?.spacing.value ?? 0) }
+    }
+    
+    var spacingPrePopInterval: TimeDuration.Interval {
+         source?.spacing.interval ?? .weeks
+    }
 }
 
 #Preview {
-    RecurringSourceFormView()
+    RecurringSourceFormView(
+        source: PreviewMocks.recurring_2.source
+        , lastTask: PreviewMocks.recurring_2.initialTask
+    )
 }
 
 

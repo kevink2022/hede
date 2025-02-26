@@ -16,7 +16,7 @@ struct AnySourceScreen: View {
     private let source: AnyTaskSource
     
     private var tasks: [AnyTask] {
-        repository.tasks.filter { $0.source == source.id }
+        repository.tasks.tasks.filter { $0.source == source.id }
     }
     
     private var archived: [AnyTask] {
@@ -69,8 +69,19 @@ struct AnySourceScreen: View {
                         source: source
                         , lastTask: lastTask
                     ))
-                case .recurring(_): print("")
+                    
+                case .recurring(_):
+                    guard
+                        let source = source.data as? RecurringSource
+                        , let lastTask = open.first?.data as? RecurringTask
+                    else { return }
+                    
+                    navigator.presentSheet(RecurringSourceFormView(
+                        source: source
+                        , lastTask: lastTask
+                    ))
                 }
+                
             } label: {
                 Image(systemName: SI.edit)
             }

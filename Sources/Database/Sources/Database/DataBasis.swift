@@ -8,8 +8,17 @@
 import Foundation
 import Models
 import Assemblages
+import Domain
 
-public final class DataBasis {
+internal protocol Basis {
+    var basis: DataBasis { get }
+    static var empty: Self { get }
+    init(_ basis: MutableBasis)
+}
+
+internal final class DataBasis: Basis {
+    internal var basis: DataBasis { self }
+    
     internal let taskSet: ExternallySortedKeySet<AnyTask>
     public var tasks: [AnyTask] { taskSet.values }
     public var taskMap: [Key: AnyTask] { taskSet.dictionary }

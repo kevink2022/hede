@@ -16,7 +16,7 @@ struct RecurringSourcesScreen: View {
     var body: some View {
         List {
             
-            ForEach(repository.recurringSources) { source in
+            ForEach(repository.tasks.recurringSources) { source in
                 NavigationLink {
                     AnySourceScreen(AnyTaskSource(source))
                 } label: {
@@ -42,7 +42,7 @@ struct RecurringSourcesScreen: View {
             }
         }
         
-        if repository.recurringSources.isEmpty {
+        if repository.tasks.recurringSources.isEmpty {
             NoContentMessage(message: T.recurringSourcesNoContent) {
                 navigator.presentSheet(RecurringSourceFormView())
             } label: {

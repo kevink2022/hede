@@ -15,7 +15,7 @@ struct TasksScreen: View {
     @Environment(\.eventManager) private var eventManager
     
     @State var showCompleted: Bool = false
-    var tasksByDate: Repository.AnyTaskByDate { showCompleted ? repository.tasksByDate : repository.openTasksByDate }
+    var tasksByDate: Repository.Tasks.AnyTaskByDate { showCompleted ? repository.tasks.tasksByDate : repository.tasks.openTasksByDate }
         
     var body: some View {
         @Bindable var navigator = navigator

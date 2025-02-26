@@ -13,7 +13,7 @@ struct RecurringTaskFields: View {
     
     private let task: RecurringTask
     private var source: RecurringSource {
-        repository.taskSources([task.source]).first?.data as? RecurringSource ?? .null
+        repository.tasks.taskSources([task.source]).first?.data as? RecurringSource ?? .null
     }
     
     var body: some View {

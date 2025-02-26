@@ -17,7 +17,7 @@ struct AnyTaskScreen: View {
     @Environment(\.repository) private var repository
     
     private var source: AnyTaskSource {
-        AnyTaskSource(repository.taskSources([task.source]).first?.data ?? ToDoSource.null)
+        AnyTaskSource(repository.tasks.taskSources([task.source]).first?.data ?? ToDoSource.null)
     }
     
     var body: some View {

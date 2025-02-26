@@ -8,11 +8,12 @@
 import Foundation
 import Models
 import Database
+import Domain
 
 extension Repository {
     fileprivate func syncSave(_ models: [any Savable], message: String? = nil) {
         Task {
-            await save(models)
+            await tasks.save(models)
         }
     }
 }

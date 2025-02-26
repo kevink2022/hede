@@ -31,8 +31,8 @@ struct TransactionHistoryScreen: View {
                 .contextMenu {
                     Button {
                         Task {
-                            await repository.rollbackTo(after: transaction)
-                            transactions = await repository.getTransactions()
+                            await repository.tasks.rollbackTo(after: transaction)
+                            transactions = await repository.tasks.getTransactions()
                         }
                     } label: {
                         Text("Rollback to After")
@@ -40,8 +40,8 @@ struct TransactionHistoryScreen: View {
                     
                     Button {
                         Task {
-                            await repository.rollbackTo(before: transaction)
-                            transactions = await repository.getTransactions()
+                            await repository.tasks.rollbackTo(before: transaction)
+                            transactions = await repository.tasks.getTransactions()
                         }
                     } label: {
                         Text("Rollback to Before")
@@ -52,8 +52,8 @@ struct TransactionHistoryScreen: View {
         .navigationTitle("Transactions")
         .listStyle(V.listStyle)
         
-        .task { transactions = await repository.getTransactions() }
-        .refreshable { transactions = await repository.getTransactions() }
+        .task { transactions = await repository.tasks.getTransactions() }
+        .refreshable { transactions = await repository.tasks.getTransactions() }
     }
 }
 

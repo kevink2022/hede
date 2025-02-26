@@ -9,16 +9,16 @@ import Foundation
 import Models
 import Assemblages
 
-public final class BasisResolver {
+internal final class BasisResolver<T: Basis> {
     
     private let currentBasis: DataBasis
     
-    public init(_ currentBasis: DataBasis) {
-        self.currentBasis = currentBasis
+    internal init(_ currentBasis: T) {
+        self.currentBasis = currentBasis.basis
     }
     
     /// Commit new models to the basis, adding, updating, and deleting them.
-    internal func commit(_ assertionSet: KeySet<Assertion>) -> DataBasis {
+    internal func commit(_ assertionSet: KeySet<Assertion>) -> T {
         let newBasis = MutableBasis(currentBasis)
         
         assertionSet.forEach { assertion in
@@ -40,6 +40,10 @@ public final class BasisResolver {
                     newBasis.pauseSet.remove(pause)
                 }
                 
+                // delete dailyGoal
+                
+                // delete dailyGoalResult
+                
             case .task(let data): 
                 newBasis.taskSet.insert(data)
                 
@@ -51,45 +55,11 @@ public final class BasisResolver {
                 
             case .pause(let data):
                 newBasis.pauseSet.insert(data)
+            
+            case .dailyGoal(_), .dailyGoalResult(_): break
             }
         }
         
-        return DataBasis(newBasis)
-    }
-    
-    /// Flatten an array of assertion keysets into a single one. Earlier indexes represent earlier assertions
-    internal static func flatten(_ assertionSets: [KeySet<Assertion>]) -> KeySet<Assertion> {
-        let count = assertionSets.count
-        guard count != 0 else { return KeySet() }
-        if count == 1 { return assertionSets.first! }
-        
-        let middle = count/2
-        
-        let older = flatten(Array(assertionSets.prefix(middle)))
-        let newer = flatten(Array(assertionSets.suffix(from: middle)))
-    
-        return union(older: older, newer: newer)
-    }
-    
-    /// Combine two key sets of assertion.
-    private static func union(older: KeySet<Assertion>, newer: KeySet<Assertion>) -> KeySet<Assertion> {
-        
-        var merged = KeySet<Assertion>()
-        
-        older.forEach { olderAssertion in
-            if let newerAssertion = newer[olderAssertion] {
-                merged.insert(newerAssertion)
-            } else {
-                merged.insert(olderAssertion)
-            }
-        }
-        
-        newer.forEach { rightAssertion in
-            if !merged.contains(rightAssertion) {
-                merged.insert(rightAssertion)
-            }
-        }
-        
-        return merged
+        return T(newBasis)
     }
 }

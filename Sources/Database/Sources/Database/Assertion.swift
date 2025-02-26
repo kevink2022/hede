@@ -8,6 +8,8 @@
 import Foundation
 import Models
 import Storage
+import Domain
+import Assemblages
 
 /// Public dummy protocol of what can be saved in the database. Not to be added to anything.
 public protocol Savable: Codable, Identifiable, Equatable {
@@ -22,10 +24,15 @@ internal protocol Assertable: Savable {
 internal enum AssertionCode: Codable, Equatable {
     case delete(DeleteKey)
     
+    // Tasks
     case task(AnyTask)
     case source(AnyTaskSource)
     case category(TaskCategory)
     case pause(TaskPause)
+    
+    // Goals
+    case dailyGoal(DailyGoal)
+    case dailyGoalResult(DailyGoalResult)
 }
 
 internal final class DeleteKey: Assertable {
@@ -76,14 +83,24 @@ extension TaskPause: Assertable {
     var assertCode: AssertionCode { .pause(self) }
 }
 
+extension DailyGoal: Assertable {
+    var assertCode: AssertionCode { .dailyGoal(self) }
+}
+
+extension DailyGoalResult: Assertable {
+    var assertCode: AssertionCode { .dailyGoalResult(self) }
+}
+
 extension Assertion {
     internal convenience init(code: AssertionCode) {
         switch code {
-        case .delete(let deleteKey): self.init(deleteKey)
-        case .task(let anyTask): self.init(anyTask)
-        case .source(let anyTaskSource): self.init(anyTaskSource)
-        case .category(let taskCategory): self.init(taskCategory)
-        case .pause(let taskPause): self.init(taskPause)
+        case .delete(let data): self.init(data)
+        case .task(let data): self.init(data)
+        case .source(let data): self.init(data)
+        case .category(let data): self.init(data)
+        case .pause(let data): self.init(data)
+        case .dailyGoal(let data): self.init(data)
+        case .dailyGoalResult(let data): self.init(data)
         }
     }
     
@@ -100,6 +117,42 @@ extension Assertion {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let code = try container.decode(AssertionCode.self, forKey: .assertCode)
         self.init(code: code)
+    }
+    
+    /// Flatten an array of assertion keysets into a single one. Earlier indexes represent earlier assertions
+    internal static func flatten(_ assertionSets: [KeySet<Assertion>]) -> KeySet<Assertion> {
+        let count = assertionSets.count
+        guard count != 0 else { return KeySet() }
+        if count == 1 { return assertionSets.first! }
+        
+        let middle = count/2
+        
+        let older = flatten(Array(assertionSets.prefix(middle)))
+        let newer = flatten(Array(assertionSets.suffix(from: middle)))
+    
+        return union(older: older, newer: newer)
+    }
+    
+    /// Combine two key sets of assertion.
+    private static func union(older: KeySet<Assertion>, newer: KeySet<Assertion>) -> KeySet<Assertion> {
+        
+        var merged = KeySet<Assertion>()
+        
+        older.forEach { olderAssertion in
+            if let newerAssertion = newer[olderAssertion] {
+                merged.insert(newerAssertion)
+            } else {
+                merged.insert(olderAssertion)
+            }
+        }
+        
+        newer.forEach { rightAssertion in
+            if !merged.contains(rightAssertion) {
+                merged.insert(rightAssertion)
+            }
+        }
+        
+        return merged
     }
 }
 

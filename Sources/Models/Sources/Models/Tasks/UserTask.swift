@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 /// A central idea to the design is the task loop:
 ///  1. Create the source and the inital task at the same time.

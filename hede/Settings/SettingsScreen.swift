@@ -45,12 +45,12 @@ struct SettingsScreen: View {
                 
                     Button {
                         Task {
-                            await repository.save(MyTasks.importAll, message: "Import Dev Defaults")
+                            await repository.tasks.save(MyTasks.importAll, message: "Import Dev Defaults")
                         }
                     } label: {
                         Text("Import Dev Defaults")
                     }
-                    .disabled(repository.taskSources.count > 0)
+                    .disabled(repository.tasks.taskSources.count > 0)
                 }
             }
             .navigationTitle("Settings")

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 /// For organizing tasks and sources by category, and applying pauses to them.
 ///

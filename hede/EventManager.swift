@@ -8,6 +8,7 @@
 import Foundation
 import Models
 import Database
+import Domain
 
 /// Class for triggering events that will write to the repository
 final class EventManager {
@@ -21,22 +22,22 @@ final class EventManager {
     }
     
     func delete(_ models: [any Savable]) async {
-        await repository.delete(models)
+        await repository.tasks.delete(models)
     }
     
     func delete(_ toDoSources: [ToDoSource]) async {
         let models = toDoSources.compactMap { AnyTaskSource($0) as (any Savable) }
-        await repository.delete(models)
+        await repository.tasks.delete(models)
     }
     
     func complete(_ anyTask: AnyTask) async {
-        guard let source = repository.taskSources([anyTask.source]).first else { return }
+        guard let source = repository.tasks.taskSources([anyTask.source]).first else { return }
         let completedTask = anyTask.complete(date: .now)
         
         if let newTask = source.generateNewTask(from: completedTask) {
-            await repository.save([completedTask, newTask], message: "Completed \(completedTask.label)")
+            await repository.tasks.save([completedTask, newTask], message: "Completed \(completedTask.label)")
         } else {
-            await repository.save([completedTask], message: "Completed \(completedTask.label)")
+            await repository.tasks.save([completedTask], message: "Completed \(completedTask.label)")
         }
     }
 }
@@ -54,14 +55,16 @@ extension EventManager {
             , pauses: form.pauses?.map({ $0.id }).nulled()
         )
         
-        await repository.save([AnyTaskSource(source), AnyTask(task)], message: "Created To Do Source: \(source.label)")
+        await repository.tasks.save([AnyTaskSource(source), AnyTask(task)], message: "Created To Do Source: \(source.label)")
     }
     
     func editToDo(from form: ToDoSourceForm) async {
         guard form.canSave else { return }
         
-        guard let currentSource = form.source else { return }
-        guard let lastTask = form.lastTask else { return }
+        guard
+            let currentSource = form.source
+            , let lastTask = form.lastTask
+        else { return }
         
         let (newSource, newTask) = currentSource.edit(
             label: form.label
@@ -73,7 +76,7 @@ extension EventManager {
             , completed: form.completed
         )
         
-        await repository.save([AnyTaskSource(newSource), AnyTask(newTask)], message: "Edited ToDo Source: \(newSource.label)")
+        await repository.tasks.save([AnyTaskSource(newSource), AnyTask(newTask)], message: "Edited ToDo Source: \(newSource.label)")
     }
 }
 
@@ -93,7 +96,29 @@ extension EventManager {
             , pauses: form.pauses?.map({ $0.id }).nulled()
         )
         
-        await repository.save([AnyTaskSource(source), AnyTask(initialTask)], message: "Created Recurring Source: \(source.label)")
+        await repository.tasks.save([AnyTaskSource(source), AnyTask(initialTask)], message: "Created Recurring Source: \(source.label)")
+    }
+    
+    func editRecurring(from form: RecurringSourceForm) async {
+        guard form.canSave else { return }
+        
+        guard
+            let currentSource = form.source
+            , let lastTask = form.lastTask
+        else { return }
+        
+        let (newSource, newTask) = currentSource.edit(
+            label: form.label
+            , description: form.description.nulled()
+            , category: form.category?.id
+            , pauses: form.pauses?.map({ $0.id }).nulled()
+            , taskType: form.taskType
+            , type: form.recurrenceType
+            , spacing: form.spacing
+            , lastTask: lastTask
+        )
+        
+        await repository.tasks.save([AnyTaskSource(newSource), AnyTask(newTask)], message: "Edited ToDo Source: \(newSource.label)")
     }
     
 }

@@ -17,6 +17,13 @@ public final class RecurringSource: TaskSource {
     public let category: Key?
     public let pauses: [Key]?
     public var deactivated: Date?
+    public var code: TaskSourceCode { .recurring(self) }
+    
+    /// The way a new task is generated, either from when the previous task started or was completed.
+    public let type: RecurrenceType
+    
+    /// The duration of time between recurrances of the task.
+    public let spacing: TimeDuration
     
     public func generateNewTask(from completedTask: RecurringTask) -> RecurringTask? {
         guard completedTask.isCompleted else { return nil }
@@ -29,13 +36,7 @@ public final class RecurringSource: TaskSource {
             , newTime: newTime
         )
     }
-    
-    /// The way a new task is generated, either from when the previous task started or was completed.
-    public let type: RecurrenceType
-    
-    /// The duration of time between recurrances of the task.
-    public let spacing: TimeDuration
-    
+   
     /// Public method of creating a new Reccuring Source, returning both the new source and the inital task to start the task loop.
     public static func create(
         label: String
@@ -86,10 +87,31 @@ public final class RecurringSource: TaskSource {
         , description: String?
         , category: Key?
         , pauses: [Key]?
+        , taskType: TaskTime.Pattern
         , type: RecurrenceType?
         , spacing: TimeDuration?
-    ) -> RecurringSource {
-        return RecurringSource(
+        , lastTask: RecurringTask
+    ) -> (source: RecurringSource, newTask: RecurringTask) {
+        
+        let newDueDate: Date = {
+            guard
+                let spacing = spacing
+                , spacing != self.spacing
+            else { return nil }
+            
+            return lastTask.scheduled.start
+                .subtracting(self.spacing)?
+                .adding(spacing)
+            
+        }() ?? lastTask.scheduled.start
+        
+        let newTask = lastTask.edit(
+            label: label
+            , scheduled: TaskTime.new(taskType, from: newDueDate)
+            , completed: lastTask.completed
+        )
+        
+        let newSource = RecurringSource(
             id: self.id
             , label: label ?? self.label
             , description: description.null(or: self.description)
@@ -99,6 +121,8 @@ public final class RecurringSource: TaskSource {
             , spacing: spacing ?? self.spacing
             , deactivated: self.deactivated
         )
+        
+        return (newSource, newTask)
     }
     
     public func deactivate(date: Date?) -> RecurringSource {
@@ -159,7 +183,6 @@ public final class RecurringSource: TaskSource {
         )
     }
     
-    public var code: TaskSourceCode { .recurring(self) }
 }
 
 /// The way a new task is generated, either from when the previous task started or was completed.
@@ -187,6 +210,7 @@ public final class RecurringTask: UserTask {
     public let label: String
     public let scheduled: TaskTime
     public let completed: Date?
+    public var code: TaskCode { .recurring(self) }
     
     public func complete(date: Date?) -> RecurringTask {
         return RecurringTask(
@@ -195,26 +219,6 @@ public final class RecurringTask: UserTask {
             , label: self.label
             , scheduled: self.scheduled
             , completed: date ?? Date.now
-        )
-    }
-    
-    public func edit(
-        label: String? = nil
-        , scheduled: TaskTime? = nil
-        , completed: Date? = nil
-    ) -> RecurringTask {
-        
-        let newCompleted: Date? = {
-            if completed == .null { return nil }
-            else { return completed ?? self.completed }
-        }()
-        
-        return RecurringTask(
-            id: self.id
-            , source: self.source
-            , label: label ?? self.label
-            , scheduled: scheduled ?? self.scheduled
-            , completed: newCompleted
         )
     }
     
@@ -240,6 +244,23 @@ public final class RecurringTask: UserTask {
         self.completed = completed
     }
     
+    internal func edit(
+        label: String? = nil
+        , scheduled: TaskTime? = nil
+        , completed: Date? = nil
+    ) -> RecurringTask {
+        
+        let newCompleted: Date? = completed.null(or: self.completed)
+                
+        return RecurringTask(
+            id: self.id
+            , source: self.source
+            , label: label ?? self.label
+            , scheduled: scheduled ?? self.scheduled
+            , completed: newCompleted
+        )
+    }
+    
     /// Schedule another instance of the task at a new time.
     internal convenience init(
         completedTask: RecurringTask
@@ -253,6 +274,4 @@ public final class RecurringTask: UserTask {
             , completed: nil
         )
     }
-    
-    public var code: TaskCode { .recurring(self) }
 }

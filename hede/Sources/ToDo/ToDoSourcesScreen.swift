@@ -16,7 +16,7 @@ struct ToDoSourcesScreen: View {
     var body: some View {
         List {
             
-            ForEach(repository.toDoSources) { source in
+            ForEach(repository.tasks.toDoSources) { source in
                 NavigationLink {
                     AnySourceScreen(AnyTaskSource(source))
                 } label: {
@@ -44,7 +44,7 @@ struct ToDoSourcesScreen: View {
             }
         }
         
-        if repository.toDoSources.isEmpty {
+        if repository.tasks.toDoSources.isEmpty {
             NoContentMessage(message: T.toDoSourcesNoContent) {
                 navigator.presentSheet(ToDoSourceFormView())
             } label: {

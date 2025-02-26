@@ -85,6 +85,7 @@ class ToDoSourceForm {
     var canSave: Bool { label != .null }
     var isNew: Bool { source == nil }
     
+    // For create new
     init() {
         self.source = nil
         self.lastTask = nil
@@ -102,6 +103,7 @@ class ToDoSourceForm {
         self.completed = nil
     }
     
+    // For edit
     init(source: ToDoSource, lastTask: ToDoTask) {
         self.source = source
         self.lastTask = lastTask

@@ -1,5 +1,6 @@
 import XCTest
 @testable import Models
+import Domain
 
 internal class Intervals {
     static let gmtCalendar: Calendar = {
