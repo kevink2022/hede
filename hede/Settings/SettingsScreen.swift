@@ -19,7 +19,7 @@ struct SettingsScreen: View {
         NavigationStack(path: $navigator.settings) {
             List {
                 
-                Section("Sources") {
+                Section("Tasks") {
                     NavigationLink {
                         ToDoSourcesScreen()
                     } label: {
@@ -35,12 +35,41 @@ struct SettingsScreen: View {
                     .foregroundStyle(.primary)
                 }
                 
+                Section("Goals") {
+                    NavigationLink {
+                        GoalListScreen()
+                    } label: {
+                        Label("Goals", systemImage: "checkmark.circle.fill")
+                    }
+                    .foregroundStyle(.primary)
+                    
+                    NavigationLink {
+                        GoalGroupListScreen()
+                    } label: {
+                        Label("Groups", systemImage: "checklist")
+                    }
+                    .foregroundStyle(.primary)
+                    
+                    NavigationLink {
+                        
+                    } label: {
+                        Label("Daily Lists", systemImage: "sun.min")
+                    }
+                    .foregroundStyle(.primary)
+                }
+                
                 
                 Section("Storage") {
                     NavigationLink {
                         TransactionHistoryScreen()
                     } label: {
-                        Text("Transaction History")
+                        Text("Task History")
+                    }
+                    
+                    NavigationLink {
+                        
+                    } label: {
+                        Text("Goal History")
                     }
                 
                     Button {
@@ -62,5 +91,7 @@ struct SettingsScreen: View {
 
 #Preview {
     SettingsScreen()
+        .environment(\.repository, PreviewMocks.mockRepository)
+        .environment(\.eventManager, PreviewMocks.mockEventManager)
 }
 

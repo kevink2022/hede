@@ -19,56 +19,49 @@ internal protocol Basis {
 internal final class DataBasis: Basis {
     internal var basis: DataBasis { self }
     
+    // Tasks
     internal let taskSet: ExternallySortedKeySet<AnyTask>
-    public var tasks: [AnyTask] { taskSet.values }
-    public var taskMap: [Key: AnyTask] { taskSet.dictionary }
-    
     internal let taskSourceSet: ExternallySortedKeySet<AnyTaskSource>
-    public var taskSources: [AnyTaskSource] { taskSourceSet.values }
-    public var taskSourceMap: [Key: AnyTaskSource]  { taskSourceSet.dictionary }
-    
     internal let categorySet: ExternallySortedKeySet<TaskCategory>
-    public var categories: [TaskCategory] { categorySet.values }
-    public var categoryMap: [Key: TaskCategory] { categorySet.dictionary }
-    
     internal let pauseSet: ExternallySortedKeySet<TaskPause>
-    public var pauses: [TaskPause] { pauseSet.values }
-    public var pauseMap: [Key: TaskPause] { pauseSet.dictionary }
+    
+    // Goals
+    internal let dailyGoalSet: ExternallySortedKeySet<DailyGoal>
+    internal let dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>
+    internal let dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>
+    internal let dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>
+    internal let routineSet: ExternallySortedKeySet<Routine>
+    internal let routineStepSet: ExternallySortedKeySet<RoutineStep>
+    internal let routineResultSet: ExternallySortedKeySet<RoutineResult>
+    internal let routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>
     
     internal init(
         taskSet: ExternallySortedKeySet<AnyTask>
         , taskSourceSet: ExternallySortedKeySet<AnyTaskSource>
         , categorySet: ExternallySortedKeySet<TaskCategory>
         , pauseSet: ExternallySortedKeySet<TaskPause>
+        , dailyGoalSet: ExternallySortedKeySet<DailyGoal>
+        , dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>
+        , dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>
+        , dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>
+        , routineSet: ExternallySortedKeySet<Routine>
+        , routineStepSet: ExternallySortedKeySet<RoutineStep>
+        , routineResultSet: ExternallySortedKeySet<RoutineResult>
+        , routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>
     ) {
         self.taskSet = taskSet
         self.taskSourceSet = taskSourceSet
         self.categorySet = categorySet
         self.pauseSet = pauseSet
+        self.dailyGoalSet = dailyGoalSet
+        self.dailyGoalResultSet = dailyGoalResultSet
+        self.dailyGoalListSet = dailyGoalListSet
+        self.dailyGoalListSectionSet = dailyGoalListSectionSet
+        self.routineSet = routineSet
+        self.routineStepSet = routineStepSet
+        self.routineResultSet = routineResultSet
+        self.routineStepResultSet = routineStepResultSet
     }
-    
-    public convenience init(
-        tasks: [AnyTask]? = nil
-        , taskSources: [AnyTaskSource]? = nil
-        , categories: [TaskCategory]? = nil
-        , pauses: [TaskPause]? = nil
-    ) {
-        self.init(
-            taskSet: ExternallySortedKeySet<AnyTask>(
-                set: KeySet<AnyTask>().inserting(contentsOf: tasks ?? [])
-            )
-            , taskSourceSet: ExternallySortedKeySet<AnyTaskSource>(
-                set: KeySet<AnyTaskSource>().inserting(contentsOf: taskSources ?? [])
-            )
-            , categorySet: ExternallySortedKeySet<TaskCategory>(
-                set: KeySet<TaskCategory>().inserting(contentsOf: categories ?? [])
-            )
-            , pauseSet: ExternallySortedKeySet<TaskPause>(
-                set: KeySet<TaskPause>().inserting(contentsOf: pauses ?? [])
-            )
-        )
-    }
-    
 
     public convenience init() {
         self.init(
@@ -76,9 +69,16 @@ internal final class DataBasis: Basis {
             , taskSourceSet: ExternallySortedKeySet<AnyTaskSource>()
             , categorySet: ExternallySortedKeySet<TaskCategory>()
             , pauseSet: ExternallySortedKeySet<TaskPause>()
+            , dailyGoalSet: ExternallySortedKeySet<DailyGoal>()
+            , dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>()
+            , dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>()
+            , dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>()
+            , routineSet: ExternallySortedKeySet<Routine>()
+            , routineStepSet: ExternallySortedKeySet<RoutineStep>()
+            , routineResultSet: ExternallySortedKeySet<RoutineResult>()
+            , routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>()
         )
     }
-    
     
     internal convenience init(
         _ basis: MutableBasis
@@ -88,6 +88,14 @@ internal final class DataBasis: Basis {
             , taskSourceSet: basis.taskSourceSet
             , categorySet: basis.categorySet
             , pauseSet: basis.pauseSet
+            , dailyGoalSet: basis.dailyGoalSet
+            , dailyGoalResultSet: basis.dailyGoalResultSet
+            , dailyGoalListSet: basis.dailyGoalListSet
+            , dailyGoalListSectionSet: basis.dailyGoalListSectionSet
+            , routineSet: basis.routineSet
+            , routineStepSet: basis.routineStepSet
+            , routineResultSet: basis.routineResultSet
+            , routineStepResultSet: basis.routineStepResultSet
         )
     }
     
@@ -95,21 +103,50 @@ internal final class DataBasis: Basis {
 }
 
 internal final class MutableBasis {
+    
+    // Tasks
     var taskSet: ExternallySortedKeySet<AnyTask>
     var taskSourceSet: ExternallySortedKeySet<AnyTaskSource>
     var categorySet: ExternallySortedKeySet<TaskCategory>
     var pauseSet: ExternallySortedKeySet<TaskPause>
+    
+    // Goals
+    var dailyGoalSet: ExternallySortedKeySet<DailyGoal>
+    var dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>
+    var dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>
+    var dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>
+    var routineSet: ExternallySortedKeySet<Routine>
+    var routineStepSet: ExternallySortedKeySet<RoutineStep>
+    var routineResultSet: ExternallySortedKeySet<RoutineResult>
+    var routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>
+    
 
     init(
         taskSet: ExternallySortedKeySet<AnyTask>
         , taskSourceSet: ExternallySortedKeySet<AnyTaskSource>
         , categorySet: ExternallySortedKeySet<TaskCategory>
         , pauseSet: ExternallySortedKeySet<TaskPause>
+        , dailyGoalSet: ExternallySortedKeySet<DailyGoal>
+        , dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>
+        , dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>
+        , dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>
+        , routineSet: ExternallySortedKeySet<Routine>
+        , routineStepSet: ExternallySortedKeySet<RoutineStep>
+        , routineResultSet: ExternallySortedKeySet<RoutineResult>
+        , routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>
     ) {
         self.taskSet = taskSet
         self.taskSourceSet = taskSourceSet
         self.categorySet = categorySet
         self.pauseSet = pauseSet
+        self.dailyGoalSet = dailyGoalSet
+        self.dailyGoalResultSet = dailyGoalResultSet
+        self.dailyGoalListSet = dailyGoalListSet
+        self.dailyGoalListSectionSet = dailyGoalListSectionSet
+        self.routineSet = routineSet
+        self.routineStepSet = routineStepSet
+        self.routineResultSet = routineResultSet
+        self.routineStepResultSet = routineStepResultSet
     }
     
     convenience init(
@@ -120,6 +157,14 @@ internal final class MutableBasis {
             , taskSourceSet: basis.taskSourceSet
             , categorySet: basis.categorySet
             , pauseSet: basis.pauseSet
+            , dailyGoalSet: basis.dailyGoalSet
+            , dailyGoalResultSet: basis.dailyGoalResultSet
+            , dailyGoalListSet: basis.dailyGoalListSet
+            , dailyGoalListSectionSet: basis.dailyGoalListSectionSet
+            , routineSet: basis.routineSet
+            , routineStepSet: basis.routineStepSet
+            , routineResultSet: basis.routineResultSet
+            , routineStepResultSet: basis.routineStepResultSet
         )
     }
 }

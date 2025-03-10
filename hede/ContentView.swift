@@ -26,7 +26,7 @@ struct ContentView: View {
                 .tabItem { Label(T.home, systemImage: SI.home) }
                 .tag(NavigationTab.home)
             
-            SourcesScreen()
+            DailyGoalFormScreen()
                 .tabItem { Label(T.sources, systemImage: SI.sources) }
                 .tag(NavigationTab.sources)
             

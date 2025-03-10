@@ -18,11 +18,9 @@ public final class DailyGoal: Codable, Identifiable, Equatable  {
     /// An optional description of the goal
     public let description: String?
     /// The type of goal
-    public let type: GoalResult.Config
+    public let config: GoalResult.Config
     /// Whether the goal is a positive behavior (more is better) or negative
-    public let positive: Bool
-    /// The days of the week this goal is active on
-    public let days: [Weekday]
+    public let type: GoalType
     /// Whether the goal is acitvely being tracked
     public let active: Bool
     
@@ -30,10 +28,86 @@ public final class DailyGoal: Codable, Identifiable, Equatable  {
         lhs.id == rhs.id
         && lhs.label == rhs.label
         && lhs.description == rhs.description
+        && lhs.config == rhs.config
         && lhs.type == rhs.type
-        && lhs.positive == rhs.positive
-        && lhs.days == rhs.days
         && lhs.active == rhs.active
+    }
+    
+    internal init(
+        id: Key
+        , label: String
+        , description: String?
+        , config: GoalResult.Config
+        , type: GoalType
+        , active: Bool
+    ) {
+        self.id = id
+        self.label = label
+        self.description = description
+        self.config = config
+        self.type = type
+        self.active = active
+    }
+    
+    public static func new(
+        label: String
+        , description: String?
+        , config: GoalResult.Config
+        , type: GoalType
+    ) -> DailyGoal {
+        
+        DailyGoal(
+            id: .new()
+            , label: label
+            , description: description
+            , config: config
+            , type: type
+            , active: true
+        )
+    }
+    
+    public func edit(
+        label: String? = nil
+        , description: String? = nil
+        , config: GoalResult.Config? = nil
+        , type: GoalType? = nil
+        , active: Bool? = nil
+    ) -> DailyGoal {
+        
+        return DailyGoal(
+            id: self.id
+            , label: label ?? self.label
+            , description: description.null(or: self.description)
+            , config: config ?? self.config
+            , type: type ?? self.type
+            , active: active ?? self.active
+        )
+    }
+    
+    public func complete(
+        date: Date
+        , result: GoalResult
+    ) -> DailyGoalResult {
+        
+        DailyGoalResult(
+            id: .new()
+            , dailyGoalId: self.id
+            , label: self.label
+            , result: result
+            , date: date.startOfDay
+            , recorded: .now
+        )
+    }
+    
+    public var asResult: DailyGoalResult {
+        DailyGoalResult(
+            id: .new()
+            , dailyGoalId: self.id
+            , label: self.label
+            , result: self.config.empty
+            , date: .today
+            , recorded: .now
+        )
     }
 }
 
@@ -42,7 +116,7 @@ public final class DailyGoalResult: Codable, Identifiable, Equatable {
     public let id: Key
     
     /// The ID of the goal itself
-    public let parent: Key
+    public let dailyGoalId: Key
     /// The label of the goal at the time
     public let label: String
     /// The result of the goal
@@ -59,8 +133,47 @@ public final class DailyGoalResult: Codable, Identifiable, Equatable {
         && lhs.date == rhs.date
         && lhs.recorded == rhs.recorded
     }
+    
+    internal init(
+        id: Key
+        , dailyGoalId: Key
+        , label: String
+        , result: GoalResult
+        , date: Date
+        , recorded: Date
+    ) {
+        self.id = id
+        self.dailyGoalId = dailyGoalId
+        self.label = label
+        self.result = result
+        self.date = date
+        self.recorded = recorded
+    }
+    
+    public func complete(
+        date: Date
+        , result: GoalResult
+    ) -> DailyGoalResult {
+        
+        DailyGoalResult(
+            id: self.id
+            , dailyGoalId: self.dailyGoalId
+            , label: self.label
+            , result: result
+            , date: date
+            , recorded: .now
+        )
+    }
 }
 
+public enum GoalType: String, Codable, Equatable, CaseIterable {
+    /// Something one is encouraging
+    case positive = "Positive"
+    /// Something one is trying to avoid
+    case negative = "Negative"
+    /// Neither positive or negative.
+    case neutral = "Neutral"
+}
 
 public enum GoalResult: Codable, Equatable {
     /// A goal with levels of completion
@@ -70,7 +183,7 @@ public enum GoalResult: Codable, Equatable {
     /// A goal with a decimal count
     case number(goals: SortedSet<Double>, result: Double)
     /// A routine to follow
-    case routine(routine: Routine, result: RoutineResult)
+    case routine(routine: Key, result: Key)
     
     public static func == (lhs: GoalResult, rhs: GoalResult) -> Bool {
         switch (lhs, rhs) {
@@ -91,7 +204,7 @@ public enum GoalResult: Codable, Equatable {
         case completion(steps: GoalResult.Steps)
         case count(goals: SortedSet<Int>)
         case number(goals: SortedSet<Double>)
-        case routine(routine: Routine)
+        case routine(routine: Key)
         
         public static func == (lhs: GoalResult.Config, rhs: GoalResult.Config) -> Bool {
             switch (lhs, rhs) {
@@ -103,13 +216,91 @@ public enum GoalResult: Codable, Equatable {
                 return lg == rg
             case (.routine(let lroutine), .routine(let rroutine)):
                 return lroutine == rroutine
-            default:
-                return false
+            default:                return false
+            }
+        }
+        
+        public enum Variant: String, Equatable, CaseIterable {
+            case completion = "Completion"
+            case count = "Count"
+            case number = "Number"
+            case routine = "Routine"
+        }
+        
+        public var variant: Self.Variant {
+            switch self {
+            case .completion(_): .completion
+            case .count(_): .count
+            case .number(_): .number
+            case .routine(_): .routine
+            }
+        }
+        
+        public var empty: GoalResult {
+            switch self {
+            case .completion(let steps): return .completion(steps: steps, result: 0)
+            case .count(let goals): return .count(goals: goals, result: 0)
+            case .number(let goals): return .number(goals: goals, result: 0)
+            case .routine(let routine): return .routine(routine: routine, result: .null)
+            }
+        }
+        
+        public var title: String {
+            switch self {
+            case .completion(_): return "Completion"
+            case .count(_): return "Count"
+            case .number(_): return "Number"
+            case .routine(_): return "Routine"
+            }
+        }
+        
+        public var values: String {
+            switch self {
+            case .completion(let steps): return "Steps: \(steps.count)"
+            case .count(let goals): return "Goals: \(goals.values)"
+            case .number(let goals): return "Goals: \(goals.values)"
+            case .routine(let routine): return "Routine"
+            }
+        }
+        
+        public var label: String {
+            "\(title)\n\(values)"
+        }
+        
+        /// Returns the step count of any completion goal result. Returns nil if not a completion goal.
+        public var stepCount: Int? {
+            switch self {
+            case .completion(let steps): steps.count
+            case .count(_), .number(_), .routine(_): nil
+            }
+        }
+        
+        /// Returns the step count of any completion goal result. Returns nil if not a completion goal.
+        public var stepVariant: GoalResult.Steps.Variant? {
+            switch self {
+            case .completion(let steps): steps.variant
+            case .count(_), .number(_), .routine(_): nil
+            }
+        }
+        
+        /// Returns the count goals of any count goal result. Returns nil if not a completion goal.
+        public var countGoals: [Int]? {
+            switch self {
+            case .count(let goals): goals.values
+            case .completion(_), .number(_), .routine(_): nil
+            }
+        }
+        
+        /// Returns the step count of any completion goal result. Returns nil if not a completion goal.
+        public var numberGoals: [Double]? {
+            switch self {
+            case .number(let goals): goals.values
+            case .completion(_), .count(_), .routine(_): nil
             }
         }
     }
     
-    var config: GoalResult.Config {
+    public var config: GoalResult.Config {
         switch self {
         case .completion(let steps, _): .completion(steps: steps)
         case .count(let goals, _): .count(goals: goals)
@@ -127,10 +318,29 @@ public enum GoalResult: Codable, Equatable {
         case fibbonaci(steps: Int)
         
         /// The points for a resulting number of steps completed
-        func pointsFor(completed: Int) -> Int {
+        public func pointsFor(completed: Int) -> Int {
             switch self {
             case .linear(let steps): max(steps, completed)
             case .fibbonaci(let steps): max(steps, completed) // should be fibb(max(steps, completed))
+            }
+        }
+        
+        public var count: Int {
+            switch self {
+            case .linear(let steps): steps
+            case .fibbonaci(let steps): steps
+            }
+        }
+        
+        public enum Variant: String, Equatable, CaseIterable {
+            case linear = "Linear"
+            case fibbonaci = "Fibbonaci"
+        }
+        
+        public var variant: Self.Variant {
+            switch self {
+            case .linear(_): .linear
+            case .fibbonaci(_): .fibbonaci
             }
         }
     }
@@ -146,8 +356,3 @@ public enum GoalResult: Codable, Equatable {
     }
 }
 
-/// A day result if a collection of daily goal results for a sepicifc fay
-public final class DayResult: Codable, Identifiable {
-    public let date: Date
-    public let goals: [DailyGoal]
-}

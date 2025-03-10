@@ -123,5 +123,12 @@ extension EventManager {
     
 }
 
-/// Learning
-extension EventManager { }
+/// Goals
+extension EventManager {
+    func saveGoal(from form: GoalForm) async {
+        guard form.canSave else { return }
+        guard let newGoal = form.create() else { return }
+        let message = form.isNew ? "Create Goal: \(newGoal.label)" : "Edit Goal: \(newGoal.label)"
+        await repository.goals.save([newGoal], message: message)
+    }
+}

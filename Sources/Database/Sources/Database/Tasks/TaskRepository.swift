@@ -4,6 +4,7 @@
 //
 //  Created by Kevin Kelly on 2/25/25.
 //
+
 import Foundation
 import Observation
 import Assemblages
@@ -74,7 +75,18 @@ public final class TaskRepository {
         await transactor.commit(transaction: log)
     }
     
-    // TODO: Need to verify this updates when the basis changes, I'd think the vars do, but I'm certain the funcs dont.
+    public func getTransactions() async -> [DataTransaction<UserEventLog>] {
+        return await transactor.viewTransactions()
+    }
+    
+    public func rollbackTo(after transaction: DataTransaction<UserEventLog>) async {
+        await transactor.rollbackTo(after: transaction)
+    }
+    
+    public func rollbackTo(before transaction: DataTransaction<UserEventLog>) async {
+        await transactor.rollbackTo(before: transaction)
+    }
+    
     public var tasks: [AnyTask] { basis.tasks }
     public var openTasks: [AnyTask] { basis.tasks.filter { $0.isOpen } }
     public var taskSources: [AnyTaskSource] { basis.taskSources }
@@ -93,24 +105,45 @@ public final class TaskRepository {
     public var recurringSources: [RecurringSource] { basis.taskSources.compactMap { $0.data as? RecurringSource } }
 }
 
-/// Transactions
-extension TaskRepository {
-    public func getTransactions() async -> [DataTransaction<UserEventLog>] {
-        return await transactor.viewTransactions()
-    }
-    
-    public func rollbackTo(after transaction: DataTransaction<UserEventLog>) async {
-        await transactor.rollbackTo(after: transaction)
-    }
-    
-    public func rollbackTo(before transaction: DataTransaction<UserEventLog>) async {
-        await transactor.rollbackTo(before: transaction)
-    }
-}
-
 extension TaskRepository {
     public typealias AnyTaskByDate = [(key: String, tasks: [AnyTask])]
     public var tasksByDate: AnyTaskByDate { tasks.groupByDate() }
     public var openTasksByDate: AnyTaskByDate { openTasks.groupByDate() }
 }
 
+
+extension AnyTaskSource {
+    public var tasksLink: [AnyTask] { Repository.system.tasks.tasks.filter { $0.source == self.id } }
+}
+
+extension AnyTask {
+    public var sourceLink: AnyTaskSource { Repository.system.tasks.taskSources([self.source]).first ?? .null }
+}
+
+extension ToDoSource {
+    public var tasksLink: [ToDoTask] {
+        Repository.system.tasks.tasks
+            .filter { $0.source == self.id }
+            .compactMap{ $0.data as? ToDoTask }
+    }
+}
+
+extension ToDoTask {
+    public var sourceLink: ToDoSource {
+        Repository.system.tasks.taskSources([self.source]).first?.data as? ToDoSource ?? .null
+    }
+}
+
+extension RecurringSource {
+    public var tasksLink: [RecurringTask] {
+        Repository.system.tasks.tasks
+            .filter { $0.source == self.id }
+            .compactMap{ $0.data as? RecurringTask }
+    }
+}
+
+extension RecurringTask {
+    public var sourceLink: RecurringSource {
+        Repository.system.tasks.taskSources([self.source]).first?.data as? RecurringSource ?? .null
+    }
+}

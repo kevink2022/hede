@@ -33,6 +33,12 @@ internal enum AssertionCode: Codable, Equatable {
     // Goals
     case dailyGoal(DailyGoal)
     case dailyGoalResult(DailyGoalResult)
+    case dailyGoalList(DailyGoalList)
+    case dailyGoalListSection(DailyGoalListSection)
+    case routine(Routine)
+    case routineStep(RoutineStep)
+    case routineResult(RoutineResult)
+    case routineStepResult(RoutineStepResult)
 }
 
 internal final class DeleteKey: Assertable {
@@ -67,29 +73,19 @@ internal final class Assertion: Assertable {
     }
 }
 
-extension AnyTask: Assertable {
-    var assertCode: AssertionCode { .task(self) }
-}
+extension AnyTask: Assertable { var assertCode: AssertionCode { .task(self) } }
+extension AnyTaskSource: Assertable { var assertCode: AssertionCode { .source(self) } }
+extension TaskCategory: Assertable { var assertCode: AssertionCode { .category(self) } }
+extension TaskPause: Assertable { var assertCode: AssertionCode { .pause(self) } }
 
-extension AnyTaskSource: Assertable {
-    var assertCode: AssertionCode { .source(self) }
-}
-
-extension TaskCategory: Assertable {
-    var assertCode: AssertionCode { .category(self) }
-}
-
-extension TaskPause: Assertable {
-    var assertCode: AssertionCode { .pause(self) }
-}
-
-extension DailyGoal: Assertable {
-    var assertCode: AssertionCode { .dailyGoal(self) }
-}
-
-extension DailyGoalResult: Assertable {
-    var assertCode: AssertionCode { .dailyGoalResult(self) }
-}
+extension DailyGoal: Assertable { var assertCode: AssertionCode { .dailyGoal(self) } }
+extension DailyGoalResult: Assertable { var assertCode: AssertionCode { .dailyGoalResult(self) } }
+extension DailyGoalList: Assertable { var assertCode: AssertionCode { .dailyGoalList(self) } }
+extension DailyGoalListSection: Assertable { var assertCode: AssertionCode { .dailyGoalListSection(self) } }
+extension Routine: Assertable { var assertCode: AssertionCode { .routine(self) } }
+extension RoutineStep: Assertable { var assertCode: AssertionCode { .routineStep(self) } }
+extension RoutineResult: Assertable { var assertCode: AssertionCode { .routineResult(self) } }
+extension RoutineStepResult: Assertable { var assertCode: AssertionCode { .routineStepResult(self) } }
 
 extension Assertion {
     internal convenience init(code: AssertionCode) {
@@ -101,6 +97,12 @@ extension Assertion {
         case .pause(let data): self.init(data)
         case .dailyGoal(let data): self.init(data)
         case .dailyGoalResult(let data): self.init(data)
+        case .dailyGoalList(let data): self.init(data)
+        case .dailyGoalListSection(let data): self.init(data)
+        case .routine(let data): self.init(data)
+        case .routineStep(let data): self.init(data)
+        case .routineResult(let data): self.init(data)
+        case .routineStepResult(let data): self.init(data)
         }
     }
     

@@ -24,39 +24,37 @@ internal final class BasisResolver<T: Basis> {
         assertionSet.forEach { assertion in
             switch assertion.assertCode {
             case .delete(let data):
-                if let task = newBasis.taskSet[data.id] {
-                    newBasis.taskSet.remove(task)
-                }
+                // Tasks
+                if let data = newBasis.taskSet[data.id] { newBasis.taskSet.remove(data) }
+                else if let data = newBasis.taskSourceSet[data.id] { newBasis.taskSourceSet.remove(data) }
+                else if let data = newBasis.categorySet[data.id] { newBasis.categorySet.remove(data) }
+                else if let data = newBasis.pauseSet[data.id] { newBasis.pauseSet.remove(data) }
                 
-                if let source = newBasis.taskSourceSet[data.id] {
-                    newBasis.taskSourceSet.remove(source)
-                }
+                // Goals
+                else if let data = newBasis.dailyGoalSet[data.id] { newBasis.dailyGoalSet.remove(data) }
+                else if let data = newBasis.dailyGoalResultSet[data.id] { newBasis.dailyGoalResultSet.remove(data) }
+                else if let data = newBasis.dailyGoalListSet[data.id] { newBasis.dailyGoalListSet.remove(data) }
+                else if let data = newBasis.dailyGoalListSectionSet[data.id] { newBasis.dailyGoalListSectionSet.remove(data) }
+                else if let data = newBasis.routineSet[data.id] { newBasis.routineSet.remove(data) }
+                else if let data = newBasis.routineStepSet[data.id] { newBasis.routineStepSet.remove(data) }
+                else if let data = newBasis.routineResultSet[data.id] { newBasis.routineResultSet.remove(data) }
+                else if let data = newBasis.routineStepResultSet[data.id] { newBasis.routineStepResultSet.remove(data) }
                 
-                if let category = newBasis.categorySet[data.id] {
-                    newBasis.categorySet.remove(category)
-                }
-                
-                if let pause = newBasis.pauseSet[data.id] {
-                    newBasis.pauseSet.remove(pause)
-                }
-                
-                // delete dailyGoal
-                
-                // delete dailyGoalResult
-                
-            case .task(let data): 
-                newBasis.taskSet.insert(data)
-                
-            case .source(let data):
-                newBasis.taskSourceSet.insert(data)
-                
-            case .category(let data):
-                newBasis.categorySet.insert(data)
-                
-            case .pause(let data):
-                newBasis.pauseSet.insert(data)
+            // Tasks
+            case .task(let data): newBasis.taskSet.insert(data)
+            case .source(let data): newBasis.taskSourceSet.insert(data)
+            case .category(let data): newBasis.categorySet.insert(data)
+            case .pause(let data): newBasis.pauseSet.insert(data)
             
-            case .dailyGoal(_), .dailyGoalResult(_): break
+            // Goals
+            case .dailyGoal(let data): newBasis.dailyGoalSet.insert(data)
+            case .dailyGoalResult(let data): newBasis.dailyGoalResultSet.insert(data)
+            case .dailyGoalList(let data): newBasis.dailyGoalListSet.insert(data)
+            case .dailyGoalListSection(let data): newBasis.dailyGoalListSectionSet.insert(data)
+            case .routine(let data): newBasis.routineSet.insert(data)
+            case .routineStep(let data): newBasis.routineStepSet.insert(data)
+            case .routineResult(let data): newBasis.routineResultSet.insert(data)
+            case .routineStepResult(let data): newBasis.routineStepResultSet.insert(data)
             }
         }
         

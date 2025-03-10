@@ -58,6 +58,21 @@ struct ViewConstants {
             , weight: .heavy
         )
         
+        static let bold = Font.system(
+            .body
+            , design: standard
+            , weight: .bold
+        )
+        
+        static let light = Font.system(
+            .subheadline
+            , design: standard
+            , weight: .light
+        )
+        
+        static let rowTitle = bold
+        static let rowSubtitle = light
+        
         static let screenTitle = Font.system(
             .largeTitle
             , design: standard
@@ -70,42 +85,11 @@ struct ViewConstants {
             , weight: .heavy
         )
         
-        static let boxSmall = Font.system(
-            .title3
-            , design: standard
-            , weight: .regular
-        )
-        
-        static let boxLarge = Font.system(
-            .title2
-            , design: standard
-            , weight: .heavy
-        )
-        
-        static let largeButtonText = Font.system(
-            .title3
-            , design: standard
-            , weight: .semibold
-        )
-        
         static let largeSymbol = Font.system(
             .largeTitle
             , design: standard
             , weight: .bold
         )
-        
-        static let semiLargeSymbol = Font.system(
-            .title
-            , design: standard
-            , weight: .bold
-        )
-        
-        static let emptyScreenInformational = Font.system(
-            .title2
-            , design: standard
-            , weight: .semibold
-        )
-        
     }
     
     /// Any Animation used by the UI.
@@ -145,34 +129,10 @@ struct ViewConstants {
     
     static let standardPadding: CGFloat = 8
     
-    static let boxCorner: CGFloat = 10
-    static let boxOpacity: CGFloat = 0.6
-    static let boxTextOpacity: CGFloat = 0.6
-    static let boxExternalPadding: CGFloat = 6
-    static let boxInternalPadding: CGFloat = standardPadding
-
-    static let buttonCornerRadius: CGFloat = 12
-    
-    static let noContentMessageOpacity: CGFloat = 0.4
-    static let noContentBottomPadding: CGFloat = 54
-    
     static let listStyle: InsetListStyle = .inset
 }
 
 /// String Representations of enums, need to be localized
-
-extension TimeDuration.Interval {
-    var label: String {
-        switch self {
-        case .minutes: "Minutes"
-        case .hours: "Hours"
-        case .days: "Days"
-        case .weeks: "Weeks"
-        case .months: "Months"
-        case .years:  "Years"
-        }
-    }
-}
 
 extension RecurrenceType {
     var label: String {
