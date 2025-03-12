@@ -20,7 +20,6 @@ struct GoalResultPicker: View {
     @State private var numberGoals: [Double]
    
     var body: some View {
-        VStack {
             Picker("", selection: $variant) {
                 ForEach(GoalResult.Config.Variant.allCases, id: \.self) { variant in
                     Text(variant.rawValue)
@@ -29,17 +28,17 @@ struct GoalResultPicker: View {
              
             switch variant {
             case .completion:
-                HStack {
-                    NullNumberField(integer: $stepCount, prompt: "steps")
-                        .fixedSize()
-                    
-                    Picker("", selection: $stepVariant) {
-                        ForEach(GoalResult.Steps.Variant.allCases, id: \.self) { stepVariant in
-                            Text(stepVariant.rawValue)
+                    HStack {
+                        NullNumberField(integer: $stepCount, prompt: "steps")
+                            .fixedSize()
+                        
+                        Picker("", selection: $stepVariant) {
+                            ForEach(GoalResult.Steps.Variant.allCases, id: \.self) { stepVariant in
+                                Text(stepVariant.rawValue)
+                            }
                         }
                     }
-                }
-                
+                    
                     .onChange(of: stepCount) { oldValue, newValue in
                         if let newValue = newValue {
                             goalResult = .completion(steps: {
@@ -50,7 +49,7 @@ struct GoalResultPicker: View {
                             }())
                         }
                     }
-                
+                    
                     .onChange(of: stepVariant) { oldValue, newValue in
                         switch newValue {
                         case .linear: goalResult = .completion(steps: .linear(steps: goalResult?.stepCount ?? 2))
@@ -59,20 +58,20 @@ struct GoalResultPicker: View {
                     }
                                 
             case .count:
-                NumberArrayField(integers: $countGoals)
-                    .onChange(of: countGoals) { oldValue, newValue in
-                        goalResult = .count(goals: SortedSet<Int>(contentsOf: newValue))
-                    }
+                    NumberArrayField(integers: $countGoals)
+                        .onChange(of: countGoals) { oldValue, newValue in
+                            goalResult = .count(goals: SortedSet<Int>(contentsOf: newValue))
+                        }
                 
             case .number:
-                NumberArrayField(doubles: $numberGoals)
-                    .onChange(of: numberGoals) { oldValue, newValue in
-                        goalResult = .number(goals: SortedSet<Double>(contentsOf: newValue))
-                    }
+                    NumberArrayField(doubles: $numberGoals)
+                        .onChange(of: numberGoals) { oldValue, newValue in
+                            goalResult = .number(goals: SortedSet<Double>(contentsOf: newValue))
+                        }
+
             case .routine:
                 EmptyView()
             }
-        }
     }
     
     init(
@@ -88,4 +87,7 @@ struct GoalResultPicker: View {
     }
 }
 
+#Preview {
+    GoalResultPicker(.constant(nil))
+}
 

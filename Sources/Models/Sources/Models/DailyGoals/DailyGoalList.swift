@@ -61,24 +61,23 @@ public final class DailyGoalList: Codable, Identifiable, Equatable  {
         )
     }
     
-    /*
     public func edit(
         sections: [DailyGoalListSection]? = nil
         , label: String? = nil
         , description: String? = nil
         , weekdays: [Weekday]? = nil
+        , active: Bool? = nil
     ) -> DailyGoalList {
         
         DailyGoalList.init(
             id: self.id
-            , sectionIds: sections.map { $0.id }
-            , label: label
-            , description: description
-            , weekdays: weekdays
-            , active: true
+            , sectionIds: sections?.map { $0.id } ?? self.sectionIds
+            , label: label ?? self.label
+            , description: description.null(or: self.description)
+            , weekdays: weekdays?.map { $0 } ?? self.weekdays
+            , active: active ?? self.active
         )
     }
-    */
 }
 
 /// Daily goal lists are made up of sections that can be copied onto other lists.
@@ -125,6 +124,22 @@ public final class DailyGoalListSection: Codable, Identifiable, Equatable {
             , label: label
             , description: description
             , active: true
+        )
+    }
+    
+    public func edit(
+        goals: [DailyGoal]? = nil
+        , label: String? = nil
+        , description: String? = nil
+        , active: Bool? = nil
+    ) -> DailyGoalListSection {
+        
+        DailyGoalListSection(
+            id: self.id
+            , goalIds: goals?.map { $0.id } ?? self.goalIds
+            , label: label ?? self.label
+            , description: description.null(or: self.description)
+            , active: active ?? self.active
         )
     }
 }

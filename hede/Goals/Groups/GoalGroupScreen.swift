@@ -9,10 +9,10 @@ import SwiftUI
 import Models
 
 struct GoalGroupScreen: View {
-//    @Environment(\.navigator) private var navigator
+    @Environment(\.navigator) private var navigator
 //    @Environment(\.repository) private var repository
     
-    private var group: DailyGoalListSection
+    private let group: DailyGoalListSection
     
     var body: some View {
         List {
@@ -35,7 +35,7 @@ struct GoalGroupScreen: View {
         .navigationTitle(group.label)
         .toolbar {
             Button {
-//                navigator.presentSheet(GoalFormView())
+                navigator.presentSheet(GoalGroupEditableScreen(group))
             } label: {
                 Image(systemName: SI.edit)
             }

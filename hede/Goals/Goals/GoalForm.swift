@@ -32,7 +32,7 @@ struct GoalFormView: View {
             LabelFormEntry(label: $form.label)
             
             FormEntry {
-                NullTextField(text: $form.description, prompt: "Description")
+                NullTextEditor(text: $form.description)
             } label: {
                 Text("Description")
             }

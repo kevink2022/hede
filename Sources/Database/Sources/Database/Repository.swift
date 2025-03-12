@@ -29,7 +29,7 @@ public final class Repository {
         self.goals = GoalRepository(inMemory: inMemory)
     }
     
-    public static let system = inMemory
+    public static let system = disc
     public static let disc = Repository()
     public static let inMemory = Repository(inMemory: true)
 }

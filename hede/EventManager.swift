@@ -131,4 +131,18 @@ extension EventManager {
         let message = form.isNew ? "Create Goal: \(newGoal.label)" : "Edit Goal: \(newGoal.label)"
         await repository.goals.save([newGoal], message: message)
     }
+    
+    func saveGoalGroup(from form: GoalGroupForm) async {
+        guard form.canSave else { return }
+        guard let newGoalGroup = form.create() else { return }
+        let message = form.isNew ? "Create Goal Group: \(newGoalGroup.label)" : "Edit Goal Group: \(newGoalGroup.label)"
+        await repository.goals.save([newGoalGroup], message: message)
+    }
+    
+    func saveGoalList(from form: DailyListForm) async {
+        guard form.canSave else { return }
+        guard let newList = form.create() else { return }
+        let message = form.isNew ? "Create Daily List: \(newList.label)" : "Edit Daily List: \(newList.label)"
+        await repository.goals.save([newList], message: message)
+    }
 }

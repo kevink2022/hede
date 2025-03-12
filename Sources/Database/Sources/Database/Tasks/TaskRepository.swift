@@ -51,7 +51,7 @@ public final class TaskRepository {
         )
     }
     
-    private static let transactorKey = StorageKey(namespace: "repository", key: "transactor", version: 0)
+    private static let transactorKey = StorageKey(namespace: nil, key: "transactor", version: 0)
     
     public func save(_ models: [any Savable], message: String? = nil) async {
         let assertions = models.compactMap { Assertion($0) }

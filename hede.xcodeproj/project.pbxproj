@@ -29,8 +29,12 @@
 		4F51B8CF2D7E3EA6009BEA9C /* GoalGroupListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F51B8CE2D7E3E98009BEA9C /* GoalGroupListScreen.swift */; };
 		4F51B8D12D7E413D009BEA9C /* GoalGroupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F51B8D02D7E4136009BEA9C /* GoalGroupScreen.swift */; };
 		4F51B8D52D7E41E3009BEA9C /* DescriptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F51B8D42D7E41DD009BEA9C /* DescriptionRow.swift */; };
+		4F51B8D72D7E6452009BEA9C /* GoalGroupForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F51B8D62D7E644F009BEA9C /* GoalGroupForm.swift */; };
+		4F51B8D92D7FC5A7009BEA9C /* GoalGroupEditableScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F51B8D82D7FC5A7009BEA9C /* GoalGroupEditableScreen.swift */; };
 		4F54901D2D7C207000896812 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 4F54901C2D7C207000896812 /* Domain */; };
 		4F54901F2D7C207000896812 /* DomainUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4F54901E2D7C207000896812 /* DomainUI */; };
+		4F5C9C862D80F90F00FE6CEC /* AllDailyGoalListsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5C9C852D80F8EE00FE6CEC /* AllDailyGoalListsScreen.swift */; };
+		4F5C9C882D81042300FE6CEC /* DailyListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5C9C872D81040900FE6CEC /* DailyListScreen.swift */; };
 		4F8432572D67EE7B00B3F8EA /* Database in Frameworks */ = {isa = PBXBuildFile; productRef = 4F8432562D67EE7B00B3F8EA /* Database */; };
 		4F87E7982D3EFACE00B3CBBB /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7972D3EFACA00B3CBBB /* SettingsScreen.swift */; };
 		4F87E79A2D3EFD0200B3CBBB /* TransactionHistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7992D3EFCF900B3CBBB /* TransactionHistoryScreen.swift */; };
@@ -100,6 +104,10 @@
 		4F51B8CE2D7E3E98009BEA9C /* GoalGroupListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGroupListScreen.swift; sourceTree = "<group>"; };
 		4F51B8D02D7E4136009BEA9C /* GoalGroupScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGroupScreen.swift; sourceTree = "<group>"; };
 		4F51B8D42D7E41DD009BEA9C /* DescriptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionRow.swift; sourceTree = "<group>"; };
+		4F51B8D62D7E644F009BEA9C /* GoalGroupForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGroupForm.swift; sourceTree = "<group>"; };
+		4F51B8D82D7FC5A7009BEA9C /* GoalGroupEditableScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGroupEditableScreen.swift; sourceTree = "<group>"; };
+		4F5C9C852D80F8EE00FE6CEC /* AllDailyGoalListsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDailyGoalListsScreen.swift; sourceTree = "<group>"; };
+		4F5C9C872D81040900FE6CEC /* DailyListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyListScreen.swift; sourceTree = "<group>"; };
 		4F87E7972D3EFACA00B3CBBB /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		4F87E7992D3EFCF900B3CBBB /* TransactionHistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryScreen.swift; sourceTree = "<group>"; };
 		4F89BCB82C8633F600AD18DB /* hedeTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = hedeTestPlan.xctestplan; sourceTree = "<group>"; };
@@ -268,6 +276,8 @@
 		4F51B8BF2D7D1147009BEA9C /* Groups */ = {
 			isa = PBXGroup;
 			children = (
+				4F51B8D62D7E644F009BEA9C /* GoalGroupForm.swift */,
+				4F51B8D82D7FC5A7009BEA9C /* GoalGroupEditableScreen.swift */,
 				4F51B8D02D7E4136009BEA9C /* GoalGroupScreen.swift */,
 				4F51B8CE2D7E3E98009BEA9C /* GoalGroupListScreen.swift */,
 			);
@@ -277,6 +287,8 @@
 		4F51B8C02D7D114C009BEA9C /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				4F5C9C872D81040900FE6CEC /* DailyListScreen.swift */,
+				4F5C9C852D80F8EE00FE6CEC /* AllDailyGoalListsScreen.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -288,6 +300,13 @@
 				4F51B8BA2D7D085A009BEA9C /* GoalEntry.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		4F51B8DA2D7FC7BC009BEA9C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		4F87E7962D3EFAC400B3CBBB /* Settings */ = {
@@ -369,6 +388,7 @@
 		4FE9DA812D77EBA900EF1DD6 /* Goals */ = {
 			isa = PBXGroup;
 			children = (
+				4F51B8DA2D7FC7BC009BEA9C /* Settings */,
 				4F51B8C12D7D1154009BEA9C /* Subviews */,
 				4F51B8C02D7D114C009BEA9C /* Lists */,
 				4F51B8BF2D7D1147009BEA9C /* Groups */,
@@ -531,7 +551,10 @@
 				4F97DA7F2C8F3A75002002BB /* RecurringSourcesScreen.swift in Sources */,
 				4F51B8CF2D7E3EA6009BEA9C /* GoalGroupListScreen.swift in Sources */,
 				4F4A994B2CA1FA7900C1C659 /* RecurringTaskFields.swift in Sources */,
+				4F5C9C862D80F90F00FE6CEC /* AllDailyGoalListsScreen.swift in Sources */,
+				4F51B8D92D7FC5A7009BEA9C /* GoalGroupEditableScreen.swift in Sources */,
 				4F4A993C2C937D2D00C1C659 /* TaskTimeCaseFormEntry.swift in Sources */,
+				4F5C9C882D81042300FE6CEC /* DailyListScreen.swift in Sources */,
 				4FE9DA7F2D766CD000EF1DD6 /* TaskMocks.swift in Sources */,
 				4F4A99432C940D4300C1C659 /* TaskTimePicker.swift in Sources */,
 				4F87E7982D3EFACE00B3CBBB /* SettingsScreen.swift in Sources */,
@@ -552,6 +575,7 @@
 				4F4A99412C940CA800C1C659 /* TaskTimeFormEntry.swift in Sources */,
 				4F51B8D52D7E41E3009BEA9C /* DescriptionRow.swift in Sources */,
 				4F51B8C32D7D116E009BEA9C /* GoalListScreen.swift in Sources */,
+				4F51B8D72D7E6452009BEA9C /* GoalGroupForm.swift in Sources */,
 				4F87E79A2D3EFD0200B3CBBB /* TransactionHistoryScreen.swift in Sources */,
 				4F2719032C828B3D004CF717 /* hedeApp.swift in Sources */,
 				4F4A99452C9A137200C1C659 /* RecurringSourceScreen.swift in Sources */,

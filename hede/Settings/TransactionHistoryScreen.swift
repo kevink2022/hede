@@ -12,19 +12,19 @@ import Database
 struct TransactionHistoryScreen: View {
     @Environment(\.repository) private var repository
     
+    private let getTransactions: () async -> [DataTransaction<UserEventLog>]
     @State private var transactions: [DataTransaction<UserEventLog>] = []
     
     var body: some View {
         List {
             if transactions.count == 0 {
-                Text("No Transactions in this session")
+                Text("No Transactions in this session.")
             }
             
             ForEach(transactions) { transaction in
                 
                 VStack(alignment: .leading) {
                     Text(transaction.data.label)
-                    //                    .font(F.body)
                     Text(transaction.timestamp.formatted())
                         .opacity(0.6)
                 }
@@ -32,7 +32,7 @@ struct TransactionHistoryScreen: View {
                     Button {
                         Task {
                             await repository.tasks.rollbackTo(after: transaction)
-                            transactions = await repository.tasks.getTransactions()
+                            transactions = await getTransactions()
                         }
                     } label: {
                         Text("Rollback to After")
@@ -41,7 +41,7 @@ struct TransactionHistoryScreen: View {
                     Button {
                         Task {
                             await repository.tasks.rollbackTo(before: transaction)
-                            transactions = await repository.tasks.getTransactions()
+                            transactions = await getTransactions()
                         }
                     } label: {
                         Text("Rollback to Before")
@@ -50,14 +50,20 @@ struct TransactionHistoryScreen: View {
             }
         }
         .navigationTitle("Transactions")
-        .listStyle(V.listStyle)
+        .listStyle(.inset)
         
-        .task { transactions = await repository.tasks.getTransactions() }
-        .refreshable { transactions = await repository.tasks.getTransactions() }
+        .task { transactions = await getTransactions() }
+        .refreshable { transactions = await getTransactions() }
+    }
+    
+    init(
+        getTransactions: @escaping () async -> [DataTransaction<UserEventLog>]
+    ) {
+        self.getTransactions = getTransactions
     }
 }
 
-#Preview {
-    TransactionHistoryScreen()
-}
+//#Preview {
+//    TransactionHistoryScreen()
+//}
 

@@ -14,7 +14,7 @@ struct hedeApp: App {
     let eventManager: EventManager
     
     init() {
-        let repository = Repository()
+        let repository = Repository.system
         let eventManager = EventManager(repository: repository)
         
         self.repository = repository

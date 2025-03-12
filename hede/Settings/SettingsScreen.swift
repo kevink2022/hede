@@ -51,7 +51,7 @@ struct SettingsScreen: View {
                     .foregroundStyle(.primary)
                     
                     NavigationLink {
-                        
+                        AllDailyGoalListsScreen()
                     } label: {
                         Label("Daily Lists", systemImage: "sun.min")
                     }
@@ -61,13 +61,17 @@ struct SettingsScreen: View {
                 
                 Section("Storage") {
                     NavigationLink {
-                        TransactionHistoryScreen()
+                        TransactionHistoryScreen {
+                            await repository.tasks.getTransactions()
+                        }
                     } label: {
                         Text("Task History")
                     }
                     
                     NavigationLink {
-                        
+                        TransactionHistoryScreen {
+                            await repository.goals.getTransactions()
+                        }
                     } label: {
                         Text("Goal History")
                     }

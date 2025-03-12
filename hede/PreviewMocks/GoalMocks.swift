@@ -9,6 +9,7 @@ import Foundation
 import Models
 import Assemblages
 
+
 extension PreviewMocks {
     static let cleanApartment = DailyGoal.new(
         label: "Apartment Clean"
@@ -87,19 +88,45 @@ extension PreviewMocks {
     ]
     
     static let habits = DailyGoalListSection.new(
-        goals: goals
+        goals: [
+            cleanApartment
+            , exercise
+            , sleep
+        ]
+        , label: "Daily Habits"
+        , description: nil
+    )
+    
+    static let screens = DailyGoalListSection.new(
+        goals: [
+            devSprints
+            , screenTime
+        ]
         , label: "Daily Habits"
         , description: nil
     )
     
     static let sections: [DailyGoalListSection] = [
         habits
+        , screens
     ]
     
-//    static let lists = DailyGoalList.new(
-//        sections: sections
-//        , label: <#T##String#>
-//        , description: <#T##String?#>
-//        , weekdays: <#T##[Weekday]#>
-//    )
+    static let workweek = DailyGoalList.new(
+        sections: sections
+        , label: "Work Week"
+        , description: nil
+        , weekdays: [.monday, .tuesday, .wednesday, .thursday, .friday]
+    )
+    
+    static let weekend = DailyGoalList.new(
+        sections: sections
+        , label: "Weekend"
+        , description: nil
+        , weekdays: [.saturday, .sunday]
+    )
+    
+    static let lists: [DailyGoalList] = [
+        workweek
+        , weekend
+    ]
 }

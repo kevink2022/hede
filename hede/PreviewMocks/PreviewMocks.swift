@@ -25,7 +25,7 @@ struct PreviewMocks {
     static let mockRepository: Repository = {
         let repository = Repository.inMemory
         Task { await repository.tasks.save(sources + tasks) }
-        Task { await repository.goals.save(goals + sections) }
+        Task { await repository.goals.save(goals + sections + lists) }
         return repository
     }()
     

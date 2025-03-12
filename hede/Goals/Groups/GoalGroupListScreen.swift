@@ -18,16 +18,9 @@ struct GoalGroupListScreen: View {
         List {
             ForEach(groups) { group in
                 NavigationLink {
-                    GoalGroupScreen(group)
+                    GoalGroupEditableScreen(group)
                 } label: {
-                    VStack(alignment: .leading) {
-                        Text(group.label)
-                            .font(F.rowTitle)
-                        ForEach(group.dailyGoals) { goal in
-                            Text(goal.label)
-                                .font(F.rowSubtitle)
-                        }
-                    }
+                    GoalGroupRow(group)
                 }
                 .foregroundStyle(.primary)
             }
@@ -36,10 +29,30 @@ struct GoalGroupListScreen: View {
         .navigationTitle("Goal Groups")
         .toolbar {
             Button {
-//                navigator.presentSheet(GoalFormView())
+                navigator.presentSheet(GoalGroupFormView())
             } label: {
                 Image(systemName: SI.add)
             }
         }
+    }
+}
+
+struct GoalGroupRow: View {
+    private let group: DailyGoalListSection
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(group.label)
+                .font(F.rowTitle)
+            ForEach(group.dailyGoals) { goal in
+                Text(goal.label)
+                    .font(F.rowSubtitle)
+            }
+        }
+        
+    }
+    
+    init(_ group: DailyGoalListSection) {
+        self.group = group
     }
 }

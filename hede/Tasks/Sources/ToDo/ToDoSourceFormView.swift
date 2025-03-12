@@ -33,7 +33,11 @@ struct ToDoSourceFormView: View {
             
             LabelFormEntry(label: $form.label, showHelp: showHelp)
             
-            DescriptionFormEntry(description: $form.description, showHelp: showHelp)
+            FormEntry {
+                TextEditor(text: $form.description)
+            } label: {
+                Text("Description")
+            }
             
             TaskTimeFormEntry(taskTime: $form.taskTime, showHelp: showHelp)
             
