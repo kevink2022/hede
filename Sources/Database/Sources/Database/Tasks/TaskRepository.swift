@@ -26,9 +26,7 @@ public final class TaskRepository {
         self.transactor.publisher
             .sink { [weak self] basis in
                 guard let self = self else { return }
-                self.basis = basis
-                
-            }
+                self.basis = basis}
             .store(in: &cancellables)
     }
     
@@ -58,7 +56,7 @@ public final class TaskRepository {
         
         let log = UserEventLog(
             label: message ?? "Save"
-            , assertions: KeySet().inserting(contentsOf: assertions)
+            , assertions: KeySet().inserting(assertions)
         )
         
         await transactor.commit(transaction: log)
@@ -69,7 +67,7 @@ public final class TaskRepository {
         
         let log = UserEventLog(
             label: message ?? "Delete"
-            , assertions: KeySet().inserting(contentsOf: assertions)
+            , assertions: KeySet().inserting(assertions)
         )
         
         await transactor.commit(transaction: log)

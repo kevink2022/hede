@@ -19,7 +19,7 @@ struct AllDailyGoalListsScreen: View {
         List {
             ForEach(lists) { list in
                 NavigationLink {
-                    DailyListScreen()
+                    DailyListScreen(list)
                 } label: {
                     VStack(alignment: .leading) {
                         Text(list.label)

@@ -35,7 +35,7 @@ extension PreviewMocks {
         
         Music doesn't count. Work doesn't count.
         """
-        , config: .count(goals: SortedSet<Int>(contentsOf: [240, 120]))
+        , config: .count(goals: SortedSet<Int>([240, 120]))
         , type: .negative
     )
     
@@ -61,7 +61,7 @@ extension PreviewMocks {
         2 - 1hr, the minimum.
         4 - 2hr, specifically on free weekends.
         """
-        , config: .count(goals: SortedSet<Int>(contentsOf: [2, 4]))
+        , config: .count(goals: SortedSet<Int>([2, 4]))
         , type: .positive
     )
     
@@ -75,7 +75,7 @@ extension PreviewMocks {
         7 - What I aim for.
         6 - Should be the minimum.
         """
-        , config: .number(goals: SortedSet<Double>(contentsOf: [6, 7, 8]))
+        , config: .number(goals: SortedSet<Double>([6, 7, 8]))
         , type: .positive
     )
     

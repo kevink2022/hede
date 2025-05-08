@@ -13,6 +13,9 @@ struct TransactionHistoryScreen: View {
     @Environment(\.repository) private var repository
     
     private let getTransactions: () async -> [DataTransaction<UserEventLog>]
+    private let rollbackToBefore: (DataTransaction<UserEventLog>) async -> ()
+    private let rollbackToAfter: (DataTransaction<UserEventLog>) async -> ()
+
     @State private var transactions: [DataTransaction<UserEventLog>] = []
     
     var body: some View {
@@ -40,7 +43,7 @@ struct TransactionHistoryScreen: View {
                     
                     Button {
                         Task {
-                            await repository.tasks.rollbackTo(before: transaction)
+                            await rollbackToBefore(transaction)
                             transactions = await getTransactions()
                         }
                     } label: {
@@ -58,8 +61,13 @@ struct TransactionHistoryScreen: View {
     
     init(
         getTransactions: @escaping () async -> [DataTransaction<UserEventLog>]
+        , rollbackToBefore: @escaping (DataTransaction<UserEventLog>) async -> ()
+        , rollbackToAfter: @escaping (DataTransaction<UserEventLog>) async -> ()
+
     ) {
         self.getTransactions = getTransactions
+        self.rollbackToBefore = rollbackToBefore
+        self.rollbackToAfter = rollbackToAfter
     }
 }
 

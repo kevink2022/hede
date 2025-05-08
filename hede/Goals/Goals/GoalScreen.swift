@@ -14,7 +14,7 @@ struct GoalScreen: View {
     @Environment(\.navigator) private var navigator
 
     private let goal: DailyGoal
-    private var results: [DailyGoalResult] { goal.dailyGoalResults }
+    /*private var results: [DailyGoalResult] { goal.dailyGoalResults }*/
     
     var body: some View {
         List {
@@ -31,11 +31,13 @@ struct GoalScreen: View {
                 DetailRow(label: "Active", value: String(goal.active))
             }
 
+            /*
             Section("Archive") {
                 ForEach(results) { result in
                     DetailRow(label: result.label, value: result.date.formatted())
                 }
             }
+            */
         }
         .listStyle(.inset)
         .navigationTitle(goal.label)

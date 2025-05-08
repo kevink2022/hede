@@ -216,6 +216,47 @@ extension TaskTime {
     }
 }
 
+extension Int {
+    var ordinalSuffix: String {
+        if (11...13).contains(self % 100) {
+            return "th"
+        } else {
+            switch self % 10 {
+            case 1: return "st"
+            case 2: return "nd"
+            case 3: return "rd"
+            default: return "th"
+            }
+        }
+    }
+    
+    var ordinal: String { "\(self)\(ordinalSuffix)" }
+}
+
+extension Date {
+    var shortFormat: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "M/d/Y"
+        let dateStr = dateFormatter.string(from: self)
+        return "\(dateStr)"
+    }
+    
+    var longFormat: String {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "EEEE, MMMM d"
+        var dateStr = dateFormatter.string(from: self)
+        
+        let day = Calendar.current.component(.day, from: self)
+        dateStr += day.ordinalSuffix
+        
+        dateFormatter.dateFormat = ", yyyy"
+        dateStr += dateFormatter.string(from: self)
+        
+        return dateStr
+    }
+}
+
 #Preview {
     ContentView()
 //        .environment(\.repository, PreviewMocks.repository)

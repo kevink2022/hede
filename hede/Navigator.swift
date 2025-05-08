@@ -11,7 +11,7 @@ import SwiftUI
 @Observable
 final class Navigator {
     
-    var tab = NavigationTab.settings {
+    var tab = NavigationTab.home {
         willSet { if tab == newValue { doubleTap(on: tab) } }
     }
    

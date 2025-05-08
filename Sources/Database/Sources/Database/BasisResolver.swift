@@ -41,22 +41,23 @@ internal final class BasisResolver<T: Basis> {
                 else if let data = newBasis.routineStepResultSet[data.id] { newBasis.routineStepResultSet.remove(data) }
                 
             // Tasks
-            case .task(let data): newBasis.taskSet.insert(data)
-            case .source(let data): newBasis.taskSourceSet.insert(data)
-            case .category(let data): newBasis.categorySet.insert(data)
-            case .pause(let data): newBasis.pauseSet.insert(data)
+            case .task(let data): newBasis.taskSet.update(with: data)
+            case .source(let data): newBasis.taskSourceSet.update(with: data)
+            case .category(let data): newBasis.categorySet.update(with: data)
+            case .pause(let data): newBasis.pauseSet.update(with: data)
             
             // Goals
-            case .dailyGoal(let data): newBasis.dailyGoalSet.insert(data)
-            case .dailyGoalResult(let data): newBasis.dailyGoalResultSet.insert(data)
-            case .dailyGoalList(let data): newBasis.dailyGoalListSet.insert(data)
-            case .dailyGoalListSection(let data): newBasis.dailyGoalListSectionSet.insert(data)
-            case .routine(let data): newBasis.routineSet.insert(data)
-            case .routineStep(let data): newBasis.routineStepSet.insert(data)
-            case .routineResult(let data): newBasis.routineResultSet.insert(data)
-            case .routineStepResult(let data): newBasis.routineStepResultSet.insert(data)
+            case .dailyGoal(let data): newBasis.dailyGoalSet.update(with: data)
+            case .dailyGoalResult(let data): newBasis.dailyGoalResultSet.update(with: data)
+            case .dailyGoalList(let data): newBasis.dailyGoalListSet.update(with: data)
+            case .dailyGoalListSection(let data): newBasis.dailyGoalListSectionSet.update(with: data)
+            case .routine(let data): newBasis.routineSet.update(with: data)
+            case .routineStep(let data): newBasis.routineStepSet.update(with: data)
+            case .routineResult(let data): newBasis.routineResultSet.update(with: data)
+            case .routineStepResult(let data): newBasis.routineStepResultSet.update(with: data)
             }
         }
+        
         
         return T(newBasis)
     }

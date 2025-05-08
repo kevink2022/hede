@@ -15,7 +15,7 @@ extension TaskCategory: StringSortedIndex { }
 extension TaskPause: StringSortedIndex { }
 
 /*
-extension ExternallySortedKeySet where Element == AnyTask {
+extension IndexSortedKeySet where Element == AnyTask {
     internal init(
         set: KeySet<AnyTask> = KeySet<AnyTask>()
     ) {
@@ -28,7 +28,7 @@ extension ExternallySortedKeySet where Element == AnyTask {
     }
 }
 
-extension ExternallySortedKeySet where Element == AnyTaskSource {
+extension IndexSortedKeySet where Element == AnyTaskSource {
     internal init(
         set: KeySet<AnyTaskSource> = KeySet<AnyTaskSource>()
     ) {
@@ -40,7 +40,7 @@ extension ExternallySortedKeySet where Element == AnyTaskSource {
     }
 }
 
-extension ExternallySortedKeySet where Element == TaskCategory {
+extension IndexSortedKeySet where Element == TaskCategory {
     internal init(
         set: KeySet<TaskCategory> = KeySet<TaskCategory>()
     ) {
@@ -52,7 +52,7 @@ extension ExternallySortedKeySet where Element == TaskCategory {
     }
 }
 
-extension ExternallySortedKeySet where Element == TaskPause {
+extension IndexSortedKeySet where Element == TaskPause {
     internal init(
         set: KeySet<TaskPause> = KeySet<TaskPause>()
     ) {

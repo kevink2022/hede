@@ -60,13 +60,13 @@ struct GoalResultPicker: View {
             case .count:
                     NumberArrayField(integers: $countGoals)
                         .onChange(of: countGoals) { oldValue, newValue in
-                            goalResult = .count(goals: SortedSet<Int>(contentsOf: newValue))
+                            goalResult = .count(goals: SortedSet<Int>(newValue))
                         }
                 
             case .number:
                     NumberArrayField(doubles: $numberGoals)
                         .onChange(of: numberGoals) { oldValue, newValue in
-                            goalResult = .number(goals: SortedSet<Double>(contentsOf: newValue))
+                            goalResult = .number(goals: SortedSet<Double>(newValue))
                         }
 
             case .routine:

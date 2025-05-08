@@ -13,13 +13,13 @@ internal protocol BasisSortIndex {
     static func equalTo(lhs: Self, rhs: Self) -> Bool
 }
 
-extension ExternallySortedKeySet where Element: BasisSortIndex {
+extension IndexSortedKeySet where Element: BasisSortIndex {
     internal init(
         set: KeySet<Element> = KeySet<Element>()
     ) {
         self.init(
             lessThan: Element.lessThan
-            , equalTo: Element.equalTo
+            /*, equalTo: Element.equalTo*/
             , set: set
         )
     }
@@ -45,4 +45,14 @@ extension DateSortedIndex {
     internal static func equalTo(lhs: Self, rhs: Self) -> Bool { lhs.sortDate == rhs.sortDate }
 }
 
+internal protocol BasisGroupIndex {
+    associatedtype IndexType
+    static func index(_ element: Self) -> IndexType
+}
+
+extension IndexGroupedKeySet where Element: BasisGroupIndex, Index == Element.IndexType {
+    internal init() {
+        self.init(index: Element.index)
+    }
+}
 

@@ -17,15 +17,16 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../../../swift-packages/Domain"),
+        .package(path: "../../../swift-packages/Assemblages"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "Models",
-            dependencies: ["Domain"]),
+            dependencies: ["Domain", "Assemblages"]),
         .testTarget(
             name: "ModelsTests",
-            dependencies: ["Models", "Domain"]),
+            dependencies: ["Models", "Domain", "Assemblages"]),
     ]
 )

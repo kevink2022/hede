@@ -11,9 +11,14 @@ import Models
 fileprivate let goalRepo = Repository.system.goals
 
 extension DailyGoal {
-    public var dailyGoalResults: [DailyGoalResult] { goalRepo.dailyGoalResults.filter { $0.dailyGoalId == self.id } }
+    /*public var dailyGoalResults: [DailyGoalResult] { goalRepo.basis.basis.dailyGoalResultSet.dictionary.values.filter { $0.dailyGoalId == self.id } } this would be better as another group. */
     public var sections: [DailyGoalListSection] { goalRepo.dailyGoalListSections.filter { $0.goalIds.contains(self.id) } }
     public var lists: [DailyGoalList] { goalRepo.dailyGoalLists.filter { $0.dailyGoals.map({ $0.id } ).contains(self.id) } }
+    
+    public func result(on date: Date) -> DailyGoalResult? {
+        guard let results = goalRepo.basis.basis.dailyGoalResultSet[date]?.values else { return nil }
+        return results.first(where: { $0.dailyGoalId == self.id })
+    }
 }
 
 extension DailyGoalResult {

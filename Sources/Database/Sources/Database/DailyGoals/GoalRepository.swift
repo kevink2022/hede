@@ -26,7 +26,6 @@ public final class GoalRepository {
             .sink { [weak self] basis in
                 guard let self = self else { return }
                 self.basis = basis
-                
             }
             .store(in: &cancellables)
     }
@@ -57,7 +56,7 @@ public final class GoalRepository {
         
         let log = UserEventLog(
             label: message ?? "Save"
-            , assertions: KeySet().inserting(contentsOf: assertions)
+            , assertions: KeySet().inserting(assertions)
         )
         
         await transactor.commit(transaction: log)
@@ -68,7 +67,7 @@ public final class GoalRepository {
         
         let log = UserEventLog(
             label: message ?? "Delete"
-            , assertions: KeySet().inserting(contentsOf: assertions)
+            , assertions: KeySet().inserting(assertions)
         )
         
         await transactor.commit(transaction: log)
@@ -89,7 +88,7 @@ public final class GoalRepository {
     public var dailyGoals: [DailyGoal] { basis.dailyGoals }
     public func dailyGoals(_ ids: [Key]) -> [DailyGoal] { ids.compactMap { basis.dailyGoalMap[$0] } }
 
-    public var dailyGoalResults: [DailyGoalResult] { basis.dailyGoalResults }
+//    public var dailyGoalResults: [DailyGoalResult] { basis.dailyGoalResults }
     public func dailyGoalResults(_ ids: [Key]) -> [DailyGoalResult] { ids.compactMap { basis.dailyGoalResultMap[$0] } }
 
     public var dailyGoalLists: [DailyGoalList] { basis.dailyGoalLists }

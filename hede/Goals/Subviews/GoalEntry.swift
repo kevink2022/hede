@@ -10,71 +10,78 @@ import DomainUI
 
 import Models
 import Database
+import Domain
 
 struct GoalEntry: View {
     @Environment(\.repository) private var repository
 
     private let goal: DailyGoal
+    private let date: Date
     private let existingResult: DailyGoalResult?
-    private var result: DailyGoalResult { existingResult ?? goal.asResult }
     @State private var newResult: GoalResult?
     
     var body: some View {
         GoalResultEntry(
-            currentResult: result
+            promptResult: existingResult ?? goal.asResult(on: date)
+            , existingResult: existingResult
             , newResult: $newResult
         )
         
         .onChange(of: newResult) { oldValue, newValue in
             if let newValue = newValue {
                 Task {
-                    print("Saved Daily: \(newValue)")
                     await repository.goals.save(
-                        [goal.complete(date: result.date, result: newValue)]
-                        , message: "Logged Goal: \(result.label)"
+                        [goal.complete(date: date, result: newValue)]
+                        , message: "Logged Goal: \(goal.label)"
                     )
                 }
-            } else {
+            } else if let existingResult = existingResult {
                 Task {
-                    print("Deleted Daily: \(result.label)")
-                    await repository.goals.delete([result])
+                    await repository.goals.delete([existingResult])
                 }
             }
         }
     }
     
-    init(_ goal: DailyGoal) {
+    init(_ goal: DailyGoal, on date: Date) {
         self.goal = goal
-        self.existingResult = nil
-        self.newResult = nil
+        self.date = date
+        
+        if let existingResult = goal.result(on: date) {
+            self.existingResult = existingResult
+            self.newResult = existingResult.result
+        } else {
+            self.existingResult = nil
+            self.newResult = nil
+        }
     }
-    
-    init(_ result: DailyGoalResult) {
-        self.goal = result.dailyGoal
-        self.existingResult = result
-        self.newResult = nil
-    }
+//    
+//    init(_ result: DailyGoalResult) {
+//        self.goal = result.dailyGoal
+//        self.existingResult = result
+//        self.newResult = nil
+//    }
 }
 
 
 struct GoalResultEntry: View {
-    private let goalResult: DailyGoalResult
+    private let existingResult: DailyGoalResult?
+    private let promptResult: DailyGoalResult
     
     @Binding private var newResult: GoalResult?
     
-    @State private var count: Int = 0
-    @State private var integer: Int? = nil
-    @State private var double: Double? = nil
-
-    @State private var string: String = "0"
+    @State private var count: Int
+    @State private var integer: Int?
+    @State private var double: Double?
+    
     @FocusState private var focused: Bool
 
     
     var body: some View {
-            switch goalResult.result {
+            switch promptResult.result {
             case .completion(let steps, let result):
                 Self.Layout(
-                    label: goalResult.label
+                    label: promptResult.label
                 ) {
                     ShapeFillButton(
                         count: $count
@@ -97,7 +104,7 @@ struct GoalResultEntry: View {
                     focused = true
                 } label: {
                     Self.Layout(
-                        label: goalResult.label
+                        label: promptResult.label
                     ) {
                         NullNumberField(integer: $integer, prompt: String(result))
                             .fixedSize()
@@ -105,6 +112,7 @@ struct GoalResultEntry: View {
                     }
                 }
                 
+                .task { integer = existingResult?.result.countResult }
                 .onChange(of: integer) { oldValue, newValue in
                     if let newValue = newValue {
                         newResult = .count(goals: goals, result: newValue)
@@ -114,14 +122,19 @@ struct GoalResultEntry: View {
                 }
                 
             case .number(let goals, let result):
-                Self.Layout(
-                    label: goalResult.label
-                ) {
-                    NullNumberField(double: $double, prompt: String(result))
-                        .fixedSize()
-                        .focused($focused)
+                Button {
+                    focused = true
+                } label: {
+                    Self.Layout(
+                        label: promptResult.label
+                    ) {
+                        NullNumberField(double: $double, prompt: String(result))
+                            .fixedSize()
+                            .focused($focused)
+                    }
                 }
                 
+                .task { double = existingResult?.result.numberResult }
                 .onChange(of: double) { oldValue, newValue in
                     if let newValue = newValue {
                         newResult = .number(goals: goals, result: newValue)
@@ -132,7 +145,7 @@ struct GoalResultEntry: View {
                 
             case .routine(/*let routine, */_, let result):
                 Self.Layout(
-                    label: goalResult.label
+                    label: promptResult.label
                 ) {
                     Text(String(describing: result))
                 }
@@ -141,11 +154,37 @@ struct GoalResultEntry: View {
     }
     
     init(
-        currentResult: DailyGoalResult,
-        newResult: Binding<GoalResult?>
+        promptResult: DailyGoalResult
+        , existingResult: DailyGoalResult?
+        , newResult: Binding<GoalResult?>
     ) {
-        self.goalResult = currentResult
+        self.promptResult = promptResult
+        self.existingResult = existingResult
         self._newResult = newResult
+        
+        self.count = 0
+        self.integer = nil
+        self.double = nil
+        
+        // initialize scaffolding
+ /*
+        guard let existingResult = existingResult else {
+            self.count = 0
+            self.integer = nil
+            self.double = nil
+            return
+        }
+  */
+            
+//        switch existingResult.result {
+//        case .completion(_, let result): self.count = result
+//        case .count(_, let result): self.integer = result 
+//        case .number(_, let result): self.double = result
+//        case .routine(_, /*let result*/_): break
+//        }
+//        
+        
+        
     }
     
     private struct Layout<Content: View>: View {

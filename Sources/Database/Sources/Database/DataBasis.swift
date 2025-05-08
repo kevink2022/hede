@@ -20,34 +20,34 @@ internal final class DataBasis: Basis {
     internal var basis: DataBasis { self }
     
     // Tasks
-    internal let taskSet: ExternallySortedKeySet<AnyTask>
-    internal let taskSourceSet: ExternallySortedKeySet<AnyTaskSource>
-    internal let categorySet: ExternallySortedKeySet<TaskCategory>
-    internal let pauseSet: ExternallySortedKeySet<TaskPause>
+    internal let taskSet: IndexSortedKeySet<AnyTask>
+    internal let taskSourceSet: IndexSortedKeySet<AnyTaskSource>
+    internal let categorySet: IndexSortedKeySet<TaskCategory>
+    internal let pauseSet: IndexSortedKeySet<TaskPause>
     
     // Goals
-    internal let dailyGoalSet: ExternallySortedKeySet<DailyGoal>
-    internal let dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>
-    internal let dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>
-    internal let dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>
-    internal let routineSet: ExternallySortedKeySet<Routine>
-    internal let routineStepSet: ExternallySortedKeySet<RoutineStep>
-    internal let routineResultSet: ExternallySortedKeySet<RoutineResult>
-    internal let routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>
+    internal let dailyGoalSet: IndexSortedKeySet<DailyGoal>
+    internal let dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
+    internal let dailyGoalListSet: IndexSortedKeySet<DailyGoalList>
+    internal let dailyGoalListSectionSet: IndexSortedKeySet<DailyGoalListSection>
+    internal let routineSet: IndexSortedKeySet<Routine>
+    internal let routineStepSet: IndexSortedKeySet<RoutineStep>
+    internal let routineResultSet: IndexSortedKeySet<RoutineResult>
+    internal let routineStepResultSet: IndexSortedKeySet<RoutineStepResult>
     
     internal init(
-        taskSet: ExternallySortedKeySet<AnyTask>
-        , taskSourceSet: ExternallySortedKeySet<AnyTaskSource>
-        , categorySet: ExternallySortedKeySet<TaskCategory>
-        , pauseSet: ExternallySortedKeySet<TaskPause>
-        , dailyGoalSet: ExternallySortedKeySet<DailyGoal>
-        , dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>
-        , dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>
-        , dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>
-        , routineSet: ExternallySortedKeySet<Routine>
-        , routineStepSet: ExternallySortedKeySet<RoutineStep>
-        , routineResultSet: ExternallySortedKeySet<RoutineResult>
-        , routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>
+        taskSet: IndexSortedKeySet<AnyTask>
+        , taskSourceSet: IndexSortedKeySet<AnyTaskSource>
+        , categorySet: IndexSortedKeySet<TaskCategory>
+        , pauseSet: IndexSortedKeySet<TaskPause>
+        , dailyGoalSet: IndexSortedKeySet<DailyGoal>
+        , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
+        , dailyGoalListSet: IndexSortedKeySet<DailyGoalList>
+        , dailyGoalListSectionSet: IndexSortedKeySet<DailyGoalListSection>
+        , routineSet: IndexSortedKeySet<Routine>
+        , routineStepSet: IndexSortedKeySet<RoutineStep>
+        , routineResultSet: IndexSortedKeySet<RoutineResult>
+        , routineStepResultSet: IndexSortedKeySet<RoutineStepResult>
     ) {
         self.taskSet = taskSet
         self.taskSourceSet = taskSourceSet
@@ -65,18 +65,18 @@ internal final class DataBasis: Basis {
 
     public convenience init() {
         self.init(
-            taskSet: ExternallySortedKeySet<AnyTask>()
-            , taskSourceSet: ExternallySortedKeySet<AnyTaskSource>()
-            , categorySet: ExternallySortedKeySet<TaskCategory>()
-            , pauseSet: ExternallySortedKeySet<TaskPause>()
-            , dailyGoalSet: ExternallySortedKeySet<DailyGoal>()
-            , dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>()
-            , dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>()
-            , dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>()
-            , routineSet: ExternallySortedKeySet<Routine>()
-            , routineStepSet: ExternallySortedKeySet<RoutineStep>()
-            , routineResultSet: ExternallySortedKeySet<RoutineResult>()
-            , routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>()
+            taskSet: IndexSortedKeySet<AnyTask>()
+            , taskSourceSet: IndexSortedKeySet<AnyTaskSource>()
+            , categorySet: IndexSortedKeySet<TaskCategory>()
+            , pauseSet: IndexSortedKeySet<TaskPause>()
+            , dailyGoalSet: IndexSortedKeySet<DailyGoal>()
+            , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>()
+            , dailyGoalListSet: IndexSortedKeySet<DailyGoalList>()
+            , dailyGoalListSectionSet: IndexSortedKeySet<DailyGoalListSection>()
+            , routineSet: IndexSortedKeySet<Routine>()
+            , routineStepSet: IndexSortedKeySet<RoutineStep>()
+            , routineResultSet: IndexSortedKeySet<RoutineResult>()
+            , routineStepResultSet: IndexSortedKeySet<RoutineStepResult>()
         )
     }
     
@@ -105,35 +105,35 @@ internal final class DataBasis: Basis {
 internal final class MutableBasis {
     
     // Tasks
-    var taskSet: ExternallySortedKeySet<AnyTask>
-    var taskSourceSet: ExternallySortedKeySet<AnyTaskSource>
-    var categorySet: ExternallySortedKeySet<TaskCategory>
-    var pauseSet: ExternallySortedKeySet<TaskPause>
+    var taskSet: IndexSortedKeySet<AnyTask>
+    var taskSourceSet: IndexSortedKeySet<AnyTaskSource>
+    var categorySet: IndexSortedKeySet<TaskCategory>
+    var pauseSet: IndexSortedKeySet<TaskPause>
     
     // Goals
-    var dailyGoalSet: ExternallySortedKeySet<DailyGoal>
-    var dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>
-    var dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>
-    var dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>
-    var routineSet: ExternallySortedKeySet<Routine>
-    var routineStepSet: ExternallySortedKeySet<RoutineStep>
-    var routineResultSet: ExternallySortedKeySet<RoutineResult>
-    var routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>
+    var dailyGoalSet: IndexSortedKeySet<DailyGoal>
+    var dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
+    var dailyGoalListSet: IndexSortedKeySet<DailyGoalList>
+    var dailyGoalListSectionSet: IndexSortedKeySet<DailyGoalListSection>
+    var routineSet: IndexSortedKeySet<Routine>
+    var routineStepSet: IndexSortedKeySet<RoutineStep>
+    var routineResultSet: IndexSortedKeySet<RoutineResult>
+    var routineStepResultSet: IndexSortedKeySet<RoutineStepResult>
     
 
     init(
-        taskSet: ExternallySortedKeySet<AnyTask>
-        , taskSourceSet: ExternallySortedKeySet<AnyTaskSource>
-        , categorySet: ExternallySortedKeySet<TaskCategory>
-        , pauseSet: ExternallySortedKeySet<TaskPause>
-        , dailyGoalSet: ExternallySortedKeySet<DailyGoal>
-        , dailyGoalResultSet: ExternallySortedKeySet<DailyGoalResult>
-        , dailyGoalListSet: ExternallySortedKeySet<DailyGoalList>
-        , dailyGoalListSectionSet: ExternallySortedKeySet<DailyGoalListSection>
-        , routineSet: ExternallySortedKeySet<Routine>
-        , routineStepSet: ExternallySortedKeySet<RoutineStep>
-        , routineResultSet: ExternallySortedKeySet<RoutineResult>
-        , routineStepResultSet: ExternallySortedKeySet<RoutineStepResult>
+        taskSet: IndexSortedKeySet<AnyTask>
+        , taskSourceSet: IndexSortedKeySet<AnyTaskSource>
+        , categorySet: IndexSortedKeySet<TaskCategory>
+        , pauseSet: IndexSortedKeySet<TaskPause>
+        , dailyGoalSet: IndexSortedKeySet<DailyGoal>
+        , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
+        , dailyGoalListSet: IndexSortedKeySet<DailyGoalList>
+        , dailyGoalListSectionSet: IndexSortedKeySet<DailyGoalListSection>
+        , routineSet: IndexSortedKeySet<Routine>
+        , routineStepSet: IndexSortedKeySet<RoutineStep>
+        , routineResultSet: IndexSortedKeySet<RoutineResult>
+        , routineStepResultSet: IndexSortedKeySet<RoutineStepResult>
     ) {
         self.taskSet = taskSet
         self.taskSourceSet = taskSourceSet

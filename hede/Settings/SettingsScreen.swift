@@ -8,6 +8,8 @@
 import SwiftUI
 import Database
 
+import Models
+
 struct SettingsScreen: View {
     @Environment(\.eventManager) private var eventManager
     @Environment(\.navigator) private var navigator
@@ -61,21 +63,23 @@ struct SettingsScreen: View {
                 
                 Section("Storage") {
                     NavigationLink {
-                        TransactionHistoryScreen {
-                            await repository.tasks.getTransactions()
-                        }
+                        TransactionHistoryScreen { await repository.tasks.getTransactions() }
+                            rollbackToBefore: { await repository.tasks.rollbackTo(before: $0) }
+                            rollbackToAfter: { await repository.tasks.rollbackTo(after: $0) }
                     } label: {
                         Text("Task History")
                     }
                     
                     NavigationLink {
-                        TransactionHistoryScreen {
-                            await repository.goals.getTransactions()
-                        }
+                        TransactionHistoryScreen { await repository.goals.getTransactions() }
+                            rollbackToBefore: { await repository.goals.rollbackTo(before: $0) }
+                            rollbackToAfter: { await repository.goals.rollbackTo(after: $0) }
                     } label: {
                         Text("Goal History")
                     }
+                }
                 
+                Section("Debug") {
                     Button {
                         Task {
                             await repository.tasks.save(MyTasks.importAll, message: "Import Dev Defaults")
@@ -84,6 +88,7 @@ struct SettingsScreen: View {
                         Text("Import Dev Defaults")
                     }
                     .disabled(repository.tasks.taskSources.count > 0)
+   
                 }
             }
             .navigationTitle("Settings")
@@ -98,4 +103,3 @@ struct SettingsScreen: View {
         .environment(\.repository, PreviewMocks.mockRepository)
         .environment(\.eventManager, PreviewMocks.mockEventManager)
 }
-

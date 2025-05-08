@@ -87,7 +87,7 @@ public final class RecurringSource: TaskSource {
         , description: String?
         , category: Key?
         , pauses: [Key]?
-        , taskType: TaskTime.Pattern
+        , taskType: TaskTime.Pattern?
         , type: RecurrenceType?
         , spacing: TimeDuration?
         , lastTask: RecurringTask
@@ -107,7 +107,7 @@ public final class RecurringSource: TaskSource {
         
         let newTask = lastTask.edit(
             label: label
-            , scheduled: TaskTime.new(taskType, from: newDueDate)
+            , scheduled: TaskTime.new(taskType ?? lastTask.scheduled.pattern, from: newDueDate)
             , completed: lastTask.completed
         )
         

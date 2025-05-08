@@ -99,13 +99,13 @@ public final class DailyGoal: Codable, Identifiable, Equatable  {
         )
     }
     
-    public var asResult: DailyGoalResult {
+    public func asResult(on date: Date) -> DailyGoalResult {
         DailyGoalResult(
             id: .new()
             , dailyGoalId: self.id
             , label: self.label
             , result: self.config.empty
-            , date: .today
+            , date: date.startOfDay
             , recorded: .now
         )
     }
@@ -352,6 +352,22 @@ public enum GoalResult: Codable, Equatable {
         case .count(_, let result): Double(result)
         case .number(_, let result): result
         case .routine(_, _): 0
+        }
+    }
+    
+    /// Returns the count result of any count goal result. Returns nil if not a completion goal.
+    public var countResult: Int? {
+        switch self {
+        case .count(_, let result): result
+        case .completion(_, _), .number(_, _), .routine(_, _): nil
+        }
+    }
+    
+    /// Returns the number result of any completion goal result. Returns nil if not a completion goal.
+    public var numberResult: Double? {
+        switch self {
+        case .number(_, let result): result
+        case .completion(_, _), .count(_, _), .routine(_, _): nil
         }
     }
 }

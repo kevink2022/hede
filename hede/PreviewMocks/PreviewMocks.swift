@@ -23,9 +23,24 @@ struct PreviewMocks {
     static let eventManager = EventManager(repository: repository)
     
     static let mockRepository: Repository = {
-        let repository = Repository.inMemory
-        Task { await repository.tasks.save(sources + tasks) }
-        Task { await repository.goals.save(goals + sections + lists) }
+        let repository = Repository.system
+        
+        Task {
+            let transactions = await repository.tasks.getTransactions()
+            if let last = transactions.last {
+                await repository.tasks.rollbackTo(before: last)
+            }
+            await repository.tasks.save(sources + tasks)
+        }
+        
+        Task {
+            let transactions = await repository.goals.getTransactions()
+            if let last = transactions.last {
+                await repository.goals.rollbackTo(before: last)
+            }
+            await repository.goals.save(goals + sections + lists)
+        }
+        
         return repository
     }()
     

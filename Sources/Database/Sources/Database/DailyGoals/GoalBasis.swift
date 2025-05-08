@@ -16,7 +16,7 @@ public final class GoalBasis: Basis {
     public var dailyGoals: [DailyGoal] { basis.dailyGoalSet.values }
     public var dailyGoalMap: [Key: DailyGoal] { basis.dailyGoalSet.dictionary }
 
-    public var dailyGoalResults: [DailyGoalResult] { basis.dailyGoalResultSet.values }
+//    public var dailyGoalResults: [Date: KeySet<DailyGoalResult>] { basis.dailyGoalResultSet }
     public var dailyGoalResultMap: [Key: DailyGoalResult] { basis.dailyGoalResultSet.dictionary }
 
     public var dailyGoalLists: [DailyGoalList] { basis.dailyGoalListSet.values }
