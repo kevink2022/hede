@@ -30,6 +30,8 @@ struct PreviewMocks {
             if let last = transactions.last {
                 await repository.tasks.rollbackTo(before: last)
             }
+            
+            print("\(sources.asJsonString() ?? "NULL")")
             await repository.tasks.save(sources + tasks)
         }
         
@@ -38,6 +40,7 @@ struct PreviewMocks {
             if let last = transactions.last {
                 await repository.goals.rollbackTo(before: last)
             }
+            
             await repository.goals.save(goals + sections + lists)
         }
         

@@ -198,4 +198,133 @@ final class RecurringTests: XCTestCase {
         
         XCTAssertEqual(nil, activated.deactivated)
     }
+    
+    func testDecodeOldSchema() {
+        guard let sources = try? JSONDecoder().decode([AnyTaskSource].self, from: sourcesOldSchema) else {
+            XCTFail("Failed to decode"); return
+        }
+        
+        XCTAssertEqual(sources.count, 6)
+    }
+    
+    // Temporary old schema using
+    let sourcesOldSchema: Data = """
+        [
+          {
+            "code" : {
+              "toDo" : {
+                "_0" : {
+                  "label" : "Buy Beer for Game",
+                  "description" : "Pat likes coors.",
+                  "task" : {
+                    "id" : "E828B9C3-42FF-424E-BB0F-BE2BDA0C1907"
+                  },
+                  "id" : {
+                    "id" : "1AC45D22-C26E-4E15-B3D4-9BD10FC23851"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "code" : {
+              "toDo" : {
+                "_0" : {
+                  "description" : "He would be too smart to say yes.",
+                  "task" : {
+                    "id" : "A0B41373-33CF-4882-9A1E-310FA112098B"
+                  },
+                  "label" : "Text Michael about new creami flavor.",
+                  "id" : {
+                    "id" : "843A4E82-0D57-4210-BEE6-79F332D7D9BB"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "code" : {
+              "toDo" : {
+                "_0" : {
+                  "task" : {
+                    "id" : "0938E484-D4BC-4AA5-95C1-4856CBB7CE5E"
+                  },
+                  "description" : "Stonls",
+                  "label" : "Call with Aaron",
+                  "id" : {
+                    "id" : "E6961804-F2D2-496B-BD5E-00402438EAA2"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "code" : {
+              "recurring" : {
+                "_0" : {
+                  "id" : {
+                    "id" : "CA3EDCB7-8983-413D-AB5D-5150AF255529"
+                  },
+                  "type" : {
+                    "fromComplete" : {
+
+                    }
+                  },
+                  "description" : "Practice Patterns",
+                  "label" : "Do Leetcode problem",
+                  "spacing" : {
+                    "weeks" : {
+                      "_0" : 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "code" : {
+              "recurring" : {
+                "_0" : {
+                  "spacing" : {
+                    "weeks" : {
+                      "_0" : 2
+                    }
+                  },
+                  "id" : {
+                    "id" : "B6019744-9C8D-4A63-BEB0-A933523C55D7"
+                  },
+                  "label" : "Wash Sheets",
+                  "type" : {
+                    "fromComplete" : {
+
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "code" : {
+              "recurring" : {
+                "_0" : {
+                  "spacing" : {
+                    "months" : {
+                      "_0" : 1
+                    }
+                  },
+                  "type" : {
+                    "fromScheduled" : {
+
+                    }
+                  },
+                  "label" : "Pay Rent",
+                  "id" : {
+                    "id" : "5E0D7E4C-E005-4F48-AC4A-67BFDAF81830"
+                  }
+                }
+              }
+            }
+          }
+        ]
+        """.data(using: .utf8)!
 }

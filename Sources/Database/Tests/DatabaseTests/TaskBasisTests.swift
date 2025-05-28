@@ -16,7 +16,7 @@ final class TaskBasisTests: XCTestCase {
     
     func testCommit() throws {
         
-        let assertionSet = KeySet<Assertion>().inserting(contentsOf: T.testAssertions)
+        let assertionSet = KeySet<Assertion>().inserting(T.testAssertions)
         
         // Add to empty
         let basis_1 = BasisResolver(TaskBasis.empty).commit(assertionSet)
@@ -31,7 +31,7 @@ final class TaskBasisTests: XCTestCase {
         XCTAssertEqual(T.category, basis_1.categoryMap[T.category.id])
         XCTAssertEqual(T.pause, basis_1.pauseMap[T.pause.id])
         
-        let assertionSet_2 = KeySet<Assertion>().inserting(contentsOf: T.testAssertions_2)
+        let assertionSet_2 = KeySet<Assertion>().inserting(T.testAssertions_2)
         
         // Add more new
         let basis_2 = BasisResolver(basis_1).commit(assertionSet_2)
@@ -50,7 +50,7 @@ final class TaskBasisTests: XCTestCase {
         XCTAssertEqual(T.category_2, basis_2.categoryMap[T.category_2.id])
         XCTAssertEqual(T.pause_2, basis_2.pauseMap[T.pause_2.id])
         
-        let assertionSet_edits = KeySet<Assertion>().inserting(contentsOf: T.testAssertionsEdited)
+        let assertionSet_edits = KeySet<Assertion>().inserting(T.testAssertionsEdited)
         
         // Edit
         let basis_3 = BasisResolver(basis_2).commit(assertionSet_edits)
@@ -86,7 +86,7 @@ final class TaskBasisTests: XCTestCase {
             , deletePause
         ]
         
-        let assertionSet_deletes = KeySet<Assertion>().inserting(contentsOf: deletes)
+        let assertionSet_deletes = KeySet<Assertion>().inserting(deletes)
         
         let basis_4 = BasisResolver(basis_3).commit(assertionSet_deletes)
         
@@ -107,8 +107,8 @@ final class TaskBasisTests: XCTestCase {
     
     func testFlatten() throws {
         
-        let assertionSet = KeySet<Assertion>().inserting(contentsOf: T.testAssertions)
-        let assertionSet_2 = KeySet<Assertion>().inserting(contentsOf: T.testAssertions_2)
+        let assertionSet = KeySet<Assertion>().inserting(T.testAssertions)
+        let assertionSet_2 = KeySet<Assertion>().inserting(T.testAssertions_2)
         
         let flattened_2 = Assertion.flatten([
             assertionSet
@@ -134,7 +134,7 @@ final class TaskBasisTests: XCTestCase {
         XCTAssertEqual(T.category_2, basis_2.categoryMap[T.category_2.id])
         XCTAssertEqual(T.pause_2, basis_2.pauseMap[T.pause_2.id])
         
-        let assertionSet_edits = KeySet<Assertion>().inserting(contentsOf: T.testAssertionsEdited)
+        let assertionSet_edits = KeySet<Assertion>().inserting(T.testAssertionsEdited)
         
         let flattened_3 = Assertion.flatten([
             assertionSet
@@ -173,7 +173,7 @@ final class TaskBasisTests: XCTestCase {
             , deletePause
         ]
         
-        let assertionSet_deletes = KeySet<Assertion>().inserting(contentsOf: deletes)
+        let assertionSet_deletes = KeySet<Assertion>().inserting(deletes)
         
         let flattened_4 = Assertion.flatten([
             assertionSet
