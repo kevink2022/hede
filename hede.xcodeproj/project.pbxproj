@@ -35,6 +35,7 @@
 		4F54901F2D7C207000896812 /* DomainUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4F54901E2D7C207000896812 /* DomainUI */; };
 		4F5C9C862D80F90F00FE6CEC /* AllDailyGoalListsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5C9C852D80F8EE00FE6CEC /* AllDailyGoalListsScreen.swift */; };
 		4F5C9C882D81042300FE6CEC /* DailyListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5C9C872D81040900FE6CEC /* DailyListScreen.swift */; };
+		4F70D9BE2DECD9BE0019296E /* SchedulerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F70D9BD2DECD9BA0019296E /* SchedulerScreen.swift */; };
 		4F8432572D67EE7B00B3F8EA /* Database in Frameworks */ = {isa = PBXBuildFile; productRef = 4F8432562D67EE7B00B3F8EA /* Database */; };
 		4F87E7982D3EFACE00B3CBBB /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7972D3EFACA00B3CBBB /* SettingsScreen.swift */; };
 		4F87E79A2D3EFD0200B3CBBB /* TransactionHistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7992D3EFCF900B3CBBB /* TransactionHistoryScreen.swift */; };
@@ -48,6 +49,9 @@
 		4F97DA7F2C8F3A75002002BB /* RecurringSourcesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA7E2C8F3A75002002BB /* RecurringSourcesScreen.swift */; };
 		4F97DA812C8F3A8B002002BB /* ToDoSourcesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA802C8F3A8B002002BB /* ToDoSourcesScreen.swift */; };
 		4F97DA852C8F827C002002BB /* RecurringSourceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA842C8F827C002002BB /* RecurringSourceFormView.swift */; };
+		4FCC80E32DECD341002655C2 /* TaskScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC80E22DECD33C002655C2 /* TaskScreen.swift */; };
+		4FCC80E72DECD37F002655C2 /* TasksDueScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC80E62DECD36E002655C2 /* TasksDueScreen.swift */; };
+		4FCC80E92DECD607002655C2 /* AllSchedulersScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC80E82DECD603002655C2 /* AllSchedulersScreen.swift */; };
 		4FE0D83B2D59714C0000EC75 /* AnySourceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE0D83A2D5971470000EC75 /* AnySourceScreen.swift */; };
 		4FE0D83D2D59AD840000EC75 /* NavigationDestinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE0D83C2D59AD790000EC75 /* NavigationDestinations.swift */; };
 		4FE9DA7D2D766CBB00EF1DD6 /* GoalMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE9DA7C2D766CB800EF1DD6 /* GoalMocks.swift */; };
@@ -108,6 +112,7 @@
 		4F51B8D82D7FC5A7009BEA9C /* GoalGroupEditableScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGroupEditableScreen.swift; sourceTree = "<group>"; };
 		4F5C9C852D80F8EE00FE6CEC /* AllDailyGoalListsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDailyGoalListsScreen.swift; sourceTree = "<group>"; };
 		4F5C9C872D81040900FE6CEC /* DailyListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyListScreen.swift; sourceTree = "<group>"; };
+		4F70D9BD2DECD9BA0019296E /* SchedulerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerScreen.swift; sourceTree = "<group>"; };
 		4F87E7972D3EFACA00B3CBBB /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		4F87E7992D3EFCF900B3CBBB /* TransactionHistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryScreen.swift; sourceTree = "<group>"; };
 		4F89BCB82C8633F600AD18DB /* hedeTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = hedeTestPlan.xctestplan; sourceTree = "<group>"; };
@@ -122,6 +127,9 @@
 		4F97DA7E2C8F3A75002002BB /* RecurringSourcesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringSourcesScreen.swift; sourceTree = "<group>"; };
 		4F97DA802C8F3A8B002002BB /* ToDoSourcesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoSourcesScreen.swift; sourceTree = "<group>"; };
 		4F97DA842C8F827C002002BB /* RecurringSourceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringSourceFormView.swift; sourceTree = "<group>"; };
+		4FCC80E22DECD33C002655C2 /* TaskScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskScreen.swift; sourceTree = "<group>"; };
+		4FCC80E62DECD36E002655C2 /* TasksDueScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDueScreen.swift; sourceTree = "<group>"; };
+		4FCC80E82DECD603002655C2 /* AllSchedulersScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllSchedulersScreen.swift; sourceTree = "<group>"; };
 		4FE0D83A2D5971470000EC75 /* AnySourceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySourceScreen.swift; sourceTree = "<group>"; };
 		4FE0D83C2D59AD790000EC75 /* NavigationDestinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestinations.swift; sourceTree = "<group>"; };
 		4FE9DA7C2D766CB800EF1DD6 /* GoalMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalMocks.swift; sourceTree = "<group>"; };
@@ -247,6 +255,10 @@
 		4F4A992D2C922B9000C1C659 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				4F70D9BD2DECD9BA0019296E /* SchedulerScreen.swift */,
+				4FCC80E82DECD603002655C2 /* AllSchedulersScreen.swift */,
+				4FCC80E62DECD36E002655C2 /* TasksDueScreen.swift */,
+				4FCC80E22DECD33C002655C2 /* TaskScreen.swift */,
 				4FE9DA802D77EB5500EF1DD6 /* Tasks */,
 				4F97DA722C8E7EAC002002BB /* Sources */,
 			);
@@ -550,6 +562,7 @@
 				4F51B8C72D7D181E009BEA9C /* GoalForm.swift in Sources */,
 				4F97DA7F2C8F3A75002002BB /* RecurringSourcesScreen.swift in Sources */,
 				4F51B8CF2D7E3EA6009BEA9C /* GoalGroupListScreen.swift in Sources */,
+				4F70D9BE2DECD9BE0019296E /* SchedulerScreen.swift in Sources */,
 				4F4A994B2CA1FA7900C1C659 /* RecurringTaskFields.swift in Sources */,
 				4F5C9C862D80F90F00FE6CEC /* AllDailyGoalListsScreen.swift in Sources */,
 				4F51B8D92D7FC5A7009BEA9C /* GoalGroupEditableScreen.swift in Sources */,
@@ -559,6 +572,7 @@
 				4F4A99432C940D4300C1C659 /* TaskTimePicker.swift in Sources */,
 				4F87E7982D3EFACE00B3CBBB /* SettingsScreen.swift in Sources */,
 				4F97DA682C8E74B5002002BB /* EventManager.swift in Sources */,
+				4FCC80E72DECD37F002655C2 /* TasksDueScreen.swift in Sources */,
 				4F97DA812C8F3A8B002002BB /* ToDoSourcesScreen.swift in Sources */,
 				4F97DA622C8E68AA002002BB /* ViewConstants.swift in Sources */,
 				4F4A99472C9A137D00C1C659 /* ToDoSourceScreen.swift in Sources */,
@@ -570,6 +584,7 @@
 				4F51B8C92D7D677D009BEA9C /* GoalResultPicker.swift in Sources */,
 				4F2719052C828B3D004CF717 /* ContentView.swift in Sources */,
 				4F51B8D12D7E413D009BEA9C /* GoalGroupScreen.swift in Sources */,
+				4FCC80E32DECD341002655C2 /* TaskScreen.swift in Sources */,
 				4F97DA7B2C8E9FD7002002BB /* PreviewMocks.swift in Sources */,
 				4F4A99342C93788200C1C659 /* ToDoSourceFormView.swift in Sources */,
 				4F4A99412C940CA800C1C659 /* TaskTimeFormEntry.swift in Sources */,
@@ -581,6 +596,7 @@
 				4F4A99452C9A137200C1C659 /* RecurringSourceScreen.swift in Sources */,
 				4FE9DA832D77EBBB00EF1DD6 /* DailyGoalFormScreen.swift in Sources */,
 				4F97DA852C8F827C002002BB /* RecurringSourceFormView.swift in Sources */,
+				4FCC80E92DECD607002655C2 /* AllSchedulersScreen.swift in Sources */,
 				4FE0D83B2D59714C0000EC75 /* AnySourceScreen.swift in Sources */,
 				4F51B8BB2D7D0861009BEA9C /* GoalEntry.swift in Sources */,
 				4FE9DA7D2D766CBB00EF1DD6 /* GoalMocks.swift in Sources */,

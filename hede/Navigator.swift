@@ -88,9 +88,7 @@ extension NavigationPath {
     }
     
     mutating func navigateTo(_ value: any Hashable, clearingPath: Bool = false) {
-        if clearingPath {
-            self.toRoot()
-        }
+        if clearingPath { self.toRoot() }
         self.append(value)
     }
     

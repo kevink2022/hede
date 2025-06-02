@@ -72,7 +72,7 @@ extension TaskTime {
         }
     }
     
-    public func new(from newStart: Date) -> TaskTime {
+    public func new(at newStart: Date) -> TaskTime {
         switch self {
         case .appointment(let start, let end):
             let duration = end.timeIntervalSince(start)

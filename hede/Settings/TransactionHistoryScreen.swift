@@ -24,6 +24,12 @@ struct TransactionHistoryScreen: View {
                 Text("No Transactions in this session.")
             }
             
+            Button {
+                print("\(transactions.asJsonString() ?? "NULL")")
+            } label: {
+                Text("Print")
+            }
+            
             ForEach(transactions) { transaction in
                 
                 VStack(alignment: .leading) {

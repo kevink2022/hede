@@ -20,6 +20,11 @@ internal final class DataBasis: Basis {
     internal var basis: DataBasis { self }
     
     // Tasks
+    internal let hedeSchedulerSet: IndexSortedKeySet<HedeScheduler>
+    internal let hedeTaskSet: IndexSortedKeySet<HedeTask>
+    internal let hedeTagSet: IndexSortedKeySet<HedeTag>
+    
+    // Tasks DEPR
     internal let taskSet: IndexSortedKeySet<AnyTask>
     internal let taskSourceSet: IndexSortedKeySet<AnyTaskSource>
     internal let categorySet: IndexSortedKeySet<TaskCategory>
@@ -36,10 +41,15 @@ internal final class DataBasis: Basis {
     internal let routineStepResultSet: IndexSortedKeySet<RoutineStepResult>
     
     internal init(
-        taskSet: IndexSortedKeySet<AnyTask>
+        hedeSchedulerSet: IndexSortedKeySet<HedeScheduler>
+        , hedeTaskSet: IndexSortedKeySet<HedeTask>
+        , hedeTagSet: IndexSortedKeySet<HedeTag>
+        
+        , taskSet: IndexSortedKeySet<AnyTask>
         , taskSourceSet: IndexSortedKeySet<AnyTaskSource>
         , categorySet: IndexSortedKeySet<TaskCategory>
         , pauseSet: IndexSortedKeySet<TaskPause>
+        
         , dailyGoalSet: IndexSortedKeySet<DailyGoal>
         , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
         , dailyGoalListSet: IndexSortedKeySet<DailyGoalList>
@@ -49,10 +59,15 @@ internal final class DataBasis: Basis {
         , routineResultSet: IndexSortedKeySet<RoutineResult>
         , routineStepResultSet: IndexSortedKeySet<RoutineStepResult>
     ) {
+        self.hedeSchedulerSet = hedeSchedulerSet
+        self.hedeTaskSet = hedeTaskSet
+        self.hedeTagSet = hedeTagSet
+                
         self.taskSet = taskSet
         self.taskSourceSet = taskSourceSet
         self.categorySet = categorySet
         self.pauseSet = pauseSet
+        
         self.dailyGoalSet = dailyGoalSet
         self.dailyGoalResultSet = dailyGoalResultSet
         self.dailyGoalListSet = dailyGoalListSet
@@ -65,10 +80,15 @@ internal final class DataBasis: Basis {
 
     public convenience init() {
         self.init(
-            taskSet: IndexSortedKeySet<AnyTask>()
+            hedeSchedulerSet: IndexSortedKeySet<HedeScheduler>()
+            , hedeTaskSet: IndexSortedKeySet<HedeTask>()
+            , hedeTagSet: IndexSortedKeySet<HedeTag>()
+            
+            , taskSet: IndexSortedKeySet<AnyTask>()
             , taskSourceSet: IndexSortedKeySet<AnyTaskSource>()
             , categorySet: IndexSortedKeySet<TaskCategory>()
             , pauseSet: IndexSortedKeySet<TaskPause>()
+            
             , dailyGoalSet: IndexSortedKeySet<DailyGoal>()
             , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>()
             , dailyGoalListSet: IndexSortedKeySet<DailyGoalList>()
@@ -84,10 +104,15 @@ internal final class DataBasis: Basis {
         _ basis: MutableBasis
     ) {
         self.init(
-            taskSet: basis.taskSet
+            hedeSchedulerSet: basis.hedeSchedulerSet
+            , hedeTaskSet: basis.hedeTaskSet
+            , hedeTagSet: basis.hedeTagSet
+            
+            , taskSet: basis.taskSet
             , taskSourceSet: basis.taskSourceSet
             , categorySet: basis.categorySet
             , pauseSet: basis.pauseSet
+            
             , dailyGoalSet: basis.dailyGoalSet
             , dailyGoalResultSet: basis.dailyGoalResultSet
             , dailyGoalListSet: basis.dailyGoalListSet
@@ -105,6 +130,11 @@ internal final class DataBasis: Basis {
 internal final class MutableBasis {
     
     // Tasks
+    var hedeSchedulerSet: IndexSortedKeySet<HedeScheduler>
+    var hedeTaskSet: IndexSortedKeySet<HedeTask>
+    var hedeTagSet: IndexSortedKeySet<HedeTag>
+    
+    // Tasks DEPR
     var taskSet: IndexSortedKeySet<AnyTask>
     var taskSourceSet: IndexSortedKeySet<AnyTaskSource>
     var categorySet: IndexSortedKeySet<TaskCategory>
@@ -122,10 +152,15 @@ internal final class MutableBasis {
     
 
     init(
-        taskSet: IndexSortedKeySet<AnyTask>
+        hedeSchedulerSet: IndexSortedKeySet<HedeScheduler>
+        , hedeTaskSet: IndexSortedKeySet<HedeTask>
+        , hedeTagSet: IndexSortedKeySet<HedeTag>
+        
+        , taskSet: IndexSortedKeySet<AnyTask>
         , taskSourceSet: IndexSortedKeySet<AnyTaskSource>
         , categorySet: IndexSortedKeySet<TaskCategory>
         , pauseSet: IndexSortedKeySet<TaskPause>
+        
         , dailyGoalSet: IndexSortedKeySet<DailyGoal>
         , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
         , dailyGoalListSet: IndexSortedKeySet<DailyGoalList>
@@ -135,10 +170,15 @@ internal final class MutableBasis {
         , routineResultSet: IndexSortedKeySet<RoutineResult>
         , routineStepResultSet: IndexSortedKeySet<RoutineStepResult>
     ) {
+        self.hedeSchedulerSet = hedeSchedulerSet
+        self.hedeTaskSet = hedeTaskSet
+        self.hedeTagSet = hedeTagSet
+                
         self.taskSet = taskSet
         self.taskSourceSet = taskSourceSet
         self.categorySet = categorySet
         self.pauseSet = pauseSet
+        
         self.dailyGoalSet = dailyGoalSet
         self.dailyGoalResultSet = dailyGoalResultSet
         self.dailyGoalListSet = dailyGoalListSet
@@ -153,10 +193,15 @@ internal final class MutableBasis {
         _ basis: DataBasis
     ) {
         self.init(
-            taskSet: basis.taskSet
+            hedeSchedulerSet: basis.hedeSchedulerSet
+            , hedeTaskSet: basis.hedeTaskSet
+            , hedeTagSet: basis.hedeTagSet
+            
+            , taskSet: basis.taskSet
             , taskSourceSet: basis.taskSourceSet
             , categorySet: basis.categorySet
             , pauseSet: basis.pauseSet
+            
             , dailyGoalSet: basis.dailyGoalSet
             , dailyGoalResultSet: basis.dailyGoalResultSet
             , dailyGoalListSet: basis.dailyGoalListSet

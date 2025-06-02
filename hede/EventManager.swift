@@ -40,6 +40,30 @@ final class EventManager {
             await repository.tasks.save([completedTask], message: "Completed \(completedTask.label)")
         }
     }
+    
+    func complete(_ task: HedeTask, with review: AnySpacedRepetitionContext? = nil) async {
+        let date = Date.now
+        guard let scheduler = repository.tasks.hedeSchedulers([task.schedulerId]).first else { return }
+        
+        // temp -- will need to pass review from UIs once they're created.
+        let tempReview: AnySpacedRepetitionContext? = {
+            switch scheduler.algorithm?.code {
+            case .linear(_): AnySpacedRepetitionContext(LinearSpacedRepetition.Review(date: date))
+            case nil: nil
+            default: nil
+            }
+        }()
+        
+        let completedTask = task.complete(at: date, review: tempReview)
+       
+        if let newTask = scheduler.nextTask(from: completedTask) {
+            print("NEW TASK - SCHEDULED: \(newTask.scheduled.dateLabel)")
+            await repository.tasks.save([completedTask, newTask], message: "Completed \(completedTask.label)")
+        } else {
+            print("NO NEW TASK")
+            await repository.tasks.save([completedTask], message: "Completed \(completedTask.label)")
+        }
+    }
 }
 
 /// ToDo

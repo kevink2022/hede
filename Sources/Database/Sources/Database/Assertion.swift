@@ -25,11 +25,16 @@ internal enum AssertionCode: Codable, Equatable {
     case delete(DeleteKey)
     
     // Tasks
+    case hedeTask(HedeTask)
+    case hedeScheduler(HedeScheduler)
+    case hedeTag(HedeTag)
+    
+    // Tasks DEPR
     case task(AnyTask)
     case source(AnyTaskSource)
     case category(TaskCategory)
     case pause(TaskPause)
-    
+     
     // Goals
     case dailyGoal(DailyGoal)
     case dailyGoalResult(DailyGoalResult)
@@ -73,6 +78,12 @@ internal final class Assertion: Assertable {
     }
 }
 
+// MARK: - Conformance
+
+extension HedeTag: Assertable { var assertCode: AssertionCode { .hedeTag(self) } }
+extension HedeTask: Assertable { var assertCode: AssertionCode { .hedeTask(self) } }
+extension HedeScheduler: Assertable { var assertCode: AssertionCode { .hedeScheduler(self) } }
+
 extension AnyTask: Assertable { var assertCode: AssertionCode { .task(self) } }
 extension AnyTaskSource: Assertable { var assertCode: AssertionCode { .source(self) } }
 extension TaskCategory: Assertable { var assertCode: AssertionCode { .category(self) } }
@@ -90,11 +101,16 @@ extension RoutineStepResult: Assertable { var assertCode: AssertionCode { .routi
 extension Assertion {
     internal convenience init(code: AssertionCode) {
         switch code {
+        case .hedeTask(let data): self.init(data)
+        case .hedeScheduler(let data): self.init(data)
+        case .hedeTag(let data): self.init(data)
+            
         case .delete(let data): self.init(data)
         case .task(let data): self.init(data)
         case .source(let data): self.init(data)
         case .category(let data): self.init(data)
         case .pause(let data): self.init(data)
+
         case .dailyGoal(let data): self.init(data)
         case .dailyGoalResult(let data): self.init(data)
         case .dailyGoalList(let data): self.init(data)

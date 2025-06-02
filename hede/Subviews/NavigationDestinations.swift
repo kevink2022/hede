@@ -20,6 +20,12 @@ struct NavigationDestinations: ViewModifier {
             .navigationDestination(for: AnyTaskSource.self) { source in
                 AnySourceScreen(source)
             }
+            .navigationDestination(for: HedeScheduler.self) { scheduler in
+                SchedulerScreen(scheduler)
+            }
+            .navigationDestination(for: HedeTask.self) { task in
+                TaskScreen(task)
+            }
     }
     
 //    init(for path: NavigationPath) {

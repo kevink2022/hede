@@ -85,63 +85,53 @@ public final class TaskRepository {
         await transactor.rollbackTo(before: transaction)
     }
     
-    public var tasks: [AnyTask] { basis.tasks }
-    public var openTasks: [AnyTask] { basis.tasks.filter { $0.isOpen } }
-    public var taskSources: [AnyTaskSource] { basis.taskSources }
-    public var categories: [TaskCategory] { basis.categories }
-    public var pauses: [TaskPause] { basis.pauses }
-    
-    public func tasks(_ ids: [Key]) -> [AnyTask] { ids.compactMap { basis.taskMap[$0] } }
-    public func taskSources(_ ids: [Key]) -> [AnyTaskSource] { ids.compactMap { basis.taskSourceMap[$0] } }
-    public func categories(_ ids: [Key]) -> [TaskCategory] { ids.compactMap { basis.categoryMap[$0] } }
-    public func pauses(_ ids: [Key]) -> [TaskPause] { ids.compactMap { basis.pauseMap[$0] } }
-    
-    public var toDoTasks: [ToDoSource] { basis.taskSources.compactMap { $0.data as? ToDoSource } }
-    public var recurringTasks: [RecurringSource] { basis.taskSources.compactMap { $0.data as? RecurringSource } }
-    
-    public var toDoSources: [ToDoSource] { basis.taskSources.compactMap { $0.data as? ToDoSource } }
-    public var recurringSources: [RecurringSource] { basis.taskSources.compactMap { $0.data as? RecurringSource } }
-}
-
-extension TaskRepository {
-    public typealias AnyTaskByDate = [(key: String, tasks: [AnyTask])]
-    public var tasksByDate: AnyTaskByDate { tasks.groupByDate() }
-    public var openTasksByDate: AnyTaskByDate { openTasks.groupByDate() }
-}
-
-
-extension AnyTaskSource {
-    public var tasksLink: [AnyTask] { Repository.system.tasks.tasks.filter { $0.source == self.id } }
-}
-
-extension AnyTask {
-    public var sourceLink: AnyTaskSource { Repository.system.tasks.taskSources([self.source]).first ?? .null }
-}
-
-extension ToDoSource {
-    public var tasksLink: [ToDoTask] {
-        Repository.system.tasks.tasks
-            .filter { $0.source == self.id }
-            .compactMap{ $0.data as? ToDoTask }
-    }
-}
-
-extension ToDoTask {
-    public var sourceLink: ToDoSource {
-        Repository.system.tasks.taskSources([self.source]).first?.data as? ToDoSource ?? .null
-    }
-}
-
-extension RecurringSource {
-    public var tasksLink: [RecurringTask] {
-        Repository.system.tasks.tasks
-            .filter { $0.source == self.id }
-            .compactMap{ $0.data as? RecurringTask }
-    }
-}
-
-extension RecurringTask {
-    public var sourceLink: RecurringSource {
-        Repository.system.tasks.taskSources([self.source]).first?.data as? RecurringSource ?? .null
+    public func convertSchema() async {
+        let failed = { print("Conversion failed, aborting.") }
+        
+        let assertionConversionScript: (KeySet<Assertion>) -> KeySet<Assertion> = { assertionSet in
+            
+            assertionSet.reduce(KeySet<Assertion>()) { newSet, assertion in
+                
+                let convertedAssertion = {
+                    switch assertion.assertCode {
+                    case .source(let source): Assertion(HedeScheduler(convert: source))
+                    case .task(let task): Assertion(HedeTask(convert: task))
+                    default: assertion
+                    }
+                }()
+                
+                return newSet.updating(with: convertedAssertion)
+            }
+        }
+        
+        let eventConversionScript: (UserEventLog) -> UserEventLog = {
+            event in event.convert(with: assertionConversionScript)
+        }
+        
+        do {
+            let oldTransactions = await transactor.viewTransactions()
+            guard !oldTransactions.isEmpty else { failed(); return }
+            
+            let convertedTransactions = oldTransactions.map { transaction in
+                transaction.convert(with: eventConversionScript)
+            }
+            
+            guard oldTransactions.count == convertedTransactions.count else { failed(); return }
+            
+            let conversionStore = SimpleStore<[DataTransaction<UserEventLog>]>(
+                key: TaskRepository.transactorKey
+                , cached: false
+                , inMemory: false
+            )
+            
+            // Overwrite the transaction history
+            try await conversionStore.save(convertedTransactions)
+            
+            // Reinitialize
+            await transactor.reinitialize()
+            
+        } catch {
+            failed()
+        }
     }
 }

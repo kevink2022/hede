@@ -31,7 +31,6 @@ struct PreviewMocks {
                 await repository.tasks.rollbackTo(before: last)
             }
             
-            print("\(sources.asJsonString() ?? "NULL")")
             await repository.tasks.save(sources + tasks)
         }
         

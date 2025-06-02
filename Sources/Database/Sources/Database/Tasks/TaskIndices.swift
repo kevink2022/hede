@@ -9,58 +9,11 @@ import Foundation
 import Models
 import Assemblages
 
+extension HedeScheduler: StringSortedIndex { }
+extension HedeTask: DateSortedIndex { }
+extension HedeTag: StringSortedIndex { }
+
 extension AnyTask: DateSortedIndex { }
 extension AnyTaskSource: StringSortedIndex { }
 extension TaskCategory: StringSortedIndex { }
 extension TaskPause: StringSortedIndex { }
-
-/*
-extension IndexSortedKeySet where Element == AnyTask {
-    internal init(
-        set: KeySet<AnyTask> = KeySet<AnyTask>()
-    ) {
-        self.init(
-            lessThan: AnyTask.lessThan
-            , equalTo: AnyTask.equalTo
-            , set: set
-        )
- 
-    }
-}
-
-extension IndexSortedKeySet where Element == AnyTaskSource {
-    internal init(
-        set: KeySet<AnyTaskSource> = KeySet<AnyTaskSource>()
-    ) {
-        self.init(
-            lessThan: AnyTaskSource.lessThan
-            , equalTo: AnyTaskSource.equalTo
-            , set: set
-        )
-    }
-}
-
-extension IndexSortedKeySet where Element == TaskCategory {
-    internal init(
-        set: KeySet<TaskCategory> = KeySet<TaskCategory>()
-    ) {
-        self.init(
-            lessThan: TaskCategory.lessThan
-            , equalTo: TaskCategory.equalTo
-            , set: set
-        )
-    }
-}
-
-extension IndexSortedKeySet where Element == TaskPause {
-    internal init(
-        set: KeySet<TaskPause> = KeySet<TaskPause>()
-    ) {
-        self.init(
-            lessThan: TaskPause.lessThan
-            , equalTo: TaskPause.equalTo
-            , set: set
-        )
-    }
-}
-*/

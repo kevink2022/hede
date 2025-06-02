@@ -38,8 +38,8 @@ final class TaskTimeTests: XCTestCase {
         let oldTask = TaskTime.new(.task, from: oldStart)
         let oldAppointment = TaskTime.new(.appointment(.hours(2)), from: oldStart)
         
-        let newTask = oldTask.new(from: newStart)
-        let newAppointment = oldAppointment.new(from: newStart)
+        let newTask = oldTask.new(at: newStart)
+        let newAppointment = oldAppointment.new(at: newStart)
         
         let taskStart = newTask.start
         let taskEnd = newTask.end

@@ -47,24 +47,19 @@ public final class UserEventLog: Codable {
         self.label = label
         self.assertions = assertions
     }
-}
-
-/// Tasks grouped by date
-extension Array where Element == AnyTask {
-    internal func groupByDate() -> [(key: String, tasks: [AnyTask])] {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-
-        return self.reduce(into: [(key: String, tasks: [AnyTask])]()) { result, task in
-            let dateKey = formatter.string(from: task.sortDate)
-            if let lastGroup = result.last, lastGroup.key == dateKey {
-                result[result.count - 1].tasks.append(task)
-            } else {
-                result.append((key: dateKey, tasks: [task]))
-            }
-        }
+    
+    /// Convert Assertions to a new schema while retianing the ID.
+    internal func convert(with conversionScript: (KeySet<Assertion>) -> KeySet<Assertion>) -> UserEventLog {
+        .init(
+            label: self.label
+            , assertions: conversionScript(self.assertions)
+        )
     }
 }
+
+
+
+
 
 /*
 protocol SystemRepository {

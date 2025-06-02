@@ -9,6 +9,7 @@ import SwiftUI
 import Database
 
 import Models
+import Storage
 
 struct SettingsScreen: View {
     @Environment(\.eventManager) private var eventManager
@@ -33,6 +34,13 @@ struct SettingsScreen: View {
                         RecurringSourcesScreen()
                     } label: {
                         Label(T.recurring, systemImage: SI.recurring)
+                    }
+                    .foregroundStyle(.primary)
+                    
+                    NavigationLink {
+                        AllSchedulersScreen()
+                    } label: {
+                        Label("Hede Tasks", systemImage: SI.toDo)
                     }
                     .foregroundStyle(.primary)
                 }
@@ -82,12 +90,11 @@ struct SettingsScreen: View {
                 Section("Debug") {
                     Button {
                         Task {
-                            await repository.tasks.save(MyTasks.importAll, message: "Import Dev Defaults")
+                            await Repository.system.tasks.convertSchema()
                         }
                     } label: {
-                        Text("Import Dev Defaults")
+                        Text("Convert Data Schema")
                     }
-                    .disabled(repository.tasks.taskSources.count > 0)
    
                 }
             }
