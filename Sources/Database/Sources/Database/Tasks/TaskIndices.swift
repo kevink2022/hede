@@ -12,8 +12,3 @@ import Assemblages
 extension HedeScheduler: StringSortedIndex { }
 extension HedeTask: DateSortedIndex { }
 extension HedeTag: StringSortedIndex { }
-
-extension AnyTask: DateSortedIndex { }
-extension AnyTaskSource: StringSortedIndex { }
-extension TaskCategory: StringSortedIndex { }
-extension TaskPause: StringSortedIndex { }

@@ -6,30 +6,63 @@
 //
 
 import XCTest
+@testable import hede
+@testable import Database
+import Storage
+import Assemblages
 
 final class hedeTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    func test_codeMocks() throws {
+        let schedulers = PreviewMocks.schedulers
+        let tasks = PreviewMocks.tasks
+        
+        let savable: [any Savable] = schedulers + tasks
+        
+        let assertions = savable.map { Assertion($0) }
+        let assertionSet = KeySet<Assertion>(assertions)
+        let event = UserEventLog(label: "Test Preview Assertions", assertions: assertionSet)
+        let transaction = DataTransaction<UserEventLog>(event)
+        
+        do {
+            let assertions_data = try JSONEncoder().encode(assertions)
+            let assertionSet_data = try JSONEncoder().encode(assertionSet)
+            let event_data = try JSONEncoder().encode(event)
+            let transaction_data = try JSONEncoder().encode(transaction)
+            
+            print("assertions_data: \(assertions.asJsonString() ?? "null")")
+            print("assertionSet_data: \(assertionSet.asJsonString() ?? "null")")
+            print("event_data: \(event.asJsonString() ?? "null")")
+            print("transaction_data: \(transaction.asJsonString() ?? "null")")
+        } catch {
+            XCTFail("Failed to encode: \(error.localizedDescription)")
         }
     }
-
+    
+    func test_codeGoalMocks() throws {
+        let schedulers = PreviewMocks.goals
+        let tasks = PreviewMocks.lists
+        let sections = PreviewMocks.sections
+        
+        let savable: [any Savable] = schedulers + tasks + sections
+        
+        let assertions = savable.map { Assertion($0) }
+        let assertionSet = KeySet<Assertion>(assertions)
+        let event = UserEventLog(label: "Test Preview Assertions", assertions: assertionSet)
+        let transaction = DataTransaction<UserEventLog>(event)
+        
+        do {
+            let assertions_data = try JSONEncoder().encode(assertions)
+            let assertionSet_data = try JSONEncoder().encode(assertionSet)
+            let event_data = try JSONEncoder().encode(event)
+            let transaction_data = try JSONEncoder().encode(transaction)
+            
+            print("assertions_data: \(assertions.asJsonString() ?? "null")")
+            print("assertionSet_data: \(assertionSet.asJsonString() ?? "null")")
+            print("event_data: \(event.asJsonString() ?? "null")")
+            print("transaction_data: \(transaction.asJsonString() ?? "null")")
+        } catch {
+            XCTFail("Failed to encode: \(error.localizedDescription)")
+        }
+    }
 }

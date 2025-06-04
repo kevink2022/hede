@@ -10,9 +10,6 @@ import Models
 import Domain
 
 /// All of the typealiases used for `ViewConstants` in the system.
-///
-/// They will be included as fileprivate in each file they're used, similar to an import. Having global 1-2 character
-/// types is bad practice, but they are useful with that are spread out. This achieves a good balance.
 
 internal typealias A = ViewConstants.Animations
 internal typealias C = ViewConstants.Colors
@@ -134,7 +131,7 @@ struct ViewConstants {
 
 /// String Representations of enums, need to be localized
 
-extension RecurrenceType {
+extension RecurrencePattern {
     var label: String {
         switch self {
         case .fromComplete: "Last Completed"
@@ -264,4 +261,7 @@ extension Date {
         .environment(\.repository, PreviewMocks.mockRepository)
         .environment(\.eventManager, PreviewMocks.mockEventManager)
 }
+
+
+
 

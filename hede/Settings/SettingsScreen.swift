@@ -24,23 +24,9 @@ struct SettingsScreen: View {
                 
                 Section("Tasks") {
                     NavigationLink {
-                        ToDoSourcesScreen()
-                    } label: {
-                        Label(T.toDo, systemImage: SI.toDo)
-                    }
-                    .foregroundStyle(.primary)
-                    
-                    NavigationLink {
-                        RecurringSourcesScreen()
-                    } label: {
-                        Label(T.recurring, systemImage: SI.recurring)
-                    }
-                    .foregroundStyle(.primary)
-                    
-                    NavigationLink {
                         AllSchedulersScreen()
                     } label: {
-                        Label("Hede Tasks", systemImage: SI.toDo)
+                        Label("View/Edit Tasks", systemImage: SI.toDo)
                     }
                     .foregroundStyle(.primary)
                 }
@@ -87,16 +73,12 @@ struct SettingsScreen: View {
                     }
                 }
                 
+               /*
                 Section("Debug") {
-                    Button {
-                        Task {
-                            await Repository.system.tasks.convertSchema()
-                        }
-                    } label: {
-                        Text("Convert Data Schema")
-                    }
-   
+                    
                 }
+                */
+                 
             }
             .navigationTitle("Settings")
             .listStyle(V.listStyle)

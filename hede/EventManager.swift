@@ -25,22 +25,6 @@ final class EventManager {
         await repository.tasks.delete(models)
     }
     
-    func delete(_ toDoSources: [ToDoSource]) async {
-        let models = toDoSources.compactMap { AnyTaskSource($0) as (any Savable) }
-        await repository.tasks.delete(models)
-    }
-    
-    func complete(_ anyTask: AnyTask) async {
-        guard let source = repository.tasks.taskSources([anyTask.source]).first else { return }
-        let completedTask = anyTask.complete(date: .now)
-        
-        if let newTask = source.generateNewTask(from: completedTask) {
-            await repository.tasks.save([completedTask, newTask], message: "Completed \(completedTask.label)")
-        } else {
-            await repository.tasks.save([completedTask], message: "Completed \(completedTask.label)")
-        }
-    }
-    
     func complete(_ task: HedeTask, with review: AnySpacedRepetitionContext? = nil) async {
         let date = Date.now
         guard let scheduler = repository.tasks.hedeSchedulers([task.schedulerId]).first else { return }
@@ -66,46 +50,9 @@ final class EventManager {
     }
 }
 
-/// ToDo
+// Create/delete
 extension EventManager {
-    func createToDo(from form: ToDoSourceForm) async {
-        guard form.canSave else { return }
-        
-        let (source, task) = ToDoSource.create(
-            label: form.label
-            , description: form.description.nulled()
-            , time: form.taskTime
-            , category: form.category?.id
-            , pauses: form.pauses?.map({ $0.id }).nulled()
-        )
-        
-        await repository.tasks.save([AnyTaskSource(source), AnyTask(task)], message: "Created To Do Source: \(source.label)")
-    }
-    
-    func editToDo(from form: ToDoSourceForm) async {
-        guard form.canSave else { return }
-        
-        guard
-            let currentSource = form.source
-            , let lastTask = form.lastTask
-        else { return }
-        
-        let (newSource, newTask) = currentSource.edit(
-            label: form.label
-            , description: form.description.nulled()
-            , category: form.category?.id
-            , pauses: form.pauses?.map({ $0.id }).nulled()
-            , currentTask: lastTask
-            , scheduled: form.taskTime
-            , completed: form.completed
-        )
-        
-        await repository.tasks.save([AnyTaskSource(newSource), AnyTask(newTask)], message: "Edited ToDo Source: \(newSource.label)")
-    }
-}
-
-/// Recurring
-extension EventManager {
+    /*
     func createRecurring(from form: RecurringSourceForm) async {
         guard form.canSave else { return }
         
@@ -144,6 +91,7 @@ extension EventManager {
         
         await repository.tasks.save([AnyTaskSource(newSource), AnyTask(newTask)], message: "Edited ToDo Source: \(newSource.label)")
     }
+     */
     
 }
 

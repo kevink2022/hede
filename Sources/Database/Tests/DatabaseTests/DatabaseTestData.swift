@@ -9,6 +9,8 @@ internal final class TestValues {
     static let feb_1_2001 = Date(timeIntervalSince1970: 980985600)
     static let apr_1_2001 = Date(timeIntervalSince1970: 986083200)
     
+    // uses old schema
+    /*
     static let task = AnyTask(ToDoSource.create(
         label: "Test Task"
         , description: nil
@@ -131,4 +133,5 @@ internal final class TestValues {
         , categoryAssertion_2
         , pauseAssertion_2
     ]
+     */
 }

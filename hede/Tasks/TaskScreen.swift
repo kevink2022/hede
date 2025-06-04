@@ -55,6 +55,6 @@ struct TaskScreen: View {
 }
 
 #Preview {
-    AnyTaskScreen(AnyTask(PreviewMocks.toDo_1.initialTask))
+    TaskScreen((PreviewMocks.tasks[1]))
         .environment(\.repository, PreviewMocks.mockRepository)
 }

@@ -14,6 +14,8 @@ private typealias T = TestValues
 
 final class TaskBasisTests: XCTestCase {
     
+    // Uses old schema
+    /*
     func testCommit() throws {
         
         let assertionSet = KeySet<Assertion>().inserting(T.testAssertions)
@@ -201,5 +203,6 @@ final class TaskBasisTests: XCTestCase {
         XCTAssertEqual(T.category_2, basis_4.categoryMap[T.category_2.id])
         XCTAssertEqual(T.pause_2, basis_4.pauseMap[T.pause_2.id])
     }
+     */
     
 }

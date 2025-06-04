@@ -74,7 +74,7 @@ struct TasksDueScreen: View {
 }
 
 #Preview {
-    TasksScreen()
+    TasksDueScreen()
         .environment(\.repository, PreviewMocks.mockRepository)
 }
 

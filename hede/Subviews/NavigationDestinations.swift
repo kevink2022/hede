@@ -14,12 +14,6 @@ struct NavigationDestinations: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .navigationDestination(for: AnyTask.self) { task in
-                AnyTaskScreen(task)
-            }
-            .navigationDestination(for: AnyTaskSource.self) { source in
-                AnySourceScreen(source)
-            }
             .navigationDestination(for: HedeScheduler.self) { scheduler in
                 SchedulerScreen(scheduler)
             }

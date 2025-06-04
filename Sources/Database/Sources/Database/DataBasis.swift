@@ -24,12 +24,6 @@ internal final class DataBasis: Basis {
     internal let hedeTaskSet: IndexSortedKeySet<HedeTask>
     internal let hedeTagSet: IndexSortedKeySet<HedeTag>
     
-    // Tasks DEPR
-    internal let taskSet: IndexSortedKeySet<AnyTask>
-    internal let taskSourceSet: IndexSortedKeySet<AnyTaskSource>
-    internal let categorySet: IndexSortedKeySet<TaskCategory>
-    internal let pauseSet: IndexSortedKeySet<TaskPause>
-    
     // Goals
     internal let dailyGoalSet: IndexSortedKeySet<DailyGoal>
     internal let dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
@@ -45,11 +39,6 @@ internal final class DataBasis: Basis {
         , hedeTaskSet: IndexSortedKeySet<HedeTask>
         , hedeTagSet: IndexSortedKeySet<HedeTag>
         
-        , taskSet: IndexSortedKeySet<AnyTask>
-        , taskSourceSet: IndexSortedKeySet<AnyTaskSource>
-        , categorySet: IndexSortedKeySet<TaskCategory>
-        , pauseSet: IndexSortedKeySet<TaskPause>
-        
         , dailyGoalSet: IndexSortedKeySet<DailyGoal>
         , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
         , dailyGoalListSet: IndexSortedKeySet<DailyGoalList>
@@ -62,11 +51,6 @@ internal final class DataBasis: Basis {
         self.hedeSchedulerSet = hedeSchedulerSet
         self.hedeTaskSet = hedeTaskSet
         self.hedeTagSet = hedeTagSet
-                
-        self.taskSet = taskSet
-        self.taskSourceSet = taskSourceSet
-        self.categorySet = categorySet
-        self.pauseSet = pauseSet
         
         self.dailyGoalSet = dailyGoalSet
         self.dailyGoalResultSet = dailyGoalResultSet
@@ -83,11 +67,6 @@ internal final class DataBasis: Basis {
             hedeSchedulerSet: IndexSortedKeySet<HedeScheduler>()
             , hedeTaskSet: IndexSortedKeySet<HedeTask>()
             , hedeTagSet: IndexSortedKeySet<HedeTag>()
-            
-            , taskSet: IndexSortedKeySet<AnyTask>()
-            , taskSourceSet: IndexSortedKeySet<AnyTaskSource>()
-            , categorySet: IndexSortedKeySet<TaskCategory>()
-            , pauseSet: IndexSortedKeySet<TaskPause>()
             
             , dailyGoalSet: IndexSortedKeySet<DailyGoal>()
             , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>()
@@ -107,11 +86,6 @@ internal final class DataBasis: Basis {
             hedeSchedulerSet: basis.hedeSchedulerSet
             , hedeTaskSet: basis.hedeTaskSet
             , hedeTagSet: basis.hedeTagSet
-            
-            , taskSet: basis.taskSet
-            , taskSourceSet: basis.taskSourceSet
-            , categorySet: basis.categorySet
-            , pauseSet: basis.pauseSet
             
             , dailyGoalSet: basis.dailyGoalSet
             , dailyGoalResultSet: basis.dailyGoalResultSet
@@ -134,12 +108,6 @@ internal final class MutableBasis {
     var hedeTaskSet: IndexSortedKeySet<HedeTask>
     var hedeTagSet: IndexSortedKeySet<HedeTag>
     
-    // Tasks DEPR
-    var taskSet: IndexSortedKeySet<AnyTask>
-    var taskSourceSet: IndexSortedKeySet<AnyTaskSource>
-    var categorySet: IndexSortedKeySet<TaskCategory>
-    var pauseSet: IndexSortedKeySet<TaskPause>
-    
     // Goals
     var dailyGoalSet: IndexSortedKeySet<DailyGoal>
     var dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
@@ -156,11 +124,6 @@ internal final class MutableBasis {
         , hedeTaskSet: IndexSortedKeySet<HedeTask>
         , hedeTagSet: IndexSortedKeySet<HedeTag>
         
-        , taskSet: IndexSortedKeySet<AnyTask>
-        , taskSourceSet: IndexSortedKeySet<AnyTaskSource>
-        , categorySet: IndexSortedKeySet<TaskCategory>
-        , pauseSet: IndexSortedKeySet<TaskPause>
-        
         , dailyGoalSet: IndexSortedKeySet<DailyGoal>
         , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
         , dailyGoalListSet: IndexSortedKeySet<DailyGoalList>
@@ -173,11 +136,6 @@ internal final class MutableBasis {
         self.hedeSchedulerSet = hedeSchedulerSet
         self.hedeTaskSet = hedeTaskSet
         self.hedeTagSet = hedeTagSet
-                
-        self.taskSet = taskSet
-        self.taskSourceSet = taskSourceSet
-        self.categorySet = categorySet
-        self.pauseSet = pauseSet
         
         self.dailyGoalSet = dailyGoalSet
         self.dailyGoalResultSet = dailyGoalResultSet
@@ -196,11 +154,6 @@ internal final class MutableBasis {
             hedeSchedulerSet: basis.hedeSchedulerSet
             , hedeTaskSet: basis.hedeTaskSet
             , hedeTagSet: basis.hedeTagSet
-            
-            , taskSet: basis.taskSet
-            , taskSourceSet: basis.taskSourceSet
-            , categorySet: basis.categorySet
-            , pauseSet: basis.pauseSet
             
             , dailyGoalSet: basis.dailyGoalSet
             , dailyGoalResultSet: basis.dailyGoalResultSet

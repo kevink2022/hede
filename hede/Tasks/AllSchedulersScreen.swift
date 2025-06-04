@@ -27,7 +27,7 @@ struct AllSchedulersScreen: View {
         }
         .listStyle(.inset)
         .navigationTitle("Task Schedulers")
-        
+        /*
         .toolbar {
             Button {
                 navigator.presentSheet(RecurringSourceFormView())
@@ -44,11 +44,12 @@ struct AllSchedulersScreen: View {
             }
 
         }
+         */
     }
 }
 
 #Preview {
-    RecurringSourcesScreen()
+    AllSchedulersScreen()
         .environment(PreviewMocks.repository)
 //        .environment(PreviewMocks.mockRepository)
         .tint(C.reccurring)

@@ -31,7 +31,7 @@ struct PreviewMocks {
                 await repository.tasks.rollbackTo(before: last)
             }
             
-            await repository.tasks.save(sources + tasks)
+            await repository.tasks.save(schedulers + tasks)
         }
         
         Task {

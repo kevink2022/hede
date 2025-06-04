@@ -11,6 +11,10 @@ import DomainUI
 import Models
 import Domain
 
+
+// To become form view
+/*
+
 struct RecurringSourceFormView: View {
     @Environment(\.eventManager) private var eventManager
     @Environment(\.navigator) private var navigator
@@ -218,3 +222,4 @@ class RecurringSourceForm {
 }
 
 
+*/

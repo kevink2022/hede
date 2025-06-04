@@ -29,12 +29,6 @@ internal final class BasisResolver<T: Basis> {
                 if let data = newBasis.hedeTaskSet[data.id] { newBasis.hedeTaskSet.remove(data) }
                 else if let data = newBasis.hedeSchedulerSet[data.id] { newBasis.hedeSchedulerSet.remove(data) }
                 else if let data = newBasis.hedeTagSet[data.id] { newBasis.hedeTagSet.remove(data) }
-                                
-                // Tasks DEPR
-                else if let data = newBasis.taskSet[data.id] { newBasis.taskSet.remove(data) }
-                else if let data = newBasis.taskSourceSet[data.id] { newBasis.taskSourceSet.remove(data) }
-                else if let data = newBasis.categorySet[data.id] { newBasis.categorySet.remove(data) }
-                else if let data = newBasis.pauseSet[data.id] { newBasis.pauseSet.remove(data) }
                 
                 // Goals
                 else if let data = newBasis.dailyGoalSet[data.id] { newBasis.dailyGoalSet.remove(data) }
@@ -50,12 +44,6 @@ internal final class BasisResolver<T: Basis> {
             case .hedeTask(let data): newBasis.hedeTaskSet.update(with: data)
             case .hedeScheduler(let data): newBasis.hedeSchedulerSet.update(with: data)
             case .hedeTag(let data): newBasis.hedeTagSet.update(with: data)
-                
-            // Tasks DEPR
-            case .task(let data): newBasis.taskSet.update(with: data)
-            case .source(let data): newBasis.taskSourceSet.update(with: data)
-            case .category(let data): newBasis.categorySet.update(with: data)
-            case .pause(let data): newBasis.pauseSet.update(with: data)
             
             // Goals
             case .dailyGoal(let data): newBasis.dailyGoalSet.update(with: data)

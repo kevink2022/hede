@@ -27,14 +27,4 @@ public final class TaskBasis: Basis {
     public init() { self.basis = .empty }
     
     internal static var empty = TaskBasis()
-    
-    // DEPR
-    public var tasks: [AnyTask] { basis.taskSet.values }
-    public var taskMap: [Key: AnyTask] { basis.taskSet.dictionary }
-    public var taskSources: [AnyTaskSource] { basis.taskSourceSet.values }
-    public var taskSourceMap: [Key: AnyTaskSource]  { basis.taskSourceSet.dictionary }
-    public var categories: [TaskCategory] { basis.categorySet.values }
-    public var categoryMap: [Key: TaskCategory] { basis.categorySet.dictionary }
-    public var pauses: [TaskPause] { basis.pauseSet.values }
-    public var pauseMap: [Key: TaskPause] { basis.pauseSet.dictionary }
 }
