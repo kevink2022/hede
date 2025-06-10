@@ -45,6 +45,7 @@ extension TaskRepository {
 
 extension HedeScheduler {
     public var tasks: [HedeTask] { Repository.system.tasks.hedeTasks.filter { $0.schedulerId == self.id } }
+    public var tags: [HedeTag] { Repository.system.tasks.hedeTags(tagIds) }
 }
 
 extension HedeTask {

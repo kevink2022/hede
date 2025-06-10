@@ -14,37 +14,46 @@ struct AllSchedulersScreen: View {
     @Environment(\.navigator) private var navigator
     @Environment(\.repository) private var repository
     
+    private var activeSchedulers: [HedeScheduler] { repository.tasks.hedeSchedulers.filter { $0.active } }
+    private var inactiveSchedulers: [HedeScheduler] { repository.tasks.hedeSchedulers.filter { !$0.active } }
+    
     var body: some View {
         List {
             
-            ForEach(repository.tasks.hedeSchedulers) { scheduler in
-                NavigationLink {
-                    SchedulerScreen(scheduler)
-                } label: {
-                    Text(scheduler.label)
+            NavigationLink {
+                SchedulerFormView()
+            } label: {
+                Label("Add New Task", systemImage: SI.add)
+            }
+            
+            if !activeSchedulers.isEmpty {
+                Section("Active Tasks") {
+                    ForEach(activeSchedulers) { scheduler in
+                        NavigationLink {
+                            scheduler.screen()
+                        } label: {
+                            Text(scheduler.label)
+                        }
+                    }
                 }
             }
+            
+            if !inactiveSchedulers.isEmpty {
+                Section("Archived Tasks") {
+                    ForEach(inactiveSchedulers) { scheduler in
+                        NavigationLink {
+                            scheduler.screen()
+                        } label: {
+                            Text(scheduler.label)
+                        }
+                    }
+                }
+            }
+            
+            
         }
         .listStyle(.inset)
         .navigationTitle("Task Schedulers")
-        /*
-        .toolbar {
-            Button {
-                navigator.presentSheet(RecurringSourceFormView())
-            } label: {
-                Image(systemName: SI.add)
-            }
-        }
-        
-        if repository.tasks.recurringSources.isEmpty {
-            NoContentMessage(message: T.recurringSourcesNoContent) {
-                navigator.presentSheet(RecurringSourceFormView())
-            } label: {
-                Label(T.addSource, systemImage: SI.add)
-            }
-
-        }
-         */
     }
 }
 

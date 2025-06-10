@@ -43,6 +43,24 @@ public final class HedeTag: Codable, TagHierarchy, Identifiable {
     }
 }
 
+extension HedeTag {
+    public static func from(_ string: String) -> HedeTag? {
+        let trimmed = string.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else { return nil }
+        
+        for char in trimmed.unicodeScalars {
+            if excludedCharacters.contains(char) {
+                return nil
+            }
+        }
+        
+        return self.init(id: .new(), label: trimmed, children: [])
+    }
+    
+    private static let excludedCharacters = CharacterSet(charactersIn: "!@#$%^&*()+=[]{}|\\;:'\",.<>/?`~")
+    private static let tagCharset: Set<Character> = ["#"]
+}
+
 // MARK: - Conformance
 
 extension HedeTag: Equatable {

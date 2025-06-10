@@ -66,3 +66,10 @@ struct SchedulerScreen: View {
     }
 }
 
+extension HedeScheduler {
+    func screen() -> SchedulerScreen { SchedulerScreen(self) }
+//    func listView() -> some View { Text(self.label) }
+}
+
+
+

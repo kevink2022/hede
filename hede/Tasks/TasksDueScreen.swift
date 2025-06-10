@@ -8,6 +8,7 @@
 import SwiftUI
 import Models
 import Database
+import Domain
 
 struct TasksDueScreen: View {
     @Environment(\.navigator) private var navigator
@@ -34,12 +35,14 @@ struct TasksDueScreen: View {
                                     .opacity(task.isComplete ? 0.4 : 1)
                             }
                             .swipeActions(edge: .leading) {
-                                Button {
-                                    Task { await eventManager.complete(task) }
-                                } label: {
-                                    Image(systemName: SI.complete)
+                                if !task.isComplete {
+                                    Button {
+                                        completeTask(task)
+                                    } label: {
+                                        Image(systemName: SI.complete)
+                                    }
+                                    .tint(.green)
                                 }
-                                .tint(.green)
                             }
                         }
                     }
@@ -69,6 +72,15 @@ struct TasksDueScreen: View {
                 }
             }
             .addNavigationDestinations()
+        }
+    }
+    
+    private func completeTask(_ task: HedeTask) {
+        switch task.scheduler.algorithm?.code {
+        case .linear: Task { await eventManager.complete(task, with: AnySpacedRepetitionContext(LinearSpacedRepetition.Review(date: .now))) }
+        case .ankiFSRS_5: navigator.here.navigateTo(task)
+        case nil: Task { await eventManager.complete(task) }
+        default: Task { await eventManager.complete(task) }
         }
     }
 }

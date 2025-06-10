@@ -26,76 +26,65 @@ final class EventManager {
     }
     
     func complete(_ task: HedeTask, with review: AnySpacedRepetitionContext? = nil) async {
-        let date = Date.now
         guard let scheduler = repository.tasks.hedeSchedulers([task.schedulerId]).first else { return }
         
-        // temp -- will need to pass review from UIs once they're created.
-        let tempReview: AnySpacedRepetitionContext? = {
-            switch scheduler.algorithm?.code {
-            case .linear(_): AnySpacedRepetitionContext(LinearSpacedRepetition.Review(date: date))
-            case nil: nil
-            default: nil
-            }
-        }()
-        
-        let completedTask = task.complete(at: date, review: tempReview)
+        let completedTask = task.complete(at: .now, review: review)
        
         if let newTask = scheduler.nextTask(from: completedTask) {
-            print("NEW TASK - SCHEDULED: \(newTask.scheduled.dateLabel)")
             await repository.tasks.save([completedTask, newTask], message: "Completed \(completedTask.label)")
         } else {
-            print("NO NEW TASK")
             await repository.tasks.save([completedTask], message: "Completed \(completedTask.label)")
         }
     }
 }
 
-// Create/delete
+// MARK: - Tasks
 extension EventManager {
-    /*
-    func createRecurring(from form: RecurringSourceForm) async {
-        guard form.canSave else { return }
+    func save(from form: SchedulerForm) async {
+        guard form.valid else { return }
         
-        let (source, initialTask) = RecurringSource.create(
-            label: form.label
-            , description: form.description.nulled()
-            , taskType: form.taskType
-            , recurranceType: form.recurrenceType
-            , spacing: form.spacing
-            , lastCompleted: form.lastCompleted
-            , category: form.category?.id
-            , pauses: form.pauses?.map({ $0.id }).nulled()
-        )
-        
-        await repository.tasks.save([AnyTaskSource(source), AnyTask(initialTask)], message: "Created Recurring Source: \(source.label)")
+        return await form.editing ? edit(from: form) : create(from: form)
     }
     
-    func editRecurring(from form: RecurringSourceForm) async {
-        guard form.canSave else { return }
+    private func create(from form: SchedulerForm) async {
+        guard form.valid else { return }
+        
+        let result = HedeScheduler.create(
+            label: form.label
+            , description: form.description
+            , tags: Array(form.tags)
+            , algorithm: form.algorithm
+            , recurrencePattern: form.recurrencePattern
+            , startOn: form.startOn
+        )
+        
+        return await repository.tasks.save([result.scheduler, result.task], message: "Create Task: \(form.label)")
+    }
+    
+    private func edit(from form: SchedulerForm) async {
+        guard form.valid else { return }
         
         guard
-            let currentSource = form.source
+            let currentScheduler = form.scheduler
             , let lastTask = form.lastTask
         else { return }
         
-        let (newSource, newTask) = currentSource.edit(
+        
+        let result = currentScheduler.edit(
             label: form.label
-            , description: form.description.nulled()
-            , category: form.category?.id
-            , pauses: form.pauses?.map({ $0.id }).nulled()
-            , taskType: form.taskType
-            , type: form.recurrenceType
-            , spacing: form.spacing
-            , lastTask: lastTask
+            , description: form.description
+            , tags: Array(form.tags)
+            , algorithm: form.algorithm
+            , recurrencePattern: form.recurrencePattern
+            , startOn: form.startOn
+            , lastCompletedTask: lastTask
         )
         
-        await repository.tasks.save([AnyTaskSource(newSource), AnyTask(newTask)], message: "Edited ToDo Source: \(newSource.label)")
+        return await repository.tasks.save([result], message: "Edit Task: \(form.label)")
     }
-     */
-    
 }
 
-/// Goals
+// MARK: - Goals
 extension EventManager {
     func saveGoal(from form: GoalForm) async {
         guard form.canSave else { return }

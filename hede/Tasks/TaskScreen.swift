@@ -9,6 +9,7 @@ import SwiftUI
 import DomainUI
 
 import Models
+import Domain
 
 struct TaskScreen: View {
     
@@ -18,18 +19,26 @@ struct TaskScreen: View {
     @Environment(\.eventManager) private var eventManager
     
     var body: some View {
-        List {
-            if let description = task.scheduler.description {
-                VStack(alignment: .leading) {
-                    Text(description)
-                        .padding(.top, 24)
+        
+        VStack {
+            List {
+                if let description = task.scheduler.description {
+                    VStack(alignment: .leading) {
+                        Text(description)
+                            .padding(.top, 24)
+                    }
                 }
+                
+                DetailRow(label: "Scheduled:", value: task.scheduled.start.formatted())
+                
+                DetailRow(label: "Completed:", value: task.completed?.formatted() ?? "Not Completed")
+                
             }
-                            
-            DetailRow(label: "Scheduled:", value: task.scheduled.start.formatted())
-                            
-            DetailRow(label: "Completed:", value: task.completed?.formatted() ?? "Not Completed")
             
+            Spacer()
+            
+            TaskCompletionButton(task)
+                .padding(.horizontal, V.standardPadding)
         }
         .navigationTitle(task.label)
         .listStyle(.inset)
@@ -57,4 +66,44 @@ struct TaskScreen: View {
 #Preview {
     TaskScreen((PreviewMocks.tasks[1]))
         .environment(\.repository, PreviewMocks.mockRepository)
+}
+
+struct TaskCompletionButton: View {
+    @Environment(\.eventManager) private var eventManager
+    @Environment(\.navigator) private var navigator
+    
+    private let task: HedeTask
+    @State private var review: AnySpacedRepetitionContext?
+    
+    var body: some View {
+        if let algorithm = task.scheduler.algorithm {
+            SpacedRepAnswerView(algorithm: algorithm, state: task.state, review: $review)
+                .onChange(of: review) { oldValue, newValue in
+                    complete(task, with: newValue)
+                }
+        }
+        
+        else {
+            LargeButton {
+                complete(task)
+            } label: {
+                Label("Complete Task", systemImage: SI.complete)
+            }
+
+        }
+    }
+    
+    init(_ task: HedeTask) {
+        self.task = task
+        self.review = nil
+    }
+    
+    private func complete(_ task: HedeTask, with review: AnySpacedRepetitionContext? = nil) {
+        Task { await eventManager.complete(task, with: review) }
+        navigator.here.navigateBack()
+    }
+}
+
+extension HedeTask {
+    func screen() -> TaskScreen { TaskScreen(self) }
 }

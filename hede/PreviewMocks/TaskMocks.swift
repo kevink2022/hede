@@ -51,10 +51,10 @@ extension PreviewMocks {
         )
         
         , HedeScheduler.create(
-            label: "Do Leetcode problem"
+            label: "Study Leetcode 413"
             , description: "Practice Patterns"
             , tags: []
-            , algorithm: AnySpacedRepetition(LinearSpacedRepetition(spacing: .weeks(1)))
+            , algorithm: AnySpacedRepetition(AnkiFSRS())
             , recurrencePattern: .fromComplete
             , startOn: .task(one_week_ahead)
         )

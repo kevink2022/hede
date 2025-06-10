@@ -40,7 +40,6 @@
 		4F97DA662C8E6901002002BB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA652C8E6901002002BB /* Environment.swift */; };
 		4F97DA682C8E74B5002002BB /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA672C8E74B5002002BB /* EventManager.swift */; };
 		4F97DA7B2C8E9FD7002002BB /* PreviewMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA7A2C8E9FD7002002BB /* PreviewMocks.swift */; };
-		4F97DA852C8F827C002002BB /* RecurringSourceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA842C8F827C002002BB /* RecurringSourceFormView.swift */; };
 		4FCC80E32DECD341002655C2 /* TaskScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC80E22DECD33C002655C2 /* TaskScreen.swift */; };
 		4FCC80E72DECD37F002655C2 /* TasksDueScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC80E62DECD36E002655C2 /* TasksDueScreen.swift */; };
 		4FCC80E92DECD607002655C2 /* AllSchedulersScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FCC80E82DECD603002655C2 /* AllSchedulersScreen.swift */; };
@@ -52,6 +51,11 @@
 		4FED0EE02D17A49A0015C8F8 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = 4FED0EDF2D17A49A0015C8F8 /* Models */; };
 		4FED0EE32D17A4A80015C8F8 /* Assemblages in Frameworks */ = {isa = PBXBuildFile; productRef = 4FED0EE22D17A4A80015C8F8 /* Assemblages */; };
 		4FED0EE62D17A4B80015C8F8 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 4FED0EE52D17A4B80015C8F8 /* Storage */; };
+		4FFC73032DEFE1BC00E0DC7E /* SchedulerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC73022DEFE1AA00E0DC7E /* SchedulerFormView.swift */; };
+		4FFC73072DF7715B00E0DC7E /* SpacedRepAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC73062DF7714C00E0DC7E /* SpacedRepAnswerView.swift */; };
+		4FFC73092DF7716900E0DC7E /* AnkiAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC73082DF7715F00E0DC7E /* AnkiAnswerView.swift */; };
+		4FFC730B2DF77BF500E0DC7E /* SpacedRepField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC730A2DF77BE100E0DC7E /* SpacedRepField.swift */; };
+		4FFC730E2DF788CC00E0DC7E /* TagField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC730D2DF788C700E0DC7E /* TagField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,7 +113,6 @@
 		4F97DA652C8E6901002002BB /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		4F97DA672C8E74B5002002BB /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		4F97DA7A2C8E9FD7002002BB /* PreviewMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewMocks.swift; sourceTree = "<group>"; };
-		4F97DA842C8F827C002002BB /* RecurringSourceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringSourceFormView.swift; sourceTree = "<group>"; };
 		4FCC80E22DECD33C002655C2 /* TaskScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskScreen.swift; sourceTree = "<group>"; };
 		4FCC80E62DECD36E002655C2 /* TasksDueScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDueScreen.swift; sourceTree = "<group>"; };
 		4FCC80E82DECD603002655C2 /* AllSchedulersScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllSchedulersScreen.swift; sourceTree = "<group>"; };
@@ -117,6 +120,11 @@
 		4FE9DA7C2D766CB800EF1DD6 /* GoalMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalMocks.swift; sourceTree = "<group>"; };
 		4FE9DA7E2D766CCB00EF1DD6 /* TaskMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMocks.swift; sourceTree = "<group>"; };
 		4FE9DA822D77EBAF00EF1DD6 /* DailyGoalFormScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyGoalFormScreen.swift; sourceTree = "<group>"; };
+		4FFC73022DEFE1AA00E0DC7E /* SchedulerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerFormView.swift; sourceTree = "<group>"; };
+		4FFC73062DF7714C00E0DC7E /* SpacedRepAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepAnswerView.swift; sourceTree = "<group>"; };
+		4FFC73082DF7715F00E0DC7E /* AnkiAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnkiAnswerView.swift; sourceTree = "<group>"; };
+		4FFC730A2DF77BE100E0DC7E /* SpacedRepField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedRepField.swift; sourceTree = "<group>"; };
+		4FFC730D2DF788C700E0DC7E /* TagField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +185,7 @@
 		4F2719012C828B3D004CF717 /* hede */ = {
 			isa = PBXGroup;
 			children = (
+				4FFC730C2DF788B800E0DC7E /* Tags */,
 				4FE9DA812D77EBA900EF1DD6 /* Goals */,
 				4FE9DA7B2D766CAC00EF1DD6 /* PreviewMocks */,
 				4F87E7962D3EFAC400B3CBBB /* Settings */,
@@ -232,11 +241,12 @@
 		4F4A992D2C922B9000C1C659 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				4FFC73052DF7714300E0DC7E /* SpacedRepetitionViews */,
+				4FFC73022DEFE1AA00E0DC7E /* SchedulerFormView.swift */,
 				4F70D9BD2DECD9BA0019296E /* SchedulerScreen.swift */,
 				4FCC80E82DECD603002655C2 /* AllSchedulersScreen.swift */,
 				4FCC80E62DECD36E002655C2 /* TasksDueScreen.swift */,
 				4FCC80E22DECD33C002655C2 /* TaskScreen.swift */,
-				4F97DA842C8F827C002002BB /* RecurringSourceFormView.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -344,6 +354,24 @@
 				4FE9DA822D77EBAF00EF1DD6 /* DailyGoalFormScreen.swift */,
 			);
 			path = Goals;
+			sourceTree = "<group>";
+		};
+		4FFC73052DF7714300E0DC7E /* SpacedRepetitionViews */ = {
+			isa = PBXGroup;
+			children = (
+				4FFC730A2DF77BE100E0DC7E /* SpacedRepField.swift */,
+				4FFC73082DF7715F00E0DC7E /* AnkiAnswerView.swift */,
+				4FFC73062DF7714C00E0DC7E /* SpacedRepAnswerView.swift */,
+			);
+			path = SpacedRepetitionViews;
+			sourceTree = "<group>";
+		};
+		4FFC730C2DF788B800E0DC7E /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				4FFC730D2DF788C700E0DC7E /* TagField.swift */,
+			);
+			path = Tags;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -496,6 +524,7 @@
 				4F51B8CF2D7E3EA6009BEA9C /* GoalGroupListScreen.swift in Sources */,
 				4F70D9BE2DECD9BE0019296E /* SchedulerScreen.swift in Sources */,
 				4F5C9C862D80F90F00FE6CEC /* AllDailyGoalListsScreen.swift in Sources */,
+				4FFC73032DEFE1BC00E0DC7E /* SchedulerFormView.swift in Sources */,
 				4F51B8D92D7FC5A7009BEA9C /* GoalGroupEditableScreen.swift in Sources */,
 				4F4A993C2C937D2D00C1C659 /* TaskTimeCaseFormEntry.swift in Sources */,
 				4F5C9C882D81042300FE6CEC /* DailyListScreen.swift in Sources */,
@@ -504,6 +533,7 @@
 				4F87E7982D3EFACE00B3CBBB /* SettingsScreen.swift in Sources */,
 				4F97DA682C8E74B5002002BB /* EventManager.swift in Sources */,
 				4FCC80E72DECD37F002655C2 /* TasksDueScreen.swift in Sources */,
+				4FFC730B2DF77BF500E0DC7E /* SpacedRepField.swift in Sources */,
 				4F97DA622C8E68AA002002BB /* ViewConstants.swift in Sources */,
 				4F51B8C52D7D117B009BEA9C /* GoalScreen.swift in Sources */,
 				4F97DA642C8E68E1002002BB /* Navigator.swift in Sources */,
@@ -516,13 +546,15 @@
 				4F4A99412C940CA800C1C659 /* TaskTimeFormEntry.swift in Sources */,
 				4F51B8D52D7E41E3009BEA9C /* DescriptionRow.swift in Sources */,
 				4F51B8C32D7D116E009BEA9C /* GoalListScreen.swift in Sources */,
+				4FFC73092DF7716900E0DC7E /* AnkiAnswerView.swift in Sources */,
 				4F51B8D72D7E6452009BEA9C /* GoalGroupForm.swift in Sources */,
 				4F87E79A2D3EFD0200B3CBBB /* TransactionHistoryScreen.swift in Sources */,
 				4F2719032C828B3D004CF717 /* hedeApp.swift in Sources */,
 				4FE9DA832D77EBBB00EF1DD6 /* DailyGoalFormScreen.swift in Sources */,
-				4F97DA852C8F827C002002BB /* RecurringSourceFormView.swift in Sources */,
 				4FCC80E92DECD607002655C2 /* AllSchedulersScreen.swift in Sources */,
 				4F51B8BB2D7D0861009BEA9C /* GoalEntry.swift in Sources */,
+				4FFC73072DF7715B00E0DC7E /* SpacedRepAnswerView.swift in Sources */,
+				4FFC730E2DF788CC00E0DC7E /* TagField.swift in Sources */,
 				4FE9DA7D2D766CBB00EF1DD6 /* GoalMocks.swift in Sources */,
 				4F97DA662C8E6901002002BB /* Environment.swift in Sources */,
 			);
