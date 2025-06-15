@@ -28,9 +28,7 @@ struct TasksDueScreen: View {
                 ForEach(tasksByDate, id: \.key) { group in
                     Section(header: Text(group.key)) {
                         ForEach(group.tasks, id: \.id) { task in
-                            NavigationLink {
-                                TaskScreen(task)
-                            } label: {
+                            NavigationLink(value: task) {
                                 Text(task.label)
                                     .opacity(task.isComplete ? 0.4 : 1)
                             }

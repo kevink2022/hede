@@ -45,7 +45,7 @@ struct TaskScreen: View {
                     
         .toolbar {
             Button {
-                navigator.here.navigateTo(task.scheduler)
+                navigator.navigateTo(task.scheduler)
             } label: {
                 Image(systemName: SI.edit)
             }
@@ -80,12 +80,14 @@ struct TaskCompletionButton: View {
             SpacedRepAnswerView(algorithm: algorithm, state: task.state, review: $review)
                 .onChange(of: review) { oldValue, newValue in
                     complete(task, with: newValue)
+                    navigator.navigateBack()
                 }
         }
         
         else {
             LargeButton {
                 complete(task)
+                navigator.navigateBack()
             } label: {
                 Label("Complete Task", systemImage: SI.complete)
             }
@@ -100,7 +102,6 @@ struct TaskCompletionButton: View {
     
     private func complete(_ task: HedeTask, with review: AnySpacedRepetitionContext? = nil) {
         Task { await eventManager.complete(task, with: review) }
-        navigator.here.navigateBack()
     }
 }
 

@@ -23,7 +23,8 @@ struct SchedulerFormView: View {
             Section {
                 Button {
                     Task { await eventManager.save(from: form) }
-                    navigator.dismissSheet()
+                    print("navigator \(navigator.here.count)")
+                    navigator.here.navigateBack()
                 } label: {
                     ZStack {
                         Text("Save Task")

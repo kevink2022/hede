@@ -31,6 +31,16 @@ struct SchedulerScreen: View {
                 }
             }
             
+            if let lastTask = open.last {
+                Section {
+                    NavigationLink {
+                        SchedulerFormView(scheduler: scheduler, lastTask: lastTask)
+                    } label: {
+                        Label("Edit Task", systemImage: SI.edit)
+                    }
+                }
+            }
+            
             Section("Open Tasks") {
                 ForEach(open) { open in
                     DetailRow(label: open.label, value: open.scheduled.dateLabel)
@@ -47,12 +57,6 @@ struct SchedulerScreen: View {
         .listStyle(.inset)
                     
         .toolbar {
-            Button {
-    
-            } label: {
-                Image(systemName: SI.edit)
-            }
-            
             Button {
                 
             } label: {

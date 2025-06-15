@@ -32,23 +32,27 @@ final class Navigator {
     var here: NavigationPath {
         get {
             switch tab {
-            case .home: return home
-            case .settings: return settings
-            case .sources: return sources
-            case .search: return search
-            case .calendar: return calendar
+            case .home: print("Get home"); return home
+            case .settings: print("Get settings"); return settings
+            case .sources: print("Get sources"); return sources
+            case .search: print("Get search"); return search
+            case .calendar: print("Get calendar"); return calendar
             }
         }
         set {
             switch tab {
-            case .home: home = newValue
-            case .settings: settings = newValue
-            case .sources: sources = newValue
-            case .search: search = newValue
-            case .calendar: calendar = newValue
+            case .home: print("Get home"); home = newValue
+            case .settings: print("Get settings"); settings = newValue
+            case .sources: print("Get sources"); sources = newValue
+            case .search: print("Get search"); search = newValue
+            case .calendar: print("Get calendar"); calendar = newValue
             }
         }
     }
+    
+    func toRoot() { here.toRoot() }
+    func navigateTo(_ value: any Hashable, clearingPath: Bool = false) { here.navigateTo(value, clearingPath: clearingPath) }
+    func navigateBack() { here.navigateBack() }
     
     var searchIsFocused: Bool = false
     
@@ -83,9 +87,7 @@ final class Navigator {
 }
 
 extension NavigationPath {
-    mutating func toRoot() {
-        self.removeLast(self.count)
-    }
+    mutating func toRoot() { self.removeLast(self.count) }
     
     mutating func navigateTo(_ value: any Hashable, clearingPath: Bool = false) {
         if clearingPath { self.toRoot() }
@@ -93,6 +95,7 @@ extension NavigationPath {
     }
     
     mutating func navigateBack() {
+        print(self.count)
         guard self.count > 0 else { return }
         self.removeLast()
     }

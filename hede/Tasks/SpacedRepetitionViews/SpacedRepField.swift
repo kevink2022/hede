@@ -30,6 +30,14 @@ struct SpacedRepField: View {
                 else { algorithm = buildAlgorithm() }
             }
         
+            .onChange(of: pattern) { oldValue, newValue in
+                algorithm = buildAlgorithm()
+            }
+        
+            .onChange(of: linearSpacing) { oldValue, newValue in
+                algorithm = buildAlgorithm()
+            }
+        
         if repeats {
             Picker("Algorithm", selection: $pattern) {
                 ForEach(RepetitionPattern.allCases, id: \.self) { Text($0.rawValue) }
