@@ -56,3 +56,32 @@ extension IndexGroupedKeySet where Element: BasisGroupIndex, Index == Element.In
     }
 }
 
+internal protocol BasisSortedGroupIndex: Identifiable {
+    associatedtype IndexType: Hashable
+    static func index(_ element: Self) -> IndexType
+    static func lessThan(lhs: Self, rhs: Self) -> Bool
+}
+
+extension GroupedIndex where Element: BasisSortedGroupIndex, Index == Element.IndexType, Group == SortedSetIndex<Element> {
+    
+    internal init() {
+        self.init(
+            index: Element.index
+            , emptyGroup: { SortedSetIndex<Element>(
+                lessThan: Element.lessThan
+            ) }
+        )
+    }
+}
+
+extension IndexedKeySet where Element: BasisSortedGroupIndex, Index == GroupedIndex<Element, Element.IndexType, SortedSetIndex<Element>> {
+    
+    internal init() {
+        self.init(emptyIndex: { Element.BasisIndex() })
+    }
+}
+
+extension BasisSortedGroupIndex {
+    typealias BasisIndex = GroupedIndex<Self, IndexType, SortedSetIndex<Self>>
+    typealias BasisSet = IndexedKeySet<Self, BasisIndex>
+}

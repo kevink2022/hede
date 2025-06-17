@@ -20,8 +20,6 @@ extension RoutineStepResult: DateSortedIndex { var sortDate: Date {self.recorded
 
 extension DailyGoalResult: BasisGroupIndex {
     typealias IndexType = Date
-    static func index(_ element: DailyGoalResult) -> Date {
-        element.date
-    }
+    static func index(_ element: DailyGoalResult) -> Date { element.date }
 }
 

@@ -30,6 +30,11 @@ internal final class BasisResolver<T: Basis> {
                 else if let data = newBasis.hedeSchedulerSet[data.id] { newBasis.hedeSchedulerSet.remove(data) }
                 else if let data = newBasis.hedeTagSet[data.id] { newBasis.hedeTagSet.remove(data) }
                 
+                // Cards
+                else if let data: Flashcard = newBasis.cardSet[data.id] { newBasis.cardSet.remove(data) }
+                else if let data: FlashcardReview = newBasis.cardReviewSet[data.id] { newBasis.cardReviewSet.remove(data) }
+                else if let data = newBasis.deckSet[data.id] { newBasis.deckSet.remove(data) }
+                
                 // Goals
                 else if let data = newBasis.dailyGoalSet[data.id] { newBasis.dailyGoalSet.remove(data) }
                 else if let data = newBasis.dailyGoalResultSet[data.id] { newBasis.dailyGoalResultSet.remove(data) }
@@ -44,7 +49,12 @@ internal final class BasisResolver<T: Basis> {
             case .hedeTask(let data): newBasis.hedeTaskSet.update(with: data)
             case .hedeScheduler(let data): newBasis.hedeSchedulerSet.update(with: data)
             case .hedeTag(let data): newBasis.hedeTagSet.update(with: data)
-            
+                
+            // Cards
+            case .flashcard(let data): newBasis.cardSet.update(with: data)
+            case .flashcardReview(let data): newBasis.cardReviewSet.update(with: data)
+            case .flashcardDeck(let data): newBasis.deckSet.update(with: data)
+                
             // Goals
             case .dailyGoal(let data): newBasis.dailyGoalSet.update(with: data)
             case .dailyGoalResult(let data): newBasis.dailyGoalResultSet.update(with: data)

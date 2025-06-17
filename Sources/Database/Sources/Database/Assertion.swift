@@ -28,6 +28,11 @@ internal enum AssertionCode: Codable, Equatable {
     case hedeTask(HedeTask)
     case hedeScheduler(HedeScheduler)
     case hedeTag(HedeTag)
+    
+    // Cards
+    case flashcard(Flashcard)
+    case flashcardReview(FlashcardReview)
+    case flashcardDeck(FlashcardDeck)
      
     // Goals
     case dailyGoal(DailyGoal)
@@ -78,6 +83,10 @@ extension HedeTag: Assertable { var assertCode: AssertionCode { .hedeTag(self) }
 extension HedeTask: Assertable { var assertCode: AssertionCode { .hedeTask(self) } }
 extension HedeScheduler: Assertable { var assertCode: AssertionCode { .hedeScheduler(self) } }
 
+extension Flashcard: Assertable { var assertCode: AssertionCode { .flashcard(self) } }
+extension FlashcardReview: Assertable { var assertCode: AssertionCode { .flashcardReview(self) } }
+extension FlashcardDeck: Assertable { var assertCode: AssertionCode { .flashcardDeck(self) } }
+
 extension DailyGoal: Assertable { var assertCode: AssertionCode { .dailyGoal(self) } }
 extension DailyGoalResult: Assertable { var assertCode: AssertionCode { .dailyGoalResult(self) } }
 extension DailyGoalList: Assertable { var assertCode: AssertionCode { .dailyGoalList(self) } }
@@ -95,6 +104,10 @@ extension Assertion {
         case .hedeTask(let data): self.init(data)
         case .hedeScheduler(let data): self.init(data)
         case .hedeTag(let data): self.init(data)
+            
+        case .flashcard(let data): self.init(data)
+        case .flashcardDeck(let data): self.init(data)
+        case .flashcardReview(let data): self.init(data)
 
         case .dailyGoal(let data): self.init(data)
         case .dailyGoalResult(let data): self.init(data)

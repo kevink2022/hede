@@ -24,6 +24,11 @@ internal final class DataBasis: Basis {
     internal let hedeTaskSet: IndexSortedKeySet<HedeTask>
     internal let hedeTagSet: IndexSortedKeySet<HedeTag>
     
+    // Cards
+    internal let cardSet: IndexGroupedKeySet<Flashcard, FlashcardDeck.ID>
+    internal let cardReviewSet: FlashcardReview.BasisSet
+    internal let deckSet: IndexGroupedKeySet<FlashcardDeck, FlashcardDeck.ID?>
+    
     // Goals
     internal let dailyGoalSet: IndexSortedKeySet<DailyGoal>
     internal let dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
@@ -39,6 +44,10 @@ internal final class DataBasis: Basis {
         , hedeTaskSet: IndexSortedKeySet<HedeTask>
         , hedeTagSet: IndexSortedKeySet<HedeTag>
         
+        , cardSet: IndexGroupedKeySet<Flashcard, FlashcardDeck.ID>
+        , cardReviewSet: FlashcardReview.BasisSet
+        , deckSet: IndexGroupedKeySet<FlashcardDeck, FlashcardDeck.ID?>
+        
         , dailyGoalSet: IndexSortedKeySet<DailyGoal>
         , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
         , dailyGoalListSet: IndexSortedKeySet<DailyGoalList>
@@ -51,6 +60,10 @@ internal final class DataBasis: Basis {
         self.hedeSchedulerSet = hedeSchedulerSet
         self.hedeTaskSet = hedeTaskSet
         self.hedeTagSet = hedeTagSet
+        
+        self.cardSet = cardSet
+        self.cardReviewSet = cardReviewSet
+        self.deckSet = deckSet
         
         self.dailyGoalSet = dailyGoalSet
         self.dailyGoalResultSet = dailyGoalResultSet
@@ -67,6 +80,10 @@ internal final class DataBasis: Basis {
             hedeSchedulerSet: IndexSortedKeySet<HedeScheduler>()
             , hedeTaskSet: IndexSortedKeySet<HedeTask>()
             , hedeTagSet: IndexSortedKeySet<HedeTag>()
+            
+            , cardSet: IndexGroupedKeySet<Flashcard, FlashcardDeck.ID>()
+            , cardReviewSet: FlashcardReview.BasisSet()
+            , deckSet: IndexGroupedKeySet<FlashcardDeck, FlashcardDeck.ID?>()
             
             , dailyGoalSet: IndexSortedKeySet<DailyGoal>()
             , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>()
@@ -86,6 +103,10 @@ internal final class DataBasis: Basis {
             hedeSchedulerSet: basis.hedeSchedulerSet
             , hedeTaskSet: basis.hedeTaskSet
             , hedeTagSet: basis.hedeTagSet
+            
+            , cardSet: basis.cardSet
+            , cardReviewSet: basis.cardReviewSet
+            , deckSet: basis.deckSet
             
             , dailyGoalSet: basis.dailyGoalSet
             , dailyGoalResultSet: basis.dailyGoalResultSet
@@ -108,6 +129,11 @@ internal final class MutableBasis {
     var hedeTaskSet: IndexSortedKeySet<HedeTask>
     var hedeTagSet: IndexSortedKeySet<HedeTag>
     
+    // Cards
+    var cardSet: IndexGroupedKeySet<Flashcard, FlashcardDeck.ID>
+    var cardReviewSet: FlashcardReview.BasisSet
+    var deckSet: IndexGroupedKeySet<FlashcardDeck, FlashcardDeck.ID?>
+    
     // Goals
     var dailyGoalSet: IndexSortedKeySet<DailyGoal>
     var dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
@@ -119,10 +145,14 @@ internal final class MutableBasis {
     var routineStepResultSet: IndexSortedKeySet<RoutineStepResult>
     
 
-    init(
+    internal init(
         hedeSchedulerSet: IndexSortedKeySet<HedeScheduler>
         , hedeTaskSet: IndexSortedKeySet<HedeTask>
         , hedeTagSet: IndexSortedKeySet<HedeTag>
+        
+        , cardSet: IndexGroupedKeySet<Flashcard, FlashcardDeck.ID>
+        , cardReviewSet: FlashcardReview.BasisSet
+        , deckSet: IndexGroupedKeySet<FlashcardDeck, FlashcardDeck.ID?>
         
         , dailyGoalSet: IndexSortedKeySet<DailyGoal>
         , dailyGoalResultSet: IndexGroupedKeySet<DailyGoalResult, Date>
@@ -136,6 +166,10 @@ internal final class MutableBasis {
         self.hedeSchedulerSet = hedeSchedulerSet
         self.hedeTaskSet = hedeTaskSet
         self.hedeTagSet = hedeTagSet
+        
+        self.cardSet = cardSet
+        self.cardReviewSet = cardReviewSet
+        self.deckSet = deckSet
         
         self.dailyGoalSet = dailyGoalSet
         self.dailyGoalResultSet = dailyGoalResultSet
@@ -154,6 +188,10 @@ internal final class MutableBasis {
             hedeSchedulerSet: basis.hedeSchedulerSet
             , hedeTaskSet: basis.hedeTaskSet
             , hedeTagSet: basis.hedeTagSet
+            
+            , cardSet: basis.cardSet
+            , cardReviewSet: basis.cardReviewSet
+            , deckSet: basis.deckSet
             
             , dailyGoalSet: basis.dailyGoalSet
             , dailyGoalResultSet: basis.dailyGoalResultSet

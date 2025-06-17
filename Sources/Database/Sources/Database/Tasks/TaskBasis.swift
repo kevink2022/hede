@@ -22,6 +22,15 @@ public final class TaskBasis: Basis {
     public var hedeTags: [HedeTag] { basis.hedeTagSet.values }
     public var hedeTagsMap: [Key: HedeTag] { basis.hedeTagSet.dictionary }
     
+//    public var cards: [Flashcard] { basis.cardSet.values }
+    public var cardMap: [Key: Flashcard] { basis.cardSet.dictionary }
+    
+//    public var cardReviews: [FlashcardReview] { basis.cardReviewSet.values }
+    public var cardReviewMap: [Key: FlashcardReview]  { basis.cardReviewSet.keySet.dictionary }
+    
+//    public var decks: [FlashcardDeck] { basis.deckSet.values }
+    public var deckMap: [Key?: FlashcardDeck] { basis.deckSet.dictionary }
+    
     internal init(_ basis: DataBasis) { self.basis = basis }
     internal init(_ basis: MutableBasis) { self.basis = DataBasis(basis) }
     public init() { self.basis = .empty }
