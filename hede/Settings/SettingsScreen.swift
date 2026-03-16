@@ -72,13 +72,20 @@ struct SettingsScreen: View {
                         Text("Goal History")
                     }
                 }
-                
-               /*
+                /*
+               
                 Section("Debug") {
-                    
+                    Button {
+                        Task { await repository.tasks.save(
+                            (StarterImport.decks + StarterImport.cards + StarterImport.reviews)
+                            , message: "Starter Import"
+                        ) }
+                    } label: {
+                        Text("Starter Import Cards")
+                    }
                 }
-                */
-                 
+                
+                 */
             }
             .navigationTitle("Settings")
             .listStyle(V.listStyle)

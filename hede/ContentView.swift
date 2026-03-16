@@ -26,13 +26,13 @@ struct ContentView: View {
                 .tabItem { Label(T.home, systemImage: SI.home) }
                 .tag(NavigationTab.home)
             
+            NavigationStack(path: $navigator.search) { ParentDecksScreen() }
+                .tabItem { Label("Cards", systemImage: SI.flashcards) }
+                .tag(NavigationTab.search)
+            
             DailyGoalFormScreen()
                 .tabItem { Label(T.sources, systemImage: SI.sources) }
                 .tag(NavigationTab.sources)
-            
-            Text("Search")
-                .tabItem { Label(T.search, systemImage: SI.search) }
-                .tag(NavigationTab.search)
         }
         
         .sheet(isPresented: $navigator.showSheet) {

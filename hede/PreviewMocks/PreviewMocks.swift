@@ -32,6 +32,7 @@ struct PreviewMocks {
             }
             
             await repository.tasks.save(schedulers + tasks)
+            await repository.tasks.save(decks + cards + reviews)
         }
         
         Task {

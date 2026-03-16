@@ -8,7 +8,7 @@
 import Foundation
 import Domain
 
-public struct CardElement: Codable, Equatable {
+public struct CardElement: Codable, Equatable, Hashable {
     public var label: String
     public var media: CardMedia
     
@@ -19,14 +19,14 @@ public struct CardElement: Codable, Equatable {
 }
 
 /// Cards will be made out of one or more elements.
-public enum CardMedia: Codable, Equatable {
+public enum CardMedia: Codable, Equatable, Hashable {
     case text(String)
     case audio(CardMediaSource)
     case image(CardMediaSource)
     case video(CardMediaSource)
-    case page([CardMedia])
+    case page([CardElement])
 }
 
-public enum CardMediaSource: Codable, Equatable {
+public enum CardMediaSource: Codable, Equatable, Hashable {
     case local(URL)
 }

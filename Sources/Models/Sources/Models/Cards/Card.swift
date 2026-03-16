@@ -29,11 +29,19 @@ public final class Flashcard: Identifiable, Codable {
     }
 }
 
+
+// MARK: - Variables
+
+extension Flashcard {
+    public var label: String { scheduler.label }
+}
+
+
 // MARK: - Methods
 
 extension Flashcard {
     
-    static func create(
+    public static func create(
         label: String
         , deck: FlashcardDeck
         , front: [CardElement]

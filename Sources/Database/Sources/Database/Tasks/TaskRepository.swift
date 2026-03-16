@@ -16,12 +16,14 @@ import Domain
 @Observable
 public final class TaskRepository {
     internal var basis: TaskBasis
+    public var studySession: StudySession?
     private let transactor: Transactor<UserEventLog, TaskBasis>
     private var cancellables: Set<AnyCancellable> = []
     
     internal init( transactor: Transactor<UserEventLog, TaskBasis> ) {
         self.transactor = transactor
         self.basis = .empty
+        self.studySession = nil
         
         self.transactor.publisher
             .sink { [weak self] basis in
@@ -83,5 +85,28 @@ public final class TaskRepository {
     
     public func rollbackTo(before transaction: DataTransaction<UserEventLog>) async {
         await transactor.rollbackTo(before: transaction)
+    }
+}
+
+
+// MARK: - Study Session
+extension TaskRepository {
+    public var studySessionIsActive: Bool { studySession != nil }
+    
+    public func newStudySession(_ reveiws: [FlashcardReview]) {
+        studySession = StudySession(reveiws)
+    }
+    
+    public func endStudySession() async {
+        guard let session = studySession else { return }
+        let reviews = session.exportReviews()
+        await save(reviews, message: "Studied \(reviews.filter({ $0.isComplete }).count) cards.")
+        await session.erase()
+        studySession = nil
+    }
+    
+    public func cancelStudySession() async {
+        await studySession?.erase()
+        studySession = nil
     }
 }

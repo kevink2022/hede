@@ -35,6 +35,14 @@
 		4F8432572D67EE7B00B3F8EA /* Database in Frameworks */ = {isa = PBXBuildFile; productRef = 4F8432562D67EE7B00B3F8EA /* Database */; };
 		4F87E7982D3EFACE00B3CBBB /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7972D3EFACA00B3CBBB /* SettingsScreen.swift */; };
 		4F87E79A2D3EFD0200B3CBBB /* TransactionHistoryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F87E7992D3EFCF900B3CBBB /* TransactionHistoryScreen.swift */; };
+		4F8EC4FB2E010F2400512736 /* DeckScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8EC4FA2E010F2000512736 /* DeckScreen.swift */; };
+		4F8EC4FD2E01109700512736 /* ParentDecksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8EC4FC2E01108300512736 /* ParentDecksScreen.swift */; };
+		4F8EC5032E035B3C00512736 /* CardMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8EC5022E035B3A00512736 /* CardMocks.swift */; };
+		4F8EC5052E0393C100512736 /* DashedRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8EC5042E0393B500512736 /* DashedRoundedRectangle.swift */; };
+		4F8EC5072E03ABB300512736 /* StudyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8EC5062E03ABAD00512736 /* StudyScreen.swift */; };
+		4F8EC50A2E10494500512736 /* CardElementGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8EC5092E10493C00512736 /* CardElementGroupView.swift */; };
+		4F8EC50D2E16FB1C00512736 /* CardContentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8EC50C2E16FB1900512736 /* CardContentScreen.swift */; };
+		4F8EC50F2E170F1E00512736 /* CardScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8EC50E2E170F1400512736 /* CardScreen.swift */; };
 		4F97DA622C8E68AA002002BB /* ViewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA612C8E68AA002002BB /* ViewConstants.swift */; };
 		4F97DA642C8E68E1002002BB /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA632C8E68E1002002BB /* Navigator.swift */; };
 		4F97DA662C8E6901002002BB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F97DA652C8E6901002002BB /* Environment.swift */; };
@@ -108,6 +116,14 @@
 		4F87E7992D3EFCF900B3CBBB /* TransactionHistoryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryScreen.swift; sourceTree = "<group>"; };
 		4F89BCB82C8633F600AD18DB /* hedeTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = hedeTestPlan.xctestplan; sourceTree = "<group>"; };
 		4F89BCCA2C879D1700AD18DB /* Database */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Database; sourceTree = "<group>"; };
+		4F8EC4FA2E010F2000512736 /* DeckScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckScreen.swift; sourceTree = "<group>"; };
+		4F8EC4FC2E01108300512736 /* ParentDecksScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentDecksScreen.swift; sourceTree = "<group>"; };
+		4F8EC5022E035B3A00512736 /* CardMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardMocks.swift; sourceTree = "<group>"; };
+		4F8EC5042E0393B500512736 /* DashedRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashedRoundedRectangle.swift; sourceTree = "<group>"; };
+		4F8EC5062E03ABAD00512736 /* StudyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyScreen.swift; sourceTree = "<group>"; };
+		4F8EC5092E10493C00512736 /* CardElementGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardElementGroupView.swift; sourceTree = "<group>"; };
+		4F8EC50C2E16FB1900512736 /* CardContentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContentScreen.swift; sourceTree = "<group>"; };
+		4F8EC50E2E170F1400512736 /* CardScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScreen.swift; sourceTree = "<group>"; };
 		4F97DA612C8E68AA002002BB /* ViewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConstants.swift; sourceTree = "<group>"; };
 		4F97DA632C8E68E1002002BB /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		4F97DA652C8E6901002002BB /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -185,6 +201,7 @@
 		4F2719012C828B3D004CF717 /* hede */ = {
 			isa = PBXGroup;
 			children = (
+				4F8EC4F72E010E6A00512736 /* Cards */,
 				4FFC730C2DF788B800E0DC7E /* Tags */,
 				4FE9DA812D77EBA900EF1DD6 /* Goals */,
 				4FE9DA7B2D766CAC00EF1DD6 /* PreviewMocks */,
@@ -323,9 +340,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4F8EC4F72E010E6A00512736 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				4F8EC50E2E170F1400512736 /* CardScreen.swift */,
+				4F8EC50C2E16FB1900512736 /* CardContentScreen.swift */,
+				4F8EC5062E03ABAD00512736 /* StudyScreen.swift */,
+				4F8EC4FC2E01108300512736 /* ParentDecksScreen.swift */,
+				4F8EC4FA2E010F2000512736 /* DeckScreen.swift */,
+				4F8EC5092E10493C00512736 /* CardElementGroupView.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
 		4F97DA712C8E7D7B002002BB /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				4F8EC5042E0393B500512736 /* DashedRoundedRectangle.swift */,
 				4F51B8D42D7E41DD009BEA9C /* DescriptionRow.swift */,
 				4FE0D83C2D59AD790000EC75 /* NavigationDestinations.swift */,
 				4F4A99302C93781200C1C659 /* Forms */,
@@ -336,6 +367,7 @@
 		4FE9DA7B2D766CAC00EF1DD6 /* PreviewMocks */ = {
 			isa = PBXGroup;
 			children = (
+				4F8EC5022E035B3A00512736 /* CardMocks.swift */,
 				4FE9DA7E2D766CCB00EF1DD6 /* TaskMocks.swift */,
 				4FE9DA7C2D766CB800EF1DD6 /* GoalMocks.swift */,
 				4F97DA7A2C8E9FD7002002BB /* PreviewMocks.swift */,
@@ -521,6 +553,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F51B8C72D7D181E009BEA9C /* GoalForm.swift in Sources */,
+				4F8EC4FB2E010F2400512736 /* DeckScreen.swift in Sources */,
 				4F51B8CF2D7E3EA6009BEA9C /* GoalGroupListScreen.swift in Sources */,
 				4F70D9BE2DECD9BE0019296E /* SchedulerScreen.swift in Sources */,
 				4F5C9C862D80F90F00FE6CEC /* AllDailyGoalListsScreen.swift in Sources */,
@@ -531,14 +564,20 @@
 				4FE9DA7F2D766CD000EF1DD6 /* TaskMocks.swift in Sources */,
 				4F4A99432C940D4300C1C659 /* TaskTimePicker.swift in Sources */,
 				4F87E7982D3EFACE00B3CBBB /* SettingsScreen.swift in Sources */,
+				4F8EC4FD2E01109700512736 /* ParentDecksScreen.swift in Sources */,
 				4F97DA682C8E74B5002002BB /* EventManager.swift in Sources */,
+				4F8EC5072E03ABB300512736 /* StudyScreen.swift in Sources */,
 				4FCC80E72DECD37F002655C2 /* TasksDueScreen.swift in Sources */,
 				4FFC730B2DF77BF500E0DC7E /* SpacedRepField.swift in Sources */,
+				4F8EC5032E035B3C00512736 /* CardMocks.swift in Sources */,
 				4F97DA622C8E68AA002002BB /* ViewConstants.swift in Sources */,
 				4F51B8C52D7D117B009BEA9C /* GoalScreen.swift in Sources */,
+				4F8EC50A2E10494500512736 /* CardElementGroupView.swift in Sources */,
 				4F97DA642C8E68E1002002BB /* Navigator.swift in Sources */,
 				4FE0D83D2D59AD840000EC75 /* NavigationDestinations.swift in Sources */,
+				4F8EC5052E0393C100512736 /* DashedRoundedRectangle.swift in Sources */,
 				4F51B8C92D7D677D009BEA9C /* GoalResultPicker.swift in Sources */,
+				4F8EC50D2E16FB1C00512736 /* CardContentScreen.swift in Sources */,
 				4F2719052C828B3D004CF717 /* ContentView.swift in Sources */,
 				4F51B8D12D7E413D009BEA9C /* GoalGroupScreen.swift in Sources */,
 				4FCC80E32DECD341002655C2 /* TaskScreen.swift in Sources */,
@@ -556,6 +595,7 @@
 				4FFC73072DF7715B00E0DC7E /* SpacedRepAnswerView.swift in Sources */,
 				4FFC730E2DF788CC00E0DC7E /* TagField.swift in Sources */,
 				4FE9DA7D2D766CBB00EF1DD6 /* GoalMocks.swift in Sources */,
+				4F8EC50F2E170F1E00512736 /* CardScreen.swift in Sources */,
 				4F97DA662C8E6901002002BB /* Environment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -67,39 +67,43 @@ struct AnkiAnswerView: View {
     
     var body: some View {
         VStack {
-            LargeButton {
-                review = AnkiFSRS.Review(grade: .easy, date: baseDate)
-            } label: {
-                VStack {
-                    Text("Easy")
-                    Text("(\(simulate(grade: .easy).nextReview.shortFormat))")
+            HStack {
+                LargeButton {
+                    review = AnkiFSRS.Review(grade: .easy, date: baseDate)
+                } label: {
+                    VStack {
+                        Text("Easy")
+                        Text("(\(simulate(grade: .easy).nextReview.shortFormat))")
+                    }
+                }
+                
+                LargeButton {
+                    review = AnkiFSRS.Review(grade: .good, date: baseDate)
+                } label: {
+                    VStack {
+                        Text("Good")
+                        Text("(\(simulate(grade: .good).nextReview.shortFormat))")
+                    }
                 }
             }
             
-            LargeButton {
-                review = AnkiFSRS.Review(grade: .good, date: baseDate)
-            } label: {
-                VStack {
-                    Text("Good")
-                    Text("(\(simulate(grade: .good).nextReview.shortFormat))")
+            HStack {
+                LargeButton {
+                    review = AnkiFSRS.Review(grade: .hard, date: baseDate)
+                } label: {
+                    VStack {
+                        Text("Hard")
+                        Text("(\(simulate(grade: .hard).nextReview.shortFormat))")
+                    }
                 }
-            }
-            
-            LargeButton {
-                review = AnkiFSRS.Review(grade: .hard, date: baseDate)
-            } label: {
-                VStack {
-                    Text("Hard")
-                    Text("(\(simulate(grade: .hard).nextReview.shortFormat))")
-                }
-            }
-            
-            LargeButton {
-                review = AnkiFSRS.Review(grade: .forgot, date: baseDate)
-            } label: {
-                VStack {
-                    Text("Forgot")
-                    Text("(\(simulate(grade: .forgot).nextReview.shortFormat))")
+                
+                LargeButton {
+                    review = AnkiFSRS.Review(grade: .forgot, date: baseDate)
+                } label: {
+                    VStack {
+                        Text("Forgot")
+                        Text("(\(simulate(grade: .forgot).nextReview.shortFormat))")
+                    }
                 }
             }
         }

@@ -28,10 +28,6 @@ struct DailyGoalFormScreen: View {
         @Bindable var navigator = navigator
         
         VStack {
-            if goalList == DailyGoalList.null {
-                NoContentMessage(message: "No List for Today.")
-            }
-            
             NavigationStack(path: $navigator.sources) {
                 List {
                     Section(goalList.label) { }

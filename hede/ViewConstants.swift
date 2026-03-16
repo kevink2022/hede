@@ -110,6 +110,8 @@ struct ViewConstants {
         
         static let toDo = "checkmark.circle"
         static let recurring = "clock"
+        
+        static let flashcards = "rectangle.fill.on.rectangle.angled.fill"
     }
     
     /// Any Color used by the UI
